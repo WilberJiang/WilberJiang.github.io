@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>canvas on 姜波</title>
+    <link>https://wilberjiang.com/tags/canvas/</link>
+    <description>Recent content in canvas on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 19 Jul 2019 22:03:39 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>canvas核心</title>
+      <link>https://wilberjiang.com/post/front/canvas%E6%A0%B8%E5%BF%83/</link>
+      <pubDate>Fri, 19 Jul 2019 22:03:39 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/canvas%E6%A0%B8%E5%BF%83/</guid>
+      <description>&lt;h2 id=&#34;canvas初体验&#34;&gt;canvas初体验&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//获取画布
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;canvas&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;document.&lt;span style=&#34;color:#a6e22e&#34;&gt;querySelector&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;canvas&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//获取画布上下文对象
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;canvas&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getContext&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2d&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//绘图步骤： 落笔点-&amp;gt;连线-&amp;gt;描边
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;moveTo&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;);  &lt;span style=&#34;color:#75715e&#34;&gt;//落笔
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;lineTo&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;300&lt;/span&gt;);  &lt;span style=&#34;color:#75715e&#34;&gt;//连线
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;stroke&lt;/span&gt;();		   &lt;span style=&#34;color:#75715e&#34;&gt;//描边
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;解决绘图重绘问题&#34;&gt;解决绘图重绘问题&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

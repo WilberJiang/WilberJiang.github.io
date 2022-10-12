@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript函数式编程 | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" />
+
+
+<meta property="og:title" content="JavaScript函数式编程" />
+<meta property="og:description" content="函数式编程思维
+范畴论
+
+函数式编程是范畴论的数学分支是一门很复杂的数学，认为世界上所有概念体系都可以抽象出一个个范畴
+彼此之间存在某种关系概念、事物、对象等等，都构成范畴。任何事物只要找出他们之间的关系，就能定义
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-14T21:21:35+08:00" />
+<meta property="article:modified_time" content="2019-08-14T21:21:35+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript函数式编程"/>
+<meta name="twitter:description" content="函数式编程思维
+范畴论
+
+函数式编程是范畴论的数学分支是一门很复杂的数学，认为世界上所有概念体系都可以抽象出一个个范畴
+彼此之间存在某种关系概念、事物、对象等等，都构成范畴。任何事物只要找出他们之间的关系，就能定义
+"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          JavaScript函数式编程
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期三，八月 14 日，2019 年
+              
+
+            | 7 分钟阅读
+
+            | 更新于
+              
+                星期三，八月 14 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="函数式编程思维">函数式编程思维</h2>
+<h3 id="范畴论">范畴论</h3>
+<ul>
+<li>函数式编程是范畴论的数学分支是一门很复杂的数学，认为世界上所有概念体系都可以抽象出一个个范畴</li>
+<li>彼此之间存在某种关系概念、事物、对象等等，都构成范畴。任何事物只要找出他们之间的关系，就能定义</li>
+</ul>
+<ul>
+<li>箭头表示范畴成员之间的关系，正式的名称叫做&quot;态射&quot; (morphism)。范畴论认为，同一个范畴的所有成员，就是不同状态的&quot;变形&quot;(transformation)。通过&quot;态射&quot;， 一个成员可以变形成另一个成员。</li>
+</ul>
+<h3 id="函数式编程基础理论">函数式编程基础理论</h3>
+<ul>
+<li>函数式编程(Functional Programming)其实相对于计算机的历史而言是一个非常古老的概念，甚至早于第一台计算机的诞生。函数式编程的基础模型来源于λ(Lambda x=&gt;x*2)演算，而λ演算并非设计于在计算机上执行，它是在20世纪三十年代引入的一套用于研究函数定义、函数应用和递归的形式系统。</li>
+<li>函数式编程不是用函数来编程，也不是传统的面向过程编程。主旨在于将复杂的函数符合成简单的函数(计算理论，或者递归论，或者拉姆达演算)。运算过程尽量写成一系列嵌套的函数调用</li>
+<li>JavaScript是披着C外衣的Lisp。</li>
+<li>真正的火热是随着React的高阶函数而逐步升温。</li>
+<li>特点
+<ul>
+<li>函数是”第一等公民”</li>
+<li>只用”表达式&quot;，不用&quot;语句&quot;</li>
+<li>没有”副作用&quot;</li>
+<li>不修改状态</li>
+<li>引用透明(函数运行只靠参数)</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数式编程常用核心概念">函数式编程常用核心概念</h2>
+<h3 id="纯函数">纯函数</h3>
+<ul>
+<li>
+<p>对于相同的输入，永远会得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的状态。</p>
+</li>
+<li>
+<p>纯函数不仅可以有效降低系统的复杂度，还有很多很棒的特性，比如可缓存性</p>
+</li>
+<li>
+<p>纯度和幂等性</p>
+<p>幂等性是指执行无数次后还具有相同的效果，同一的参数运行一次函数应该与连续两次结果一致。幂等性在函数式编程中与纯度相关，但有不一致。</p>
+</li>
+</ul>
+<h3 id="偏应用函数">偏应用函数</h3>
+<ul>
+<li>传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数</li>
+<li>函数之所以“偏”，在就在于其只能处理那些能与至少一个case语句匹配的输入，而不能处理所有可能的输入。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 带一个函数参数 和 该函数的部分参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">partial</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">f</span>, ...<span style="color:#a6e22e">args</span>) =&gt;
+</span></span><span style="display:flex;"><span>	(...<span style="color:#a6e22e">moreArgs</span>) =&gt; 
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">f</span>(...<span style="color:#a6e22e">args</span>, ...<span style="color:#a6e22e">moreArgs</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add3</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>) =&gt; <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 偏应用 `2` 和 `3` 到 `add3` 给你一个单参数的函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fivePlus</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">partial</span>(<span style="color:#a6e22e">add3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fivePlus</span>(<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//bind实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add1More</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">add3</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">null</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>) <span style="color:#75715e">// (c) =&gt; 2 + 3 + c
+</span></span></span></code></pre></div><h3 id="函数的柯里化">函数的柯里化</h3>
+<ul>
+<li>
+<p>柯里化(Curried) 通过偏应用函数实现</p>
+</li>
+<li>
+<p>传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 柯里化之前 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 柯里化之后 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">addX</span>(<span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">x</span>) { 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">addX</span>(<span style="color:#ae81ff">2</span>)(<span style="color:#ae81ff">1</span>) <span style="color:#75715e">// 3
+</span></span></span></code></pre></div></li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">p1</span>, <span style="color:#a6e22e">p2</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">val</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">p2</span>; 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">bar</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">bind</span>(<span style="color:#66d9ef">null</span>, <span style="color:#960050;background-color:#1e0010">“</span><span style="color:#a6e22e">p1</span><span style="color:#960050;background-color:#1e0010">”</span>); 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">baz</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">bar</span>(<span style="color:#e6db74">&#34;p2&#34;</span>); 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">baz</span>.<span style="color:#a6e22e">val</span>);
+</span></span></code></pre></div></li>
+<li>
+<p>事实上柯里化是一种“预加载”函数的方法，通过传递较少的参数， 得到一个已经记住了这些参数的新函数，某种意义上讲，这是一种 对参数的“缓存”，是一种非常高效的编写函数的方法</p>
+</li>
+</ul>
+<h3 id="函数组合">函数组合</h3>
+<ul>
+<li>
+<p>纯函数以及如何把它柯里化写出的洋葱代码 h(g(f(x)))，为了解决函数嵌套的问题，我们需要用到“函数组合”</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">compose</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">g</span>) =&gt; (<span style="color:#a6e22e">x</span> =&gt; <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">g</span>(<span style="color:#a6e22e">x</span>)));
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span> =&gt; <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">reverse</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span> =&gt; <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">reverse</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">last</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">compose</span>(<span style="color:#a6e22e">first</span>, <span style="color:#a6e22e">reverse</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">last</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]);
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="point-free">Point Free</h3>
+<ul>
+<li>把一些对象自带的方法转化成纯函数,不要命名转瞬即逝的中间变量</li>
+</ul>
+<h3 id="声明式与命令式代码">声明式与命令式代码</h3>
+<ul>
+<li>
+<p>命令式代码的意思就是，我们通过编写一条又一条指令去让计算机执行一些动作，这其中一般都会涉及到很多繁杂的细节。而声明式就要优雅很多了，我们通过写表达式的方式来声明我们想干什么，而不是通过一步一步的指示。</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//命令式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">CEOs</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">companies</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">CEOs</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">companies</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">CEO</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//声明式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">CEOs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">companies</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">c</span> =&gt; <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">CEO</span>);
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="惰性求值惰性函数惰性链">惰性求值、惰性函数、惰性链</h3>
+<ul>
+<li>在指令式语言中以下代码会按顺序执行，由于每个函数都有可能改动或者依赖于其外部的状态，因此必须顺序执行。</li>
+</ul>
+<h3 id="高阶函数">高阶函数</h3>
+<ul>
+<li>
+<p>函数当参数，把传入的函数做一个封装，然后返回这个封装函数,达到更高程度的抽象</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//命令式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>,<span style="color:#a6e22e">b</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">math</span>(<span style="color:#a6e22e">func</span>,<span style="color:#a6e22e">array</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">array</span>[<span style="color:#ae81ff">0</span>],<span style="color:#a6e22e">array</span>[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">math</span>(<span style="color:#a6e22e">add</span>,[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>]); <span style="color:#75715e">// 3
+</span></span></span></code></pre></div></li>
+<li>
+<p>一等公民、一个函数作为参数、一个函数作为返回结果</p>
+</li>
+</ul>
+<h3 id="尾调用优化ptc">尾调用优化PTC</h3>
+<ul>
+<li>
+<p>指函数内部的最后一个动作是函数调用。该调用的返回值，直接返回给函数。。 函数调用自身，称为递归。如果尾调用自身，就称为尾递归。递归需要保存大 量的调用记录，很容易发生栈溢出错误，如果使用尾递归优化，将递归变为循 环，那么只需要保存一个调用记录，这样就不会发生栈溢出错误了</p>
+</li>
+<li>
+<p>普通递归时，内存需要记录调用的堆栈所出 的深度和位置信息。在最底层计算返回值， 再根据记录的信息，跳回上一层级计算， 然后再跳回更高一层，依次运行，直到最 外层的调用函数。在cpu计算和内存会消耗 很多，而且当深度过大时，会出现堆栈溢出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">functionsum</span>(<span style="color:#a6e22e">n</span>){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + sum(4))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + (4 + sum(3)))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + (4 + (3 + sum(2))))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + (4 + (3 + (2 + sum(1))))) (5 + (4 + (3 + (2 + 1))))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + (4 + (3 + 3)))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + (4 + 6))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//(5 + 10)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//15
+</span></span></span></code></pre></div></li>
+<li>
+<p>细数尾递归整个计算过程是线性的，调用一次sum(x, total)后，会进入下一个栈，相关的数据信息和 跟随进入，不再放在堆栈上保存。当计算完最后的值之后，直接返回到最上层的 sum(5,0)。这能有效的防止堆栈溢出。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">total</span>) { 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span> 	 <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">total</span>; 
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">total</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sum</span>(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//sum(4, 5)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//sum(3, 9) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//sum(2, 12) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//sum(1, 14) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//15
+</span></span></span></code></pre></div></li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">n</span>) { 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">bar</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bar</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//查看调用帧
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">trace</span>(); 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">foo</span>(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//只有一个执行栈
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//foo@ VM65:2 (anonymous) @ VM65:10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//强制指定只留下bar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//return continue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//!return 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//#function()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//遗憾的是浏览器并未支持
+</span></span></span></code></pre></div></li>
+<li>
+<p>尾递归的判断标准是函数运行【最后一步】是否调用自身， 而不是 是否在函数的【最后一行】调用自身, 最后一行调用其他函数 并返回叫尾调用</p>
+</li>
+<li>
+<p>按道理尾递归调用调用栈永远都是更新当前的栈帧而已，这 样就完全避免了爆栈的危险。但是现如今的浏览器并未完全支持原因有二 1、在引擎层面消除递归是一个隐式的行为，程序员意识不到。2、堆栈信息丢失了，开发者难已调试</p>
+</li>
+<li>
+<p>既然浏览器不支持我们可以把这些递归写成while</p>
+</li>
+</ul>
+<h3 id="闭包">闭包</h3>
+<ul>
+<li>
+<p>如下例子，虽然外层的 makePowerFn 函数执行完毕，栈上的调用 帧被释放，但是堆上的作用域并不被释放，因此 power 依旧可以 被 powerFn 函数访问，这样就形成了闭包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">makePowerFn</span>(<span style="color:#a6e22e">power</span>) { 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">powerFn</span>(<span style="color:#a6e22e">base</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Math.<span style="color:#a6e22e">pow</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">power</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">powerFn</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">square</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">makePowerFn</span>(<span style="color:#ae81ff">2</span>); 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">square</span>(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 9
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="容器functor">容器、Functor</h3>
+<ul>
+<li>函数不仅可以用于同一个范畴之中值的转换，还可以用于将一个范畴转成另一个范畴。这就涉及到了函子(Functor)</li>
+<li>函子是函数式编程里面最重要的数据类型，也是基本的运算 单位和功能单位。它首先是一种范畴，也就是说，是一个容 器，包含了值和变形关系。比较特殊的是，它的变形关系可 以依次作用于每一个值，将当前容器变形成另一个容器</li>
+<li>Functor 是一个对于函数调用的抽象，我们赋予容器自己去调用 函数的能力。把东西装进一个容器，只留出一个接口 map 给容 器外的函数，map一个函数时，我们让容器自己来运行这个函数， 这样容器就可以自由地选择何时何地如何操作这个函数，以致于拥有惰性求值、错误处理、异步调用等等非常牛掰的特性</li>
+</ul>
+<h3 id="maybeeitherio">Maybe、Either、IO</h3>
+<h2 id="当下函数式编程最热的库">当下函数式编程最热的库</h2>
+<h3 id="rxjs">RxJS</h3>
+<h3 id="cyclejs">Cycle.js</h3>
+<h3 id="underscorejs">Underscore.js</h3>
+<h3 id="lodashjs">Lodash.js</h3>
+<h3 id="ramdajs">Ramdajs</h3>
+<h2 id="函数式编程的实际应用场景">函数式编程的实际应用场景</h2>
+<h3 id="易调试热部署并发">易调试、热部署、并发</h3>
+<ul>
+<li>函数式编程中的每个符号都是 const 的，于是没有什么函数会有副作用。 谁也不能在运行时修改任何东西，也没有函数可以修改在它的作用域之外修 改什么值给其他函数继续使用。这意味着决定函数执行结果的唯一因素就是 它的返回值，而影响其返回值的唯一因素就是它的参数</li>
+<li>函数式编程不需要考虑”死锁&quot;(deadlock)，因为它不修改变量，所以根本 不存在&quot;锁&quot;线程的问题。不必担心一个线程的数据，被另一个线程修改，所 以可以很放心地把工作分摊到多个线程，部署&quot;并发编程&quot;(concurrency)</li>
+<li>函数式编程中所有状态就是传给函数的参数，而参数都是储存在栈上的。 这一特性让软件的热部署变得十分简单。只要比较一下正在运行的代码以及 新的代码获得一个diff，然后用这个diff更新现有的代码，新代码的热部署就 完成了</li>
+</ul>
+<h3 id="单元测试">单元测试</h3>
+<ul>
+<li>严格函数式编程的每一个符号都是对直接量或者表达式结果的引用， 没有函数产生副作用。因为从未在某个地方修改过值，也没有函数修 改过在其作用域之外的量并被其他函数使用(如类成员或全局变量)。 这意味着函数求值的结果只是其返回值，而惟一影响其返回值的就是 函数的参数</li>
+<li>这是单元测试者的梦中仙境(wet dream)。对被测试程序中的每个函数， 你只需在意其参数，而不必考虑函数调用顺序，不用谨慎地设置外部 状态。所有要做的就是传递代表了边际情况的参数。如果程序中的每 个函数都通过了单元测试，你就对这个软件的质量有了相当的自信。 而命令式编程就不能这样乐观了，在 Java 或 C++ 中只检查函数的返 回值还不够——我们还必须验证这个函数可能修改了的外部状态</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/js" title="js">js</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#函数式编程思维">函数式编程思维</a>
+      <ul>
+        <li><a href="#范畴论">范畴论</a></li>
+        <li><a href="#函数式编程基础理论">函数式编程基础理论</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数式编程常用核心概念">函数式编程常用核心概念</a>
+      <ul>
+        <li><a href="#纯函数">纯函数</a></li>
+        <li><a href="#偏应用函数">偏应用函数</a></li>
+        <li><a href="#函数的柯里化">函数的柯里化</a></li>
+        <li><a href="#函数组合">函数组合</a></li>
+        <li><a href="#point-free">Point Free</a></li>
+        <li><a href="#声明式与命令式代码">声明式与命令式代码</a></li>
+        <li><a href="#惰性求值惰性函数惰性链">惰性求值、惰性函数、惰性链</a></li>
+        <li><a href="#高阶函数">高阶函数</a></li>
+        <li><a href="#尾调用优化ptc">尾调用优化PTC</a></li>
+        <li><a href="#闭包">闭包</a></li>
+        <li><a href="#容器functor">容器、Functor</a></li>
+        <li><a href="#maybeeitherio">Maybe、Either、IO</a></li>
+      </ul>
+    </li>
+    <li><a href="#当下函数式编程最热的库">当下函数式编程最热的库</a>
+      <ul>
+        <li><a href="#rxjs">RxJS</a></li>
+        <li><a href="#cyclejs">Cycle.js</a></li>
+        <li><a href="#underscorejs">Underscore.js</a></li>
+        <li><a href="#lodashjs">Lodash.js</a></li>
+        <li><a href="#ramdajs">Ramdajs</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数式编程的实际应用场景">函数式编程的实际应用场景</a>
+      <ul>
+        <li><a href="#易调试热部署并发">易调试、热部署、并发</a></li>
+        <li><a href="#单元测试">单元测试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

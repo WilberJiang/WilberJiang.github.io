@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript填坑进阶篇 | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/" />
+
+
+<meta property="og:title" content="JavaScript填坑进阶篇" />
+<meta property="og:description" content="全局对象和全局变量对象
+全局对象GO
+
+是浏览器天生自带的存储属性和方法的堆，是一个对象
+
+全局变量对象VO
+
+是我们代码创建的变量要存储的地方，是栈内存
+
+全局执行上下文" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-09-18T15:16:47+08:00" />
+<meta property="article:modified_time" content="2020-09-18T15:16:47+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript填坑进阶篇"/>
+<meta name="twitter:description" content="全局对象和全局变量对象
+全局对象GO
+
+是浏览器天生自带的存储属性和方法的堆，是一个对象
+
+全局变量对象VO
+
+是我们代码创建的变量要存储的地方，是栈内存
+
+全局执行上下文"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          JavaScript填坑进阶篇
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期五，九月 18 日，2020 年
+              
+
+            | 6 分钟阅读
+
+            | 更新于
+              
+                星期五，九月 18 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="全局对象和全局变量对象">全局对象和全局变量对象</h2>
+<h3 id="全局对象go">全局对象GO</h3>
+<ul>
+<li>是浏览器天生自带的存储属性和方法的堆，是一个对象</li>
+</ul>
+<h3 id="全局变量对象vo">全局变量对象VO</h3>
+<ul>
+<li>是我们代码创建的变量要存储的地方，是栈内存</li>
+</ul>
+<h2 id="全局执行上下文">全局执行上下文</h2>
+<h3 id="带var">带var</h3>
+<ul>
+<li>带var是创建一个全局变量，存放在全局变量对象VO中</li>
+<li>基于var创建变量，会给VO和GO中各自存储一份</li>
+</ul>
+<h3 id="不带var">不带var</h3>
+<ul>
+<li>不带var创建的不是变量，而是全局对象GO的一个属性</li>
+</ul>
+<h3 id="输出顺序">输出顺序</h3>
+<ul>
+<li>先看是否为全局变量对象VO</li>
+<li>再看是否为全局对象GO</li>
+</ul>
+<h2 id="私有执行上下文">私有执行上下文</h2>
+<h3 id="带var-1">带var</h3>
+<ul>
+<li>在私有上下文的AO变量对象中声明一个私有变量（是当前上下文的私有变量，和上下文以外没有必然联系）</li>
+</ul>
+<h3 id="不带var-1">不带var</h3>
+<ul>
+<li>浏览器发现不是私有变量，则向其上级上下文中查找（scope-chain），如果上级也没有则继续查找，一直到EC全局上下文为止</li>
+<li>如果全局也没有，则给GO设置一个属性</li>
+</ul>
+<h2 id="作用域和作用域链">作用域和作用域链</h2>
+<h3 id="作用域">作用域</h3>
+<ul>
+<li>当前函数&rsquo;[[scope]]&rsquo; = 当前函数创建时候所在的上下文</li>
+</ul>
+<h3 id="作用域链">作用域链</h3>
+<ul>
+<li>scopeChain : &lt;当前EC, 函数[[scope]] &gt;</li>
+<li>先找自己上下文的，自己没有，按照作用域链向上级作用域</li>
+<li>作用域链是在函数执行的时候形成的</li>
+</ul>
+<h3 id="函数执行步骤">函数执行步骤</h3>
+<ol>
+<li>创建私有上下文（有存放私有变量的变量对象AO）</li>
+<li>进栈执行（会把全局上下文压缩到底部）</li>
+<li>初始化作用域链scopeChain</li>
+<li>初始化this指向</li>
+<li>形参赋值（包含初始化arguments）</li>
+<li>变量提升</li>
+<li>代码执行</li>
+<li>执行完可能会出栈（也可能不出栈）</li>
+</ol>
+<h2 id="内存的形式">内存的形式</h2>
+<h3 id="堆内存">堆内存</h3>
+<ul>
+<li>释放：如果对内存用完后，手动释放赋值为null（null是空对象指针，也就是不指向任何的堆内存）</li>
+<li>不释放：如果有变量或者其他东西存储了堆内存的地址，则当前堆内存被视为占用，也就不能释放销毁</li>
+</ul>
+<h3 id="栈内存">栈内存</h3>
+<ul>
+<li>释放：全局栈内存，关掉页面的时候才会销毁。一般情况下，函数只要执行完，形成的私有栈内存就会被销毁释放掉（排除出现无限极递归，出现死循环的模式）</li>
+<li>不释放：如果当前上下文的某些内容（一般也是当前上下文中创建的堆）被上下文以外的变量或者其他事务所占用，那么当前上下文就不能出栈释放</li>
+</ul>
+<h2 id="内存释放机制">内存释放机制</h2>
+<ul>
+<li>查找引用方式（webkit内核）：浏览器有自动回收垃圾的机制，定期间隔某段时间，把所有没有被占用的内存回收释放（这种垃圾回收机制比其他语言要完善一些）</li>
+<li>内存计数器方式（Trident内核）：当前内存被其他东西引用了，则给堆计数1（累加计数），取消占用后，则减1，当减到零之后，浏览器就可以把它释放了</li>
+</ul>
+<h2 id="var与let">var与let</h2>
+<h3 id="重复声明">重复声明</h3>
+<ul>
+<li>在当前上下文中，不管用什么方式，只要声明了这个变量，都不能基于let重复声明，会报错</li>
+<li>是否重复声明，并不是在代码执行阶段检测的，而是在词法解析的阶段检测的</li>
+<li>词法错误SyntaxError在词法解析阶段报错，当前代码不会执行</li>
+<li>语法错误ReferenceError在代码执行阶段报错，报错前的代码会执行</li>
+</ul>
+<h3 id="window属性">window属性</h3>
+<p>let声明的变量仅仅是全局变量，和GO没关系</p>
+<p>var声明的变量即是全局变量，也相当于给GO（window）设置了一个属性，而且两者建立映射机制</p>
+<h3 id="暂时性死区">暂时性死区</h3>
+<ul>
+<li>基于typeof 检测一个没有声明过的变量，并不会报错，结果是&rsquo;undefined'</li>
+<li>如果这个变量在后面会用到let声明，则前面在基于typeof检测就会报错，不能在声明之前使用</li>
+</ul>
+<h2 id="构造函数执行步骤">构造函数执行步骤</h2>
+<ol>
+<li>初始化作用域链</li>
+<li>形参赋值</li>
+<li>变量提升</li>
+<li>首先会在当前上下文中，创建一个对象（这个对象就是当前类的实例） - 浏览器默认多做的事情</li>
+<li>让当前上下文中的this指向新创建的对象 - 浏览器默认多做的事情</li>
+<li>代码执行</li>
+<li>代码执行完，如果没有设置return浏览器默认会把新创建的实例对象返回 - 浏览器默认多做的事情</li>
+</ol>
+<h2 id="原型和原型链">原型和原型链</h2>
+<ul>
+<li>每一个函数都天生具备一个属性：prototype（原型），prototype的属性值是一个对象（浏览器默认会给其开辟一个堆内存）</li>
+<li>在类的prototype原型对象中，默认存在一个内置的属性：constructor（构造函数），属性值就是当前类（函数）本身，所以类也称为构造函数</li>
+<li>每一个对象都天生具备一个属性：_<em>proto</em>_（原型链），属性值是当前实例（对象）所属类的prototype原型</li>
+</ul>
+<h2 id="原型链查找机制">原型链查找机制</h2>
+<ul>
+<li>首先找自己的私有属性，私有属性有，调取的就是私有属性</li>
+<li>如果没有，默认基于__proto__原型链属性，找所属类prototype原型上的公共属性和方法</li>
+<li>如果还没有，则基于原型prototype中的__proto__继续向上找，一直找到Object.prototype为止</li>
+</ul>
+<h2 id="寄生组合式继承">寄生组合式继承</h2>
+<ul>
+<li>call继承 + 另类原型继承</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Parent</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">getX</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getX</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Child</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Parent</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">Parent</span>.<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Child</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">getY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getY</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">c1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Child</span>
+</span></span></code></pre></div><h2 id="检测数据类型区别">检测数据类型区别</h2>
+<h3 id="typeof">typeof</h3>
+<ul>
+<li>typeof null的结果是&rsquo;object&rsquo;（这是浏览器的BUG，所有的值在计算中都以二进制编码存储，浏览器中把前三位000的当作对象），而null的二进制前三位是000，所以被识别为对象，但是它不是对象，它是空对象指针，是基本类型值）</li>
+</ul>
+<h3 id="instanceof">instanceof</h3>
+<ul>
+<li>当前类的原型只要出现在了实例的原型链上就返回true</li>
+<li>本身不能完成数据类型检测，只是利用它的特征（检测某个实例是否属于这个类）来完成数据检测</li>
+</ul>
+<h3 id="constructor">constructor</h3>
+<ul>
+<li>本身不能完成数据类型检测，利用它的实例类型检测（不能重定向）</li>
+</ul>
+<h3 id="objectprototypetostringcall">Object.prototype.toString.call()</h3>
+<ul>
+<li>每一种数据类型的构造函数的原型上都有toString方法</li>
+<li>除了Object.prototype上的toString是返回当前实例所属类的信息（检测数据类型的），其余的都是转换字符串的</li>
+<li>对象.toString，toString方法中的this是对象实例，也就是检测他的数据类型，也就是this是谁，就是检测谁的数据类型</li>
+<li>Object.prototype.toString.call(value)所以是把toString方法执行，基于call让方法中的this指向检测的数据值，这样就可以实现数据类型检测了</li>
+</ul>
+<h2 id="二叉树">二叉树</h2>
+<h3 id="先序遍历">先序遍历</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">preOrder</span>(<span style="color:#a6e22e">node</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>(<span style="color:#a6e22e">node</span><span style="color:#f92672">==</span><span style="color:#66d9ef">null</span>)){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">divList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">node</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">preOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">firstElementChild</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">preOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">lastElementChild</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="中序遍历">中序遍历</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">inOrder</span>(<span style="color:#a6e22e">node</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">inOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">firstElementChild</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">divList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">node</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">inOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">lastElementChild</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="后序遍历">后序遍历</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">postOrder</span>(<span style="color:#a6e22e">node</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(<span style="color:#a6e22e">node</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">postOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">firstElementChild</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">postOrder</span>(<span style="color:#a6e22e">node</span>.<span style="color:#a6e22e">lastElementChild</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">divList</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">node</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="检查对称二叉树">检查对称二叉树</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">isTreeSymmetric</span>(<span style="color:#a6e22e">t</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">t</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isTreeEqual</span>(<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">right</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">isTreeEqual</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">x</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">y</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">x</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">y</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">value</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isTreeEqual</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">right</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isTreeEqual</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">right</span>, <span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">left</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h2 id="排序">排序</h2>
+<h3 id="冒泡排序">冒泡排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bubble</span>(<span style="color:#a6e22e">arr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">tmp</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="快速排序">快速排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">quick</span>(<span style="color:#a6e22e">arr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">arr</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">base</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">base</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">right</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">quick</span>(<span style="color:#a6e22e">left</span>).<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">quick</span>(<span style="color:#a6e22e">right</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="选择排序">选择排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">select</span>(<span style="color:#a6e22e">arr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">minIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">minIndex</span>]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">minIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">minIndex</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">minIndex</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">tmp</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="插入排序">插入排序</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">insert</span>(<span style="color:#a6e22e">arr</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">tmp</span>;
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91" title="填坑">填坑</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#全局对象和全局变量对象">全局对象和全局变量对象</a>
+      <ul>
+        <li><a href="#全局对象go">全局对象GO</a></li>
+        <li><a href="#全局变量对象vo">全局变量对象VO</a></li>
+      </ul>
+    </li>
+    <li><a href="#全局执行上下文">全局执行上下文</a>
+      <ul>
+        <li><a href="#带var">带var</a></li>
+        <li><a href="#不带var">不带var</a></li>
+        <li><a href="#输出顺序">输出顺序</a></li>
+      </ul>
+    </li>
+    <li><a href="#私有执行上下文">私有执行上下文</a>
+      <ul>
+        <li><a href="#带var-1">带var</a></li>
+        <li><a href="#不带var-1">不带var</a></li>
+      </ul>
+    </li>
+    <li><a href="#作用域和作用域链">作用域和作用域链</a>
+      <ul>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#作用域链">作用域链</a></li>
+        <li><a href="#函数执行步骤">函数执行步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存的形式">内存的形式</a>
+      <ul>
+        <li><a href="#堆内存">堆内存</a></li>
+        <li><a href="#栈内存">栈内存</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存释放机制">内存释放机制</a></li>
+    <li><a href="#var与let">var与let</a>
+      <ul>
+        <li><a href="#重复声明">重复声明</a></li>
+        <li><a href="#window属性">window属性</a></li>
+        <li><a href="#暂时性死区">暂时性死区</a></li>
+      </ul>
+    </li>
+    <li><a href="#构造函数执行步骤">构造函数执行步骤</a></li>
+    <li><a href="#原型和原型链">原型和原型链</a></li>
+    <li><a href="#原型链查找机制">原型链查找机制</a></li>
+    <li><a href="#寄生组合式继承">寄生组合式继承</a></li>
+    <li><a href="#检测数据类型区别">检测数据类型区别</a>
+      <ul>
+        <li><a href="#typeof">typeof</a></li>
+        <li><a href="#instanceof">instanceof</a></li>
+        <li><a href="#constructor">constructor</a></li>
+        <li><a href="#objectprototypetostringcall">Object.prototype.toString.call()</a></li>
+      </ul>
+    </li>
+    <li><a href="#二叉树">二叉树</a>
+      <ul>
+        <li><a href="#先序遍历">先序遍历</a></li>
+        <li><a href="#中序遍历">中序遍历</a></li>
+        <li><a href="#后序遍历">后序遍历</a></li>
+        <li><a href="#检查对称二叉树">检查对称二叉树</a></li>
+      </ul>
+    </li>
+    <li><a href="#排序">排序</a>
+      <ul>
+        <li><a href="#冒泡排序">冒泡排序</a></li>
+        <li><a href="#快速排序">快速排序</a></li>
+        <li><a href="#选择排序">选择排序</a></li>
+        <li><a href="#插入排序">插入排序</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mock on 姜波</title>
+    <link>https://wilberjiang.com/tags/mock/</link>
+    <description>Recent content in mock on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 21 Aug 2019 20:19:12 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/mock/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mock数据实现</title>
+      <link>https://wilberjiang.com/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Wed, 21 Aug 2019 20:19:12 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/</guid>
+      <description>&lt;h2 id=&#34;搭建本地mock服务&#34;&gt;搭建本地Mock服务&lt;/h2&gt;
+&lt;h3 id=&#34;创建docker-composeyml&#34;&gt;创建docker-compose.yml&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

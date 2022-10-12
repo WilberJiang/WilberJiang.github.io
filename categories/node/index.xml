@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>node on 姜波</title>
+    <link>https://wilberjiang.com/categories/node/</link>
+    <description>Recent content in node on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 03 Sep 2020 09:25:00 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/categories/node/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node技术方案设计</title>
+      <link>https://wilberjiang.com/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Thu, 03 Sep 2020 09:25:00 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</guid>
+      <description>&lt;h3 id=&#34;整体架构设计&#34;&gt;整体架构设计&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>PM2使用</title>
+      <link>https://wilberjiang.com/post/node/pm2%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 25 Aug 2020 11:25:13 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/pm2%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;核心价值&#34;&gt;核心价值&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;进程守护，系统崩溃自动重启&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动多进程，充分利用 CPU 和内存&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自带日志记录功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Koa2中间件及原理</title>
+      <link>https://wilberjiang.com/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 21 Aug 2020 11:41:26 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;h3 id=&#34;安装-koa2&#34;&gt;安装 koa2&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;generator&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;koa2&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加-dev-环境&#34;&gt;添加 dev 环境&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Express中间件及原理</title>
+      <link>https://wilberjiang.com/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Sun, 16 Aug 2020 12:21:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;h3 id=&#34;安装-express&#34;&gt;安装 express&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;generator&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加-dev-环境&#34;&gt;添加 dev 环境&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>HTTP核心模块</title>
+      <link>https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Sun, 28 Jun 2020 23:00:59 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</guid>
+      <description>&lt;h2 id=&#34;http超文本传输协议&#34;&gt;http超文本传输协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;协议至少双方 -&amp;gt; http双方！！
+&lt;ul&gt;
+&lt;li&gt;客户端(浏览器)    -&amp;gt; 服务器  BS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;原生应用(QQ)  -&amp;gt; 服务器 CS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node使用Socket.io</title>
+      <link>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8socket.io/</link>
+      <pubDate>Sat, 19 Oct 2019 21:53:51 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8socket.io/</guid>
+      <description>&lt;h2 id=&#34;session-store&#34;&gt;session store&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;客户端cookie长度有限&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端保存cookie信息不安全&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端保存钥匙，服务器存储数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node使用MongoDB</title>
+      <link>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/</link>
+      <pubDate>Wed, 25 Sep 2019 22:24:16 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/</guid>
+      <description>&lt;h1 id=&#34;mongodb&#34;&gt;MongoDB&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;一个数据库对应多个集合
+&lt;ul&gt;
+&lt;li&gt;一个集合对应多个文档对象&lt;/li&gt;
+&lt;li&gt;在mongo中不论是db还是集合，你都无需去创建他&lt;/li&gt;
+&lt;li&gt;直接就当他已经存在，直接Use来使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx使用</title>
+      <link>https://wilberjiang.com/post/node/nginx%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 19 Sep 2019 21:11:35 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/nginx%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;nginx-基本使用&#34;&gt;nginx 基本使用&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;以管理员运行命令行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cd 到 nginx 根目录 启动&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://wilberjiang.com/img_md/1526466849533.png&#34; alt=&#34;Image text&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;启动命令:start nginx&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Koa应用</title>
+      <link>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 14 Sep 2019 21:17:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;koa应用&#34;&gt;Koa应用&lt;/h2&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;init&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;S&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;js&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;koa&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt; =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;request常用属性&#34;&gt;request常用属性&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Express应用</title>
+      <link>https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 21:41:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;启程helloworld&#34;&gt;启程helloworld&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;安装&lt;code&gt;npm i express -S&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;1:引入express第三方对象&lt;/li&gt;
+&lt;li&gt;2:构建一个服务器对象&lt;/li&gt;
+&lt;li&gt;3:开启服务器监听端口&lt;/li&gt;
+&lt;li&gt;4:处理响应&lt;/li&gt;
+&lt;li&gt;在express中，保留了原生http的相关属性和函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;appuse虚拟目录fn&#34;&gt;app.use(虚拟目录,fn)&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node基础</title>
+      <link>https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 26 Aug 2019 21:14:27 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;为什么学习node&#34;&gt;为什么学习Node?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IO优势
+&lt;ul&gt;
+&lt;li&gt;对于文件读写,Node采用的是非阻塞IO&lt;/li&gt;
+&lt;li&gt;传统IO在读写文件的时候CPU来处理,而代码执行也处于等待中,浪费性能&lt;/li&gt;
+&lt;li&gt;非阻塞IO将读写操作交给CPU,而代码正常执行,减少等待浪费的性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>微前端的架构设计 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,36 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="微前端的架构设计" />
+<meta property="og:description" content="构建基础设施
+在单体应用里，共享层往往只有一个，而在微前端架构里，共享层则往往存在多个，有的是应用间共用的共享层，有的是应用内共用的共享层。在微前端设计初期，构建基础设施要做如下几件事情：
+
+组件与模式库。在应用之间提供通用的UI组件、共享的业务组件，以及相应的通用函数功能模块，如日期转换等
+应用通信机制。设计应用间的通信机制，并提供相应的底层库支持
+数据共享机制。对于通用的数据，采取一定的策略来缓存数据，而不是每个应用单独获取自己的数据
+专用的构建系统（可选）。在某些微前端实现里，如微件化，构建系统用于构建出每个单独的应用，又可以构建出最后的整个应用
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-11-12T11:25:12+08:00" />
+<meta property="article:modified_time" content="2020-11-12T11:25:12+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="微前端的架构设计"/>
+<meta name="twitter:description" content="构建基础设施
+在单体应用里，共享层往往只有一个，而在微前端架构里，共享层则往往存在多个，有的是应用间共用的共享层，有的是应用内共用的共享层。在微前端设计初期，构建基础设施要做如下几件事情：
+
+组件与模式库。在应用之间提供通用的UI组件、共享的业务组件，以及相应的通用函数功能模块，如日期转换等
+应用通信机制。设计应用间的通信机制，并提供相应的底层库支持
+数据共享机制。对于通用的数据，采取一定的策略来缓存数据，而不是每个应用单独获取自己的数据
+专用的构建系统（可选）。在某些微前端实现里，如微件化，构建系统用于构建出每个单独的应用，又可以构建出最后的整个应用
+"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +88,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +127,138 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          微前端的架构设计
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期四，十一月 12 日，2020 年
+              
+
+            | 3 分钟阅读
+
+            | 更新于
+              
+                星期四，十一月 12 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="构建基础设施">构建基础设施</h2>
+<p>在单体应用里，共享层往往只有一个，而在微前端架构里，共享层则往往存在多个，有的是应用间共用的共享层，有的是应用内共用的共享层。在微前端设计初期，构建基础设施要做如下几件事情：</p>
+<ul>
+<li>组件与模式库。在应用之间提供通用的UI组件、共享的业务组件，以及相应的通用函数功能模块，如日期转换等</li>
+<li>应用通信机制。设计应用间的通信机制，并提供相应的底层库支持</li>
+<li>数据共享机制。对于通用的数据，采取一定的策略来缓存数据，而不是每个应用单独获取自己的数据</li>
+<li>专用的构建系统（可选）。在某些微前端实现里，如微件化，构建系统用于构建出每个单独的应用，又可以构建出最后的整个应用</li>
+</ul>
+<h2 id="提取组件与模式库">提取组件与模式库</h2>
+<p>系统中有多个应用采用同一框架的微前端架构，模式库作为微前端架构的核心基础，可以用于共享代码。</p>
+<h3 id="样式">样式</h3>
+<ul>
+<li>组件级样式，只能用于某一特定组件的样式</li>
+<li>应用级样式，在某一个前端应用中使用的样式</li>
+<li>系统级样式，可在该页面中使用的样式，往往会影响多个应用</li>
+</ul>
+<p>对于组件级样式来说，有些框架可以从底层上直接支持组件模式隔离。对于组件库来说，也会创建对应的CSS前缀来保证唯一性</p>
+<p>对于应用级样式而言，则需要制定一个统一的规范，可以根据应用名加前缀，也可以根据路由来增加相应的前缀</p>
+<p>系统级样式，大抵只存在于基座模式设计的微前端架构里，在编写这些样式的时候，需要注意对其他应用的影响</p>
+<h3 id="业务组件及共享库">业务组件及共享库</h3>
+<p>对于在多个应用中使用的业务组件和共享函数，我们既可以提供NPM包的方式，又可以提供git submodule的方式，引入其他应用中。前期需要频繁改动，可以将其抽取成为子模块的形式在项目中使用，当组件趋于稳定的时候，可以尝试将其作为NPM包发布</p>
+<h2 id="应用通信机制">应用通信机制</h2>
+<h3 id="同级通信">同级通信</h3>
+<p>即挂载在同一个HTML Document下的应用间的通信，往往通过全局的自定义事件便可以实现。此外由于应用之间共享一个Window，所以还可以开发自己的发布-订阅模式组件</p>
+<h3 id="父子级通信">父子级通信</h3>
+<p>即采用iframe形式来加载其他应用</p>
+<p>普通的父子级通信可以做到：</p>
+<ul>
+<li>通过PostMessage在父子窗口之间进行通信</li>
+<li>透过parent.window寻找到父窗口，再发出全局的自定义事件</li>
+<li>当其他应用加载时，将消息发送给父窗口，由父窗口发出自定义事件</li>
+<li>当其他应用未加载时，先将消息传递给父窗口，再由父窗口进行存储，提供一个获取通信的机制</li>
+</ul>
+<p>在实现的过程中往往会出现两种结果：</p>
+<ul>
+<li>嵌入业务的特定通信机制</li>
+<li>剥离业务的通用通信机制</li>
+</ul>
+<h2 id="数据管理">数据管理</h2>
+<p>应用的数据管理可以分为两部分，一部分是状态，另一部分则是应用数据。状态是一种特殊的应用数据，它更加显示地展示数据</p>
+<p>常见的数据交互方式，有以下几种：</p>
+<ul>
+<li>URI参数传递</li>
+<li>使用LocalStorage共享数据</li>
+<li>其他客户端存储，如IndexedDB、Web SQL等</li>
+<li>服务端存储客户端状态，可以采用JSON格式存储</li>
+</ul>
+<h2 id="专用的构建系统">专用的构建系统</h2>
+<ul>
+<li>只有那些依赖于构建及构建工具创建出来的微前端应用，才需要设计出一个专用的构建系统，以支撑系统的开发</li>
+<li>如果我们采用了微应用化、微件化的架构方案，就需要设计自己的构建流程、构建系统，每种方式在具体实现上各有差异</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF" title="微前端">微前端</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#构建基础设施">构建基础设施</a></li>
+    <li><a href="#提取组件与模式库">提取组件与模式库</a>
+      <ul>
+        <li><a href="#样式">样式</a></li>
+        <li><a href="#业务组件及共享库">业务组件及共享库</a></li>
+      </ul>
+    </li>
+    <li><a href="#应用通信机制">应用通信机制</a>
+      <ul>
+        <li><a href="#同级通信">同级通信</a></li>
+        <li><a href="#父子级通信">父子级通信</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据管理">数据管理</a></li>
+    <li><a href="#专用的构建系统">专用的构建系统</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1058,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1211,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

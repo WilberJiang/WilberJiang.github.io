@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>填坑 on 姜波</title>
+    <link>https://wilberjiang.com/tags/%E5%A1%AB%E5%9D%91/</link>
+    <description>Recent content in 填坑 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 18 Sep 2020 15:16:47 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/%E5%A1%AB%E5%9D%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript填坑进阶篇</title>
+      <link>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/</link>
+      <pubDate>Fri, 18 Sep 2020 15:16:47 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;全局对象和全局变量对象&#34;&gt;全局对象和全局变量对象&lt;/h2&gt;
+&lt;h3 id=&#34;全局对象go&#34;&gt;全局对象GO&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;是浏览器天生自带的存储属性和方法的堆，是一个对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;全局变量对象vo&#34;&gt;全局变量对象VO&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;是我们代码创建的变量要存储的地方，是栈内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;全局执行上下文&#34;&gt;全局执行上下文&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript填坑常用方法篇</title>
+      <link>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/</link>
+      <pubDate>Thu, 17 Sep 2020 09:51:46 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;数组去重&#34;&gt;数组去重&lt;/h2&gt;
+&lt;h3 id=&#34;双for循环&#34;&gt;双FOR循环&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript填坑基础篇</title>
+      <link>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/</link>
+      <pubDate>Tue, 15 Sep 2020 13:03:22 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/</guid>
+      <description>&lt;h2 id=&#34;alert&#34;&gt;alert&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;需要等到alert弹出框，点击确定关闭后，后面的代码才执行 - alert会阻碍住线程的渲染&lt;/li&gt;
+&lt;li&gt;alert弹出的内容都会默认转换为字符串 - 调用toString&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;其他类型转数字类型&#34;&gt;其他类型转数字类型&lt;/h2&gt;
+&lt;h3 id=&#34;字符串转数字&#34;&gt;字符串转数字&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;空字符串转数字=&amp;gt;0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;symbol转数字&#34;&gt;Symbol转数字&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;不能把Symbol类型转换为数字，否则报错&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

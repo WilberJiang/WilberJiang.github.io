@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>express on 姜波</title>
+    <link>https://wilberjiang.com/tags/express/</link>
+    <description>Recent content in express on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sun, 16 Aug 2020 12:21:21 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/express/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Express中间件及原理</title>
+      <link>https://wilberjiang.com/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Sun, 16 Aug 2020 12:21:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;h3 id=&#34;安装-express&#34;&gt;安装 express&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;generator&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;express&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加-dev-环境&#34;&gt;添加 dev 环境&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Express应用</title>
+      <link>https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Tue, 03 Sep 2019 21:41:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;启程helloworld&#34;&gt;启程helloworld&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;安装&lt;code&gt;npm i express -S&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;1:引入express第三方对象&lt;/li&gt;
+&lt;li&gt;2:构建一个服务器对象&lt;/li&gt;
+&lt;li&gt;3:开启服务器监听端口&lt;/li&gt;
+&lt;li&gt;4:处理响应&lt;/li&gt;
+&lt;li&gt;在express中，保留了原生http的相关属性和函数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;appuse虚拟目录fn&#34;&gt;app.use(虚拟目录,fn)&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

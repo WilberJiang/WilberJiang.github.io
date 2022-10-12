@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webpack on 姜波</title>
+    <link>https://wilberjiang.com/tags/webpack/</link>
+    <description>Recent content in webpack on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 21 Jul 2020 10:29:48 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>webpack面试</title>
+      <link>https://wilberjiang.com/post/front/webpack%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Tue, 21 Jul 2020 10:29:48 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/webpack%E9%9D%A2%E8%AF%95/</guid>
+      <description>&lt;h2 id=&#34;前端为何要进行打包和构建&#34;&gt;前端为何要进行打包和构建&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;体积更小（Tree-Shaking、压缩、合并），加载更快&lt;/li&gt;
+&lt;li&gt;编译高级语言或语法（TS、ES6+、模块化、SCSS）&lt;/li&gt;
+&lt;li&gt;兼容性和错误检查（Polyfill、postcss、eslint）&lt;/li&gt;
+&lt;li&gt;统一、高效的开发环境&lt;/li&gt;
+&lt;li&gt;统一的构建流程和产出标准&lt;/li&gt;
+&lt;li&gt;集成公司构建规范（提测、上线等）&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>webpack进阶</title>
+      <link>https://wilberjiang.com/post/front/webpack%E8%BF%9B%E9%98%B6/</link>
+      <pubDate>Thu, 16 Jul 2020 16:41:46 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/webpack%E8%BF%9B%E9%98%B6/</guid>
+      <description>&lt;h2 id=&#34;基本配置&#34;&gt;基本配置&lt;/h2&gt;
+&lt;h3 id=&#34;拆分配置和merge&#34;&gt;拆分配置和merge&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>webpack使用与常用配置</title>
+      <link>https://wilberjiang.com/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 21 Jun 2020 18:40:59 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h2 id=&#34;webpack使用&#34;&gt;Webpack使用&lt;/h2&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;init&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webpack&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webpack&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cli&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;D&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 或者
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;webpack&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;scripts&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;build&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webpack&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;watch&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webpack --watch&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dev&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;webpack-dev-server&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;创建webpackconfigjs&#34;&gt;创建webpack.config.js&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>Koa应用</title>
+      <link>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 14 Sep 2019 21:17:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;koa应用&#34;&gt;Koa应用&lt;/h2&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;init&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;S&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;js&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;koa&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt; =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;request常用属性&#34;&gt;request常用属性&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

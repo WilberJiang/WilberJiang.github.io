@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>react on 姜波</title>
+    <link>https://wilberjiang.com/tags/react/</link>
+    <description>Recent content in react on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 14 Jul 2020 14:36:34 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>React面试</title>
+      <link>https://wilberjiang.com/post/front/react%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Tue, 14 Jul 2020 14:36:34 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/react%E9%9D%A2%E8%AF%95/</guid>
+      <description>&lt;h2 id=&#34;组件之间如何通讯&#34;&gt;组件之间如何通讯&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;父子组件props&lt;/li&gt;
+&lt;li&gt;自定义事件&lt;/li&gt;
+&lt;li&gt;Redux和Context&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;jsx本质是什么&#34;&gt;JSX本质是什么&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>React原理</title>
+      <link>https://wilberjiang.com/post/front/react%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Tue, 14 Jul 2020 10:51:13 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/react%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;函数式编程&#34;&gt;函数式编程&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;一种编程范式，概念比较多&lt;/li&gt;
+&lt;li&gt;纯函数&lt;/li&gt;
+&lt;li&gt;不可变值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;vdom和diff&#34;&gt;vdom和diff&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>React高级特性</title>
+      <link>https://wilberjiang.com/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/</link>
+      <pubDate>Fri, 10 Jul 2020 13:28:34 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/</guid>
+      <description>&lt;h2 id=&#34;函数组件&#34;&gt;函数组件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;纯函数，输入props，输出JSX&lt;/li&gt;
+&lt;li&gt;没有实例，没有生命周期，没有state&lt;/li&gt;
+&lt;li&gt;不能扩展其他方法&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>React基础</title>
+      <link>https://wilberjiang.com/post/front/react%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 08 Jul 2020 09:30:58 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/react%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;基本语法&#34;&gt;基本语法&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

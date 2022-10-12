@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>node on 姜波</title>
+    <link>https://wilberjiang.com/tags/node/</link>
+    <description>Recent content in node on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 03 Sep 2020 09:25:00 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/node/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node技术方案设计</title>
+      <link>https://wilberjiang.com/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Thu, 03 Sep 2020 09:25:00 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</guid>
+      <description>&lt;h3 id=&#34;整体架构设计&#34;&gt;整体架构设计&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>HTTP核心模块</title>
+      <link>https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Sun, 28 Jun 2020 23:00:59 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/</guid>
+      <description>&lt;h2 id=&#34;http超文本传输协议&#34;&gt;http超文本传输协议&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;协议至少双方 -&amp;gt; http双方！！
+&lt;ul&gt;
+&lt;li&gt;客户端(浏览器)    -&amp;gt; 服务器  BS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;原生应用(QQ)  -&amp;gt; 服务器 CS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Node基础</title>
+      <link>https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 26 Aug 2019 21:14:27 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;为什么学习node&#34;&gt;为什么学习Node?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IO优势
+&lt;ul&gt;
+&lt;li&gt;对于文件读写,Node采用的是非阻塞IO&lt;/li&gt;
+&lt;li&gt;传统IO在读写文件的时候CPU来处理,而代码执行也处于等待中,浪费性能&lt;/li&gt;
+&lt;li&gt;非阻塞IO将读写操作交给CPU,而代码正常执行,减少等待浪费的性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

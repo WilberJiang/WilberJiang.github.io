@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Vue原理 | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/vue%E5%8E%9F%E7%90%86/" />
+
+
+<meta property="og:title" content="Vue原理" />
+<meta property="og:description" content="组件化
+
+传统组件，只是静态渲染，更新还要依赖于操作DOM
+数据驱动视图-Vue MVVM
+数据驱动视图-React setState
+
+响应式" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/vue%E5%8E%9F%E7%90%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-07-01T21:14:50+08:00" />
+<meta property="article:modified_time" content="2020-07-01T21:14:50+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue原理"/>
+<meta name="twitter:description" content="组件化
+
+传统组件，只是静态渲染，更新还要依赖于操作DOM
+数据驱动视图-Vue MVVM
+数据驱动视图-React setState
+
+响应式"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          Vue原理
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期三，七月 1 日，2020 年
+              
+
+            | 8 分钟阅读
+
+            | 更新于
+              
+                星期三，七月 1 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="组件化">组件化</h2>
+<ul>
+<li>传统组件，只是静态渲染，更新还要依赖于操作DOM</li>
+<li>数据驱动视图-Vue MVVM</li>
+<li>数据驱动视图-React setState</li>
+</ul>
+<h2 id="响应式">响应式</h2>
+<ul>
+<li>组件data的数据一旦变化，立刻触发视图的更新</li>
+<li>核心API-Object.defineProperty（Vue3.0启用Proxy，Proxy兼容性不好，且无法polyfill）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wilber&#34;</span>
+</span></span><span style="display:flex;"><span>Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">data</span>,<span style="color:#e6db74">&#34;name&#34;</span>,{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;get&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">set</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">newVal</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;set&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">newVal</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="监听对象监听数组">监听对象，监听数组</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 触发更新视图
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateView</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;视图更新&#39;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 重新定义数组原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">oldArrayProperty</span> <span style="color:#f92672">=</span> Array.<span style="color:#a6e22e">prototype</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 创建新对象，原型指向 oldArrayProperty ，再扩展新的方法不会影响原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arrProto</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">oldArrayProperty</span>);
+</span></span><span style="display:flex;"><span>[<span style="color:#e6db74">&#39;push&#39;</span>, <span style="color:#e6db74">&#39;pop&#39;</span>, <span style="color:#e6db74">&#39;shift&#39;</span>, <span style="color:#e6db74">&#39;unshift&#39;</span>, <span style="color:#e6db74">&#39;splice&#39;</span>].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">methodName</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arrProto</span>[<span style="color:#a6e22e">methodName</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">updateView</span>() <span style="color:#75715e">// 触发视图更新
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">oldArrayProperty</span>[<span style="color:#a6e22e">methodName</span>].<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>, ...<span style="color:#a6e22e">arguments</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Array.prototype.push.call(this, ...arguments)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 重新定义属性，监听起来
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">defineReactive</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 深度监听
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">observer</span>(<span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 核心 API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>, {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">get</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">newValue</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">newValue</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 深度监听
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">observer</span>(<span style="color:#a6e22e">newValue</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 设置新值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">// 注意，value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newValue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// 触发更新视图
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">updateView</span>()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 监听对象属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">observer</span>(<span style="color:#a6e22e">target</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;object&#39;</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 不是对象或数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 污染全局的 Array 原型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Array.prototype.push = function () {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     updateView()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (Array.<span style="color:#a6e22e">isArray</span>(<span style="color:#a6e22e">target</span>)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arrProto</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 重新定义各个属性（for in 也可以遍历数组）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">target</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">defineReactive</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">key</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 准备数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;wilber&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">info</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;北京&#39;</span> <span style="color:#75715e">// 需要深度监听
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nums</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">30</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 监听数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">observer</span>(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;lisi&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;age&#39;</span>, <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">age</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;100&#39;</span> <span style="color:#75715e">// 新增属性，监听不到 —— 所以有 Vue.set
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">name</span> <span style="color:#75715e">// 删除属性，监听不到 —— 所有已 Vue.delete
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;上海&#39;</span> <span style="color:#75715e">// 深度监听
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">nums</span>.<span style="color:#a6e22e">push</span>(<span style="color:#ae81ff">4</span>) <span style="color:#75715e">// 监听数组
+</span></span></span></code></pre></div><h3 id="几个缺点">几个缺点</h3>
+<ul>
+<li>深度监听，需要递归到底，一次性计算量大</li>
+<li>无法监听新增属性/删除属性（Vue.set、Vue.delete）</li>
+<li>无法原生监听数组，需要特殊处理</li>
+</ul>
+<h2 id="vdom和diff">vdom和diff</h2>
+<h3 id="用js模拟dom结构">用JS模拟DOM结构</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;div1&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;container&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">p</span>&gt;vdom&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size:20px&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">li</span>&gt;a&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;div&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">className</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;container&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;div1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span>[
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;p&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;vdom&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span>[]
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;ul&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">style</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;font-size:20px&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span>[
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;li&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;a&#34;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span>[]
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="虚拟dom实现">虚拟DOM实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createComponent</span>(<span style="color:#a6e22e">tag</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">child</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">nodeName</span>.<span style="color:#a6e22e">toLowerCase</span>(), 
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">attributes</span>, 
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">innerText</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> []
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">child</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">createComponent</span>(<span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">children</span>[<span style="color:#a6e22e">i</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">vNode</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">nodeName</span>.<span style="color:#a6e22e">toLowerCase</span>(), 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">props</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">attributes</span>, 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">child</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">context</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">tag</span>.<span style="color:#a6e22e">childNodes</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">nodeValue</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vNode</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="通过snabbdom学习vdom">通过snabbdom学习vdom</h3>
+<ul>
+<li>简洁强大的vdom库，易学易用</li>
+<li>Vue参考它实现的vdom和diff</li>
+<li><a href="https://github.com/snabbdom/snabbdom">https://github.com/snabbdom/snabbdom</a></li>
+</ul>
+<h3 id="树diff的时间复杂度on3">树diff的时间复杂度O(n^3)</h3>
+<ul>
+<li>遍历tree1，遍历tree2，排序</li>
+<li>1000个节点要计算1亿次，算法不可用</li>
+</ul>
+<h3 id="优化时间复杂度到on">优化时间复杂度到O(n)</h3>
+<ul>
+<li>只比较同一层级，不跨级比较</li>
+<li>tag不相同，则直接删掉重建，不再深度比较</li>
+<li>tag和key，两者都相同，则认为是相同节点，不再深度比较</li>
+</ul>
+<p><img src="/img_md/1593588959489.jpg" alt="Image text"></p>
+<ol>
+<li>oldS和newS相同，不发生变化，oldS++，newS++</li>
+</ol>
+<pre tabindex="0"><code>oldS = a,oldE = d
+newS = a,newE = c
+</code></pre><ol start="2">
+<li>newS与OldVnode不匹配，oldS前面插入f，newS++</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">oldS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">oldE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">newS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>,<span style="color:#a6e22e">newE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>
+</span></span></code></pre></div><ol start="3">
+<li>newS与oldE相同，oldE移动到oldS前面，newS++，oldE&ndash;</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">oldS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">oldE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">newS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d</span>,<span style="color:#a6e22e">newE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>
+</span></span></code></pre></div><ol start="4">
+<li>newE与oldE相同，不发生变化，newE&ndash;，oldE&ndash;</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">oldS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">oldE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">newS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>,<span style="color:#a6e22e">newE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>
+</span></span></code></pre></div><ol start="5">
+<li>都不相同，oldS前插入newE，删除oldS，oldS++，newS++，newE&ndash;，oldE&ndash;</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">oldS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">oldE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">newS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>,<span style="color:#a6e22e">newE</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>
+</span></span></code></pre></div><h3 id="patch">patch</h3>
+<ul>
+<li>找到对应的真实dom，称为el</li>
+<li>判断Vnode和oldVnode是否指向同一个对象，如果是，那么直接return</li>
+<li>如果他们都有文本节点并且不相等，那么将el的文本节点设置为Vnode的文本节点</li>
+<li>如果oldVnode有子节点而Vnode没有，则删除el的子节点</li>
+<li>如果oldVnode没有子节点而Vnode有，则将Vnode的子节点真实化之后添加到el</li>
+<li>如果两者都有子节点，则执行updateChildren函数比较子节点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">patch</span> (<span style="color:#a6e22e">oldVnode</span>, <span style="color:#a6e22e">vnode</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// some code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">oldVnode</span>, <span style="color:#a6e22e">vnode</span>)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">oldVnode</span>, <span style="color:#a6e22e">vnode</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">oEl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">el</span> <span style="color:#75715e">// 当前oldVnode对应的真实元素节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">parentEle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">parentNode</span>(<span style="color:#a6e22e">oEl</span>)  <span style="color:#75715e">// 父元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">createEle</span>(<span style="color:#a6e22e">vnode</span>)  <span style="color:#75715e">// 根据Vnode生成新元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">parentEle</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">parentEle</span>, <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">nextSibling</span>(<span style="color:#a6e22e">oEl</span>)) <span style="color:#75715e">// 将新元素添加进父元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">parentEle</span>, <span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">el</span>)  <span style="color:#75715e">// 移除以前的旧元素节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">oldVnode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// some code 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vnode</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">patchVnode</span> (<span style="color:#a6e22e">oldVnode</span>, <span style="color:#a6e22e">vnode</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">el</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">oldCh</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">children</span>, <span style="color:#a6e22e">ch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">children</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">oldVnode</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">vnode</span>) <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">oldVnode</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">text</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">setTextContent</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">vnode</span>.<span style="color:#a6e22e">text</span>)
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">updateEle</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">vnode</span>, <span style="color:#a6e22e">oldVnode</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">oldCh</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">oldCh</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">ch</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">updateChildren</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">oldCh</span>, <span style="color:#a6e22e">ch</span>)
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ch</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">createEle</span>(<span style="color:#a6e22e">vnode</span>) <span style="color:#75715e">//create el&#39;s children dom
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">oldCh</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">removeChildren</span>(<span style="color:#a6e22e">el</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="updatechildren">updateChildren</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateChildren</span> (<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldCh</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">removeOnly</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oldStartIdx</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newStartIdx</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oldEndIdx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oldStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oldEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#a6e22e">oldEndIdx</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newEndIdx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">newEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#a6e22e">newEndIdx</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">oldKeyToIdx</span>, <span style="color:#a6e22e">idxInOld</span>, <span style="color:#a6e22e">vnodeToMove</span>, <span style="color:#a6e22e">refElm</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canMove</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">removeOnly</span>;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">checkDuplicateKeys</span>(<span style="color:#a6e22e">newCh</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// oldVnode起始位置小于结束位置并且newVnode起始位置小于结束位置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">oldStartIdx</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">oldEndIdx</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">newStartIdx</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">newEndIdx</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// isUndef 用来判断对象是否等于undefined或者为空，是的话返回true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isUndef</span>(<span style="color:#a6e22e">oldStartVnode</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// oldVnode 起始位置oldS++
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">oldStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">oldStartIdx</span>]; <span style="color:#75715e">// Vnode has been moved left
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isUndef</span>(<span style="color:#a6e22e">oldEndVnode</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// oldVnode 结束位置oldE--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">oldEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">--</span><span style="color:#a6e22e">oldEndIdx</span>];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">oldStartVnode</span>, <span style="color:#a6e22e">newStartVnode</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// oldS和newS相同，不变化，进行patch，oldS++，newS++
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">oldStartVnode</span>, <span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">oldStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">oldStartIdx</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">newStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">newStartIdx</span>];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">oldEndVnode</span>, <span style="color:#a6e22e">newEndVnode</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// oldE和newE相同，不变化，进行patch，oldE--，newE--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">oldEndVnode</span>, <span style="color:#a6e22e">newEndVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newEndIdx</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">oldEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">--</span><span style="color:#a6e22e">oldEndIdx</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">newEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#f92672">--</span><span style="color:#a6e22e">newEndIdx</span>];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">oldStartVnode</span>, <span style="color:#a6e22e">newEndVnode</span>)) { <span style="color:#75715e">// Vnode moved right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// oldS和newE相同，oldS移动到oldE之后，进行patch，oldS++，newE--
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">oldStartVnode</span>, <span style="color:#a6e22e">newEndVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newEndIdx</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">canMove</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nodeOps</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldStartVnode</span>.<span style="color:#a6e22e">elm</span>, <span style="color:#a6e22e">nodeOps</span>.<span style="color:#a6e22e">nextSibling</span>(<span style="color:#a6e22e">oldEndVnode</span>.<span style="color:#a6e22e">elm</span>));
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">oldStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">oldStartIdx</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">newEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#f92672">--</span><span style="color:#a6e22e">newEndIdx</span>];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">oldEndVnode</span>, <span style="color:#a6e22e">newStartVnode</span>)) { <span style="color:#75715e">// Vnode moved left
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// oldE和newS相同，oldE移动到oldS之前，进行patch，oldE--，newS++
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">oldEndVnode</span>, <span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">canMove</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nodeOps</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldEndVnode</span>.<span style="color:#a6e22e">elm</span>, <span style="color:#a6e22e">oldStartVnode</span>.<span style="color:#a6e22e">elm</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">oldEndVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#f92672">--</span><span style="color:#a6e22e">oldEndIdx</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">newStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">newStartIdx</span>];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 全都不相同情况下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// 获取oldVnode-&gt;index的key
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isUndef</span>(<span style="color:#a6e22e">oldKeyToIdx</span>)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">oldKeyToIdx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createKeyToOldIdx</span>(<span style="color:#a6e22e">oldCh</span>, <span style="color:#a6e22e">oldStartIdx</span>, <span style="color:#a6e22e">oldEndIdx</span>); 
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">idxInOld</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isDef</span>(<span style="color:#a6e22e">newStartVnode</span>.<span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">?</span> <span style="color:#a6e22e">oldKeyToIdx</span>[<span style="color:#a6e22e">newStartVnode</span>.<span style="color:#a6e22e">key</span>]
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">:</span> <span style="color:#a6e22e">findIdxInOld</span>(<span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">oldCh</span>, <span style="color:#a6e22e">oldStartIdx</span>, <span style="color:#a6e22e">oldEndIdx</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isUndef</span>(<span style="color:#a6e22e">idxInOld</span>)) { <span style="color:#75715e">// New element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">// oldVnode-&gt;index为undefined或null，说明没有该元素，创建新的元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">createElm</span>(<span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldStartVnode</span>.<span style="color:#a6e22e">elm</span>, <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e">// 获取oldVnode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                  <span style="color:#a6e22e">vnodeToMove</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">oldCh</span>[<span style="color:#a6e22e">idxInOld</span>];
+</span></span><span style="display:flex;"><span>                  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">sameVnode</span>(<span style="color:#a6e22e">vnodeToMove</span>, <span style="color:#a6e22e">newStartVnode</span>)) {
+</span></span><span style="display:flex;"><span>                      <span style="color:#75715e">// 创建的Vnode和newS相同，插入到oldS之前，进行patch
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                      <span style="color:#a6e22e">patchVnode</span>(<span style="color:#a6e22e">vnodeToMove</span>, <span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>);
+</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">oldCh</span>[<span style="color:#a6e22e">idxInOld</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">canMove</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nodeOps</span>.<span style="color:#a6e22e">insertBefore</span>(<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">vnodeToMove</span>.<span style="color:#a6e22e">elm</span>, <span style="color:#a6e22e">oldStartVnode</span>.<span style="color:#a6e22e">elm</span>);
+</span></span><span style="display:flex;"><span>                  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                      <span style="color:#75715e">// 相同的key但是不一样的element. 被视为新的element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                      <span style="color:#a6e22e">createElm</span>(<span style="color:#a6e22e">newStartVnode</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>, <span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldStartVnode</span>.<span style="color:#a6e22e">elm</span>, <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>);
+</span></span><span style="display:flex;"><span>                  }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">newStartVnode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#f92672">++</span><span style="color:#a6e22e">newStartIdx</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 当oldS&gt;oldE时，将newS至newE间的全部插入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">oldStartIdx</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">oldEndIdx</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">refElm</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isUndef</span>(<span style="color:#a6e22e">newCh</span>[<span style="color:#a6e22e">newEndIdx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) <span style="color:#f92672">?</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">newCh</span>[<span style="color:#a6e22e">newEndIdx</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">elm</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">addVnodes</span>(<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">refElm</span>, <span style="color:#a6e22e">newCh</span>, <span style="color:#a6e22e">newStartIdx</span>, <span style="color:#a6e22e">newEndIdx</span>, <span style="color:#a6e22e">insertedVnodeQueue</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">newStartIdx</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">newEndIdx</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 当newS&gt;newE，将oldS至oldE间的全部删除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">removeVnodes</span>(<span style="color:#a6e22e">parentElm</span>, <span style="color:#a6e22e">oldCh</span>, <span style="color:#a6e22e">oldStartIdx</span>, <span style="color:#a6e22e">oldEndIdx</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="模版编译">模版编译</h2>
+<ul>
+<li>JS的with语法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">a</span><span style="color:#f92672">:</span><span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span><span style="color:#ae81ff">200</span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">a</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">c</span>)<span style="color:#75715e">//undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//使用with，能改变{}内自由变量的查找方式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//将{}内自由变量，当作obj的属性来查找
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//with要慎用，它打破了作用域规则，易读性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">with</span>(<span style="color:#a6e22e">obj</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">c</span>)<span style="color:#75715e">//报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ul>
+<li>vue template complier将模版编译为render函数，执行render函数生成vnode</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">compiler</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;vue-template-compiler&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 插值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;p&gt;{{message}}&lt;/p&gt;`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return createElement(&#39;p&#39;,[createTextVNode(toString(message))])}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// h -&gt; vnode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// createElement -&gt; vnode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 表达式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;p&gt;{{flag ? message : &#39;no message found&#39;}}&lt;/p&gt;`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;p&#39;,[_v(_s(flag ? message : &#39;no message found&#39;))])}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 属性和动态属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;div id=&#34;div1&#34; class=&#34;container&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;img :src=&#34;imgUrl&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;div&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      {staticClass:&#34;container&#34;,attrs:{&#34;id&#34;:&#34;div1&#34;}},
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      [_c(&#39;img&#39;,{attrs:{&#34;src&#34;:imgUrl}})])}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 条件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p v-if=&#34;flag === &#39;a&#39;&#34;&gt;A&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p v-else&gt;B&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;div&#39;,[(flag === &#39;a&#39;)?_c(&#39;p&#39;,[_v(&#34;A&#34;)]):_c(&#39;p&#39;,[_v(&#34;B&#34;)])])}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 循环
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;ul&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;li v-for=&#34;item in list&#34; :key=&#34;item.id&#34;&gt;{{item.title}}&lt;/li&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/ul&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;ul&#39;,_l((list),function(item){return _c(&#39;li&#39;,{key:item.id},[_v(_s(item.title))])}),0)}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;button @click=&#34;clickHandler&#34;&gt;submit&lt;/button&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;button&#39;,{on:{&#34;click&#34;:clickHandler}},[_v(&#34;submit&#34;)])}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// v-model
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;input type=&#34;text&#34; v-model=&#34;name&#34;&gt;`</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 主要看 input 事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// with(this){return _c(&#39;input&#39;,{directives:[{name:&#34;model&#34;,rawName:&#34;v-model&#34;,value:(name),expression:&#34;name&#34;}],attrs:{&#34;type&#34;:&#34;text&#34;},domProps:{&#34;value&#34;:(name)},on:{&#34;input&#34;:function($event){if($event.target.composing)return;name=$event.target.value}}})}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// render 函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回 vnode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// patch
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 编译
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">compiler</span>.<span style="color:#a6e22e">compile</span>(<span style="color:#a6e22e">template</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">render</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ---------------分割线--------------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// // 从 vue 源码中找到缩写函数的含义
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// function installRenderHelpers (target) {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._o = markOnce;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._n = toNumber;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._s = toString;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._l = renderList;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._t = renderSlot;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._q = looseEqual;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._i = looseIndexOf;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._m = renderStatic;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._f = resolveFilter;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._k = checkKeyCodes;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._b = bindObjectProps;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._v = createTextVNode;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._e = createEmptyVNode;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._u = resolveScopedSlots;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._g = bindObjectListeners;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._d = bindDynamicKeys;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._p = prependModifier;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     target._c = createElement;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// }
+</span></span></span></code></pre></div><ul>
+<li>
+<p>基于vnode再执行patch和diff</p>
+</li>
+<li>
+<p>使用webpack vue-loader，会在开发环境下编译模版</p>
+</li>
+<li>
+<p>vue组件中可以使用render代替template</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Vue</span>.<span style="color:#a6e22e">component</span>(<span style="color:#e6db74">&#34;heading&#34;</span>,{
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//template:&#34;xxx&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">createElement</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">createElement</span>(
+</span></span><span style="display:flex;"><span>    	<span style="color:#e6db74">&#34;h&#34;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">level</span>,
+</span></span><span style="display:flex;"><span>      [
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;a&#34;</span>,{
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">attrs</span><span style="color:#f92672">:</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;headerId&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">href</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;#&#34;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;headerId&#34;</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        },<span style="color:#e6db74">&#34;this is a tag&#34;</span>)
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h2 id="渲染更新过程">渲染/更新过程</h2>
+<p><img src="/img_md/1593655573400.jpg" alt="Image text"></p>
+<h3 id="初次渲染过程">初次渲染过程</h3>
+<ul>
+<li>解析模版为render函数（或在开发环境已完成，vue-loader）</li>
+<li>触发响应式，监听data属性getter、setter</li>
+<li>执行render函数，生成vnode，patch(elem,vnode)</li>
+</ul>
+<h3 id="更新过程">更新过程</h3>
+<ul>
+<li>修改data，触发setter（此前在getter中已被监听）</li>
+<li>重新执行render函数，生成newVnode</li>
+<li>patch(node,newVnode)</li>
+</ul>
+<h3 id="异步渲染">异步渲染</h3>
+<p>$nextTick</p>
+<p>汇总data的修改，一次性更新视图</p>
+<p>减少DOM操作次数，提高性能</p>
+<h2 id="前端路由">前端路由</h2>
+<h3 id="hash">hash</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//http://127.0.0.1:8881/01-hash.html?a=100&amp;b=20#/aaa/bbb
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#75715e">//&#34;http:&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">hostname</span> <span style="color:#75715e">//&#34;127.0.0.1&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">host</span>     <span style="color:#75715e">//&#34;127.0.0.1:8881&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">port</span>     <span style="color:#75715e">//&#34;8881&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span> <span style="color:#75715e">//&#34;/01-hash.html&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>   <span style="color:#75715e">//&#34;?a=100&amp;b=20&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">hash</span>     <span style="color:#75715e">//&#34;#/aaa/bbb&#34;
+</span></span></span></code></pre></div><ul>
+<li>hash变化会触发网页跳转，即浏览器的前进、后退</li>
+<li>hash变化不会刷新页面，SPA必须的特点</li>
+<li>hash永远不会提交到server端</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X-UA-Compatible&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ie=edge&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;hash test&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;hash test&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn1&#34;</span>&gt;修改 hash&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// hash 变化，包括：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// a. JS 修改 url
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// b. 手动修改 url 的 hash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// c. 浏览器前进、后退
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        window.<span style="color:#a6e22e">onhashchange</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">event</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;old url&#39;</span>, <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">oldURL</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;new url&#39;</span>, <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">newURL</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;hash:&#39;</span>, <span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">hash</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 页面初次加载，获取 hash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;DOMContentLoaded&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;hash:&#39;</span>, <span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">hash</span>)
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// JS 修改 url
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;btn1&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">href</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#/user&#39;</span>
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h3 id="h5-history">H5 history</h3>
+<ul>
+<li>用url规范的路由，但跳转时不刷新页面</li>
+<li>history.pushState</li>
+<li>window.onpopstate</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;viewport&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">http-equiv</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;X-UA-Compatible&#34;</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ie=edge&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">title</span>&gt;history API test&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;history API test&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn1&#34;</span>&gt;修改 url&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 页面初次加载，获取 path
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;DOMContentLoaded&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;load&#39;</span>, <span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span>)
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 打开一个新的路由
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 【注意】用 pushState 方式，浏览器不会刷新页面
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;btn1&#39;</span>).<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;page1&#39;</span> }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;切换路由到&#39;</span>, <span style="color:#e6db74">&#39;page1&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">pushState</span>(<span style="color:#a6e22e">state</span>, <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#e6db74">&#39;page1&#39;</span>) <span style="color:#75715e">// 重要！！
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 监听浏览器前进、后退
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        window.<span style="color:#a6e22e">onpopstate</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">event</span>) =&gt; { <span style="color:#75715e">// 重要！！
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;onpopstate&#39;</span>, <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 需要 server 端配合，可参考
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/vue" title="vue">vue</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#组件化">组件化</a></li>
+    <li><a href="#响应式">响应式</a>
+      <ul>
+        <li><a href="#监听对象监听数组">监听对象，监听数组</a></li>
+        <li><a href="#几个缺点">几个缺点</a></li>
+      </ul>
+    </li>
+    <li><a href="#vdom和diff">vdom和diff</a>
+      <ul>
+        <li><a href="#用js模拟dom结构">用JS模拟DOM结构</a></li>
+        <li><a href="#虚拟dom实现">虚拟DOM实现</a></li>
+        <li><a href="#通过snabbdom学习vdom">通过snabbdom学习vdom</a></li>
+        <li><a href="#树diff的时间复杂度on3">树diff的时间复杂度O(n^3)</a></li>
+        <li><a href="#优化时间复杂度到on">优化时间复杂度到O(n)</a></li>
+        <li><a href="#patch">patch</a></li>
+        <li><a href="#updatechildren">updateChildren</a></li>
+      </ul>
+    </li>
+    <li><a href="#模版编译">模版编译</a></li>
+    <li><a href="#渲染更新过程">渲染/更新过程</a>
+      <ul>
+        <li><a href="#初次渲染过程">初次渲染过程</a></li>
+        <li><a href="#更新过程">更新过程</a></li>
+        <li><a href="#异步渲染">异步渲染</a></li>
+      </ul>
+    </li>
+    <li><a href="#前端路由">前端路由</a>
+      <ul>
+        <li><a href="#hash">hash</a></li>
+        <li><a href="#h5-history">H5 history</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

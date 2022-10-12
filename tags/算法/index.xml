@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on 姜波</title>
+    <link>https://wilberjiang.com/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 12 Aug 2020 11:08:24 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript数据结构与算法(leetcode)</title>
+      <link>https://wilberjiang.com/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/</link>
+      <pubDate>Wed, 12 Aug 2020 11:08:24 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/</guid>
+      <description>&lt;h2 id=&#34;基础算法&#34;&gt;基础算法&lt;/h2&gt;
+&lt;h3 id=&#34;字符串&#34;&gt;字符串&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;557 反转字符串中的单词 III&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

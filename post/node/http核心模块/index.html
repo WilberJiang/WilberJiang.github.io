@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>HTTP核心模块 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,42 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="HTTP核心模块" />
+<meta property="og:description" content="http超文本传输协议
+
+协议至少双方 -&gt; http双方！！
+
+客户端(浏览器)    -&gt; 服务器  BS
+
+
+原生应用(QQ)  -&gt; 服务器 CS
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-06-28T23:00:59+08:00" />
+<meta property="article:modified_time" content="2020-06-28T23:00:59+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="HTTP核心模块"/>
+<meta name="twitter:description" content="http超文本传输协议
+
+协议至少双方 -&gt; http双方！！
+
+客户端(浏览器)    -&gt; 服务器  BS
+
+
+原生应用(QQ)  -&gt; 服务器 CS
+
+
+"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +94,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +133,272 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          HTTP核心模块
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期日，六月 28 日，2020 年
+              
+
+            | 3 分钟阅读
+
+            | 更新于
+              
+                星期日，六月 28 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="http超文本传输协议">http超文本传输协议</h2>
+<ul>
+<li>协议至少双方 -&gt; http双方！！
+<ul>
+<li>客户端(浏览器)    -&gt; 服务器  BS</li>
+</ul>
+<ul>
+<li>原生应用(QQ)  -&gt; 服务器 CS</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>就是数据如何传输</p>
+</li>
+<li>
+<p>特点:</p>
+<ul>
+<li>一问一答（先有请求，后有响应）</li>
+<li>5大特点：
+<ul>
+<li>轻便/    简单快速       支持客户/服务器模式</li>
+<li>无连接（不为每一个请求保持住链接）</li>
+<li>无状态( 服务器不记得客户端是谁 ) -&gt; cookie</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="主体对象">主体对象</h2>
+<ul>
+<li>服务器对象 <code>http.createServer();</code></li>
+<li>客户端对象<code>http.request({host:'www.baidu.com'});</code></li>
+<li>请求报文对象(对于服务器来说，是可读)  req</li>
+<li>响应报文对象(对于服务器来说，是可写) res</li>
+</ul>
+<h2 id="状态码分类">状态码分类</h2>
+<ul>
+<li>1开头，正在进行中</li>
+<li>2开头，完成</li>
+<li>3开头 ，重定向</li>
+<li>4开头 ， 客户端异常</li>
+<li>5开头， 服务器异常</li>
+</ul>
+<h2 id="创建服务器步骤">创建服务器步骤</h2>
+<ol>
+<li>引入http核心对象</li>
+<li>利用http核心对象的.createServer(callback); 创建服务器对象</li>
+<li>使用服务器对象.listen(端口,ip地址) 开启服务器</li>
+<li>callback(req,res) 根据请求处理响应</li>
+</ol>
+<h2 id="请求报文对象只读">请求报文对象(只读)</h2>
+<ul>
+<li>请求首行中的url <code>req.url </code></li>
+<li>请求首行中的请求方式 <code>req.method</code></li>
+<li>请求头中的数据<code>req.headers</code>  是一个对象</li>
+<li>头信息中，也可以作为与服务器交互的一种途径</li>
+</ul>
+<h2 id="获取请求体数据">获取请求体数据</h2>
+<ul>
+<li>
+<p>代码对比</p>
+</li>
+<li>
+<p>浏览器:  $(&rsquo;#xx&rsquo;).on(&lsquo;submit&rsquo;,function(e){    })</p>
+</li>
+<li>
+<p>服务器:  req.on(&lsquo;data&rsquo;,function(d){ d.toString(); })</p>
+</li>
+</ul>
+<h2 id="响应对象">响应对象</h2>
+<ul>
+<li>响应首行 <code>res.writeHead(状态码)</code></li>
+<li>写响应头
+<ul>
+<li>一次性写回头信息
+<ul>
+<li><code>res.writeHead(200,headers)</code></li>
+</ul>
+</li>
+<li>多次设置头信息
+<ul>
+<li><code>res.setHeader(key,value);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>写响应体
+<ul>
+<li>一次性写回响应体
+<ul>
+<li><code>res.end();</code></li>
+</ul>
+</li>
+<li>多次写回响应体
+<ul>
+<li><code>res.write();</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求与响应">请求与响应</h2>
+<ul>
+<li>头行体</li>
+<li>content-type是对请求或者响应体数据，做出的说明</li>
+</ul>
+<h2 id="响应体数据">响应体数据</h2>
+<ul>
+<li>res.write(&lsquo;字符串&rsquo;||读出文件的二进制数据)</li>
+<li>res.end(&lsquo;字符串&rsquo;||读出文件的二进制数)</li>
+</ul>
+<h2 id="http总结梳理">http总结梳理</h2>
+<ul>
+<li>http故事剧情中的主角 :  服务器（女）（响应报文） 客户端（男）（请求报文）
+<ul>
+<li>因为都是男人主动找女人</li>
+<li>服务器:http.createServer创建服务器，监听端口listen，处理响应on(&lsquo;request&rsquo;,(req,res)=&gt; { })</li>
+<li>请求报文： 由于我们是服务端代码，所以该报文是浏览器发的，我们看就行了
+<ul>
+<li>头行体（异步）</li>
+</ul>
+</li>
+<li>响应报文：由于我们是服务端代码，所以响应报文，我们写就行了
+<ul>
+<li>头行体
+<ol>
+<li>头设置1次，和多次</li>
+<li>体写1次和多次</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="querystring核心对象">querystring核心对象</h2>
+<ul>
+<li>querystring.parse(formStr)</li>
+<li>username=jack&amp;password=123转换成如下</li>
+<li>{ username: &lsquo;jack&rsquo;, password: &lsquo;123&rsquo; }</li>
+</ul>
+<h2 id="跨域问题">跨域问题</h2>
+<ul>
+<li>传统开发方式:前端代码及请求数据接口都在同一个服务器上,前端代码测试依赖服务器</li>
+<li>前后端分离:
+<ul>
+<li>静态服务器: 运行前端代码</li>
+<li>后台服务器: 运行数据接口服务器</li>
+<li><strong>互不影响,浏览器向其他服务器发送ajax请求,会产生跨域</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="jsonp">jsonp</h2>
+<ul>
+<li>
+<p>知识点补充</p>
+</li>
+<li>
+<p>url核心对象</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;url&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#e6db74">&#39;http://xxx.com?id=1&#39;</span>,<span style="color:#66d9ef">true</span>); <span style="color:#75715e">// 第二个参数是将id=1转换成对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// output:  { protocal:&#39;http&#39;,..省略..query:{id:1}   }
+</span></span></span></code></pre></div><h2 id="cors">CORS</h2>
+<pre tabindex="0"><code>  Access-Control-Allow-Origin: &#39;http://xxx.com&#39;  //允许哪个域在跨域的时候访问,*代表所有
+  // 告诉浏览器,跨域时允许有cookie,同时客户端也要设置withCredentials:true + Origin不能是*
+  Access-Control-Allow-Credentials: true  
+  Access-Control-Allow-Methods: &#39;GET,POST,PUT,DELETE&#39;;   // 默认允许get/post
+  Access-Control-Allow-Headers:&#39;xxx&#39;;   // 允许你自己加的头来通信
+</code></pre><ul>
+<li>浏览器在非简单请求(get/post)||包含自定义头||content-type非键值对的时候,会先请示服务器,来一个OPTIONS请求,如果不满足,拒绝发送ajax请求</li>
+</ul>
+<h2 id="代理">代理</h2>
+<ul>
+<li>下载依赖包便于请求操作 <code>npm i request -S</code></li>
+</ul>
+<h2 id="配置https">配置https</h2>
+<ul>
+<li>公钥  公开的加密方式</li>
+<li>私钥  存在服务器的唯一解公钥加密的方式</li>
+<li>签名  确保数据的一致性</li>
+<li>证书  确保当前发送数据单位可信</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/node" title="node">node</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#http超文本传输协议">http超文本传输协议</a></li>
+    <li><a href="#主体对象">主体对象</a></li>
+    <li><a href="#状态码分类">状态码分类</a></li>
+    <li><a href="#创建服务器步骤">创建服务器步骤</a></li>
+    <li><a href="#请求报文对象只读">请求报文对象(只读)</a></li>
+    <li><a href="#获取请求体数据">获取请求体数据</a></li>
+    <li><a href="#响应对象">响应对象</a></li>
+    <li><a href="#请求与响应">请求与响应</a></li>
+    <li><a href="#响应体数据">响应体数据</a></li>
+    <li><a href="#http总结梳理">http总结梳理</a></li>
+    <li><a href="#querystring核心对象">querystring核心对象</a></li>
+    <li><a href="#跨域问题">跨域问题</a></li>
+    <li><a href="#jsonp">jsonp</a></li>
+    <li><a href="#cors">CORS</a></li>
+    <li><a href="#代理">代理</a></li>
+    <li><a href="#配置https">配置https</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1198,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1351,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

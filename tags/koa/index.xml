@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>koa on 姜波</title>
+    <link>https://wilberjiang.com/tags/koa/</link>
+    <description>Recent content in koa on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 21 Aug 2020 11:41:26 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/koa/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Koa2中间件及原理</title>
+      <link>https://wilberjiang.com/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Fri, 21 Aug 2020 11:41:26 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/</guid>
+      <description>&lt;h2 id=&#34;环境&#34;&gt;环境&lt;/h2&gt;
+&lt;h3 id=&#34;安装-koa2&#34;&gt;安装 koa2&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;generator&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;koa2&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加-dev-环境&#34;&gt;添加 dev 环境&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>Koa应用</title>
+      <link>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 14 Sep 2019 21:17:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/koa%E5%BA%94%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;koa应用&#34;&gt;Koa应用&lt;/h2&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;init&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;npm&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;install&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;S&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;koa&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;index&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;js&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;koa&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Koa&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt; =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;ctx&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;body&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Hello World&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;})
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;app&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;request常用属性&#34;&gt;request常用属性&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

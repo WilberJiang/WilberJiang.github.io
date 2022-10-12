@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 姜波</title>
+    <link>https://wilberjiang.com/tags/docker/</link>
+    <description>Recent content in docker on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 20 Mar 2020 20:51:23 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker常用命令与配置</title>
+      <link>https://wilberjiang.com/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 20 Mar 2020 20:51:23 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;h2 id=&#34;docker常用命令&#34;&gt;docker常用命令&lt;/h2&gt;
+&lt;h3 id=&#34;镜像管理常用命令&#34;&gt;镜像管理常用命令&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>docker环境搭建</title>
+      <link>https://wilberjiang.com/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Wed, 11 Mar 2020 20:24:29 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>&lt;h3 id=&#34;查看系统版本&#34;&gt;查看系统版本&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;yum install lsb
+lsb_release -a
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;删除docker旧版本&#34;&gt;删除docker旧版本&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>性能优化 on 姜波</title>
+    <link>https://wilberjiang.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 性能优化 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 10 Sep 2020 16:57:53 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>性能优化面试</title>
+      <link>https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/</link>
+      <pubDate>Thu, 10 Sep 2020 16:57:53 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/</guid>
+      <description>&lt;h2 id=&#34;从输入url到页面加载显示完成都发生了什么&#34;&gt;从输入URL到页面加载显示完成都发生了什么&lt;/h2&gt;
+&lt;h3 id=&#34;browser-process&#34;&gt;Browser Process&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;UI Thread：搜索 or URL =&amp;gt; 搜索引擎or请求的站点&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>渲染优化</title>
+      <link>https://wilberjiang.com/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Thu, 10 Sep 2020 15:26:50 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;移动端图标svg&#34;&gt;移动端图标SVG&lt;/h2&gt;
+&lt;h3 id=&#34;从png到iconfont&#34;&gt;从PNG到IconFont&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;多个图标一套字体，减少获取时的请求数量和体积&lt;/li&gt;
+&lt;li&gt;矢量图形，可伸缩&lt;/li&gt;
+&lt;li&gt;直接通过CSS修改样式（颜色、大小等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;从iconfont到svg&#34;&gt;从IconFont到SVG&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>传输优化</title>
+      <link>https://wilberjiang.com/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Thu, 10 Sep 2020 09:43:51 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;启用压缩gzip&#34;&gt;启用压缩Gzip&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>资源优化</title>
+      <link>https://wilberjiang.com/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 09 Sep 2020 17:27:14 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;资源的压缩与合并&#34;&gt;资源的压缩与合并&lt;/h2&gt;
+&lt;h3 id=&#34;为什么要压缩与合并&#34;&gt;为什么要压缩与合并&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;减少http请求数量&lt;/li&gt;
+&lt;li&gt;减少请求资源大小&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;html压缩&#34;&gt;HTML压缩&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>代码优化</title>
+      <link>https://wilberjiang.com/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Wed, 09 Sep 2020 13:32:35 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;js开销和如何缩短解析时间&#34;&gt;JS开销和如何缩短解析时间&lt;/h2&gt;
+&lt;h3 id=&#34;代码解决方案&#34;&gt;代码解决方案&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Code splitting代码拆分，按需加载&lt;/li&gt;
+&lt;li&gt;Tree shaking代码减重&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;减少主线程工作量&#34;&gt;减少主线程工作量&lt;/h3&gt;</description>
+    </item>
+    
+    <item>
+      <title>浏览器渲染原理和关键渲染路径</title>
+      <link>https://wilberjiang.com/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Tue, 08 Sep 2020 17:22:55 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/</guid>
+      <description>&lt;h2 id=&#34;浏览器的渲染流程&#34;&gt;浏览器的渲染流程&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;JavaScript =&amp;gt; Style =&amp;gt; Layout =&amp;gt; Paint =&amp;gt; Composite&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;浏览器构建对象模型&#34;&gt;浏览器构建对象模型&lt;/h2&gt;</description>
+    </item>
+    
+    <item>
+      <title>性能指标和优化目标</title>
+      <link>https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/</link>
+      <pubDate>Tue, 08 Sep 2020 11:25:44 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/</guid>
+      <description>&lt;h2 id=&#34;性能指标&#34;&gt;性能指标&lt;/h2&gt;
+&lt;h3 id=&#34;加载&#34;&gt;加载&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;理解加载瀑布图&lt;/li&gt;
+&lt;li&gt;基于HAR存储与重建性能信息&lt;/li&gt;
+&lt;li&gt;速度指数（Speed Index）&lt;/li&gt;
+&lt;li&gt;重要测量指标
+&lt;ul&gt;
+&lt;li&gt;Speed Index页面渲染速度&lt;/li&gt;
+&lt;li&gt;TTFB网络请求耗时&lt;/li&gt;
+&lt;li&gt;页面加载时间&lt;/li&gt;
+&lt;li&gt;首次渲染&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;响应&#34;&gt;响应&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

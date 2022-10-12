@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript Web API | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/javascript-web-api/" />
+
+
+<meta property="og:title" content="JavaScript Web API" />
+<meta property="og:description" content="DOM
+DOM本质
+
+
+Document Object Model
+
+
+html文件解析的一棵树
+
+
+DOM节点操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/javascript-web-api/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-07-27T13:34:16+08:00" />
+<meta property="article:modified_time" content="2020-07-27T13:34:16+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript Web API"/>
+<meta name="twitter:description" content="DOM
+DOM本质
+
+
+Document Object Model
+
+
+html文件解析的一棵树
+
+
+DOM节点操作"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          JavaScript Web API
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期一，七月 27 日，2020 年
+              
+
+            | 5 分钟阅读
+
+            | 更新于
+              
+                星期一，七月 27 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="dom">DOM</h2>
+<h3 id="dom本质">DOM本质</h3>
+<ul>
+<li>
+<p>Document Object Model</p>
+</li>
+<li>
+<p>html文件解析的一棵树</p>
+</li>
+</ul>
+<h3 id="dom节点操作">DOM节点操作</h3>
+<ul>
+<li>获取DOM节点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;div1&#39;</span>) <span style="color:#75715e">// 元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">divList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#39;div&#39;</span>) <span style="color:#75715e">// 集合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">containerList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementsByClassName</span>(<span style="color:#e6db74">&#39;.container&#39;</span>) <span style="color:#75715e">// 集合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;p&#39;</span>) <span style="color:#75715e">// 集合
+</span></span></span></code></pre></div><ul>
+<li>attribute</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;p&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pList</span>[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;data-name&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;data-name&#39;</span>,<span style="color:#e6db74">&#39;name1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">getAttribute</span>(<span style="color:#e6db74">&#39;style&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;style&#39;</span>,<span style="color:#e6db74">&#39;font-size:30px;&#39;</span>)
+</span></span></code></pre></div><ul>
+<li>property</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;p&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pList</span>[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span>) <span style="color:#75715e">// 获取样式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">width</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;100px&#39;</span> <span style="color:#75715e">// 修改样式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">className</span>) <span style="color:#75715e">// 获取class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">className</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;p1&#39;</span> <span style="color:#75715e">// 修改class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 获取nodeName和nodeType
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">nodeName</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">nodeType</span>)
+</span></span></code></pre></div><h3 id="dom结构操作">DOM结构操作</h3>
+<ul>
+<li>新增/插入节点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;div1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 添加新节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;p&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;this is p1&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">p1</span>) <span style="color:#75715e">// 添加新创建的元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 移动已有节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p2</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;p2&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">p2</span>)
+</span></span></code></pre></div><ul>
+<li>获取子元素列表，获取父元素</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 获取子元素列表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;div1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">childNodes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 获取父元素
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;div1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">parentNode</span>
+</span></span></code></pre></div><ul>
+<li>删除子元素</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">div1</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;div1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">childNodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">div1</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">child</span>[<span style="color:#ae81ff">0</span>])
+</span></span></code></pre></div><h3 id="dom性能">DOM性能</h3>
+<ul>
+<li>DOM操作非常“昂贵”，避免频繁的DOM操作</li>
+<li>对DOM查询做缓存</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 不缓存DOM查询结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#39;p&#39;</span>).<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 每次循环，都会计算length，频繁进行DOM查询
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 缓存DOM查询结果
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pList</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementsByTagName</span>(<span style="color:#e6db74">&#39;p&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">length</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pList</span>.<span style="color:#a6e22e">length</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 缓存length，只进行一次DOM查询
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ul>
+<li>将频繁操作改为一次性操作</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listNode</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;list&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 创建一个文档片段，此时还没有插入到DOM树中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">frag</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createDocumentFragment</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 执行插入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">x</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">x</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">li</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;li&#39;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">li</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;List item &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">x</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">frag</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">li</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 都完成之后，再插入到DOM树中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">listNode</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">frag</span>)
+</span></span></code></pre></div><h2 id="bom">BOM</h2>
+<ul>
+<li>Browser Object Model</li>
+</ul>
+<h3 id="navigator">navigator</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ua</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">userAgent</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isChrome</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ua</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#e6db74">&#39;Chrome&#39;</span>)
+</span></span></code></pre></div><h3 id="screen">Screen</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">screen</span>.<span style="color:#a6e22e">width</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">screen</span>.<span style="color:#a6e22e">height</span>)
+</span></span></code></pre></div><h3 id="location">location</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">href</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">protocol</span>) <span style="color:#75715e">// &#39;http:&#39; &#39;https:&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">host</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">pathname</span>) <span style="color:#75715e">// /learn/3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">search</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">location</span>.<span style="color:#a6e22e">hash</span>)
+</span></span></code></pre></div><h3 id="history">history</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">back</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">history</span>.<span style="color:#a6e22e">forward</span>()
+</span></span></code></pre></div><h2 id="事件">事件</h2>
+<h3 id="事件绑定">事件绑定</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">btn</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;btn1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">btn</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>,<span style="color:#a6e22e">event</span> =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;clicked&#39;</span>)
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 通用的绑定函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">elem</span>, <span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">fn</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">fn</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;link1&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">a</span>, <span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#a6e22e">e</span> =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>() <span style="color:#75715e">// 阻止默认行为
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})
+</span></span></code></pre></div><h3 id="事件冒泡">事件冒泡</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">stopPropagation</span>() <span style="color:#75715e">// 阻止冒泡行为
+</span></span></span></code></pre></div><h3 id="事件代理">事件代理</h3>
+<ul>
+<li>代码简洁</li>
+<li>减少浏览器内存占用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">elem</span>, <span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">selector</span>, <span style="color:#a6e22e">fn</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">selector</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">selector</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">elem</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">event</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">selector</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 代理绑定
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">matches</span>(<span style="color:#a6e22e">selector</span>)){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">event</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 普通绑定
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">event</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="ajax">ajax</h2>
+<h3 id="xmlhttprequest">XMLHttpRequest</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// get请求
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xhr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;GET&#39;</span>,<span style="color:#e6db74">&#39;/api&#39;</span>,<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">onreadystatechange</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 这里的函数异步执行
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">readyState</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">4</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">200</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">responesText</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">xhr</span>.<span style="color:#a6e22e">send</span>(<span style="color:#66d9ef">null</span>)
+</span></span></code></pre></div><h3 id="状态值与状态码">状态值与状态码</h3>
+<ul>
+<li>
+<p>xhr.readyState</p>
+<p>0-（未初始化）还没有调用send()方法</p>
+<p>1-（载入）已调用send()方法，正在发送请求</p>
+<p>2-（载入完成）send()方法执行完成，已经接受到全部响应内容</p>
+<p>3-（交互）正在解析响应内容</p>
+<p>4-（完成）响应内容解析完成，可以在客户端调用</p>
+</li>
+<li>
+<p>xhr.status</p>
+<p>2xx-表示成功处理请求，如200</p>
+<p>3xx-需要重定向，浏览器直接跳转，如301、302、304</p>
+<p>4xx-客户端请求错误，如404、403</p>
+<p>5xx-服务器端错误</p>
+</li>
+</ul>
+<h3 id="跨域同源策略跨域解决方案">跨域：同源策略，跨域解决方案</h3>
+<h3 id="什么是跨域同源策略">什么是跨域（同源策略）</h3>
+<ul>
+<li>ajax请求时，浏览器要求当前网页和server必须同源（安全）</li>
+<li>同源：协议、域名、端口，三者必须一致</li>
+<li>加载图片、css、js可无视同源策略
+<ul>
+<li>&lt; img src=跨域的图片地址/&gt;</li>
+<li>&lt; link href=跨域的css地址/&gt;</li>
+<li>&lt; script src=跨域的js地址&gt;&lt;/ script&gt;</li>
+<li>&lt; img/&gt;可用于统计打点，可使用第三方统计服务</li>
+<li>&lt; link/&gt;&lt; script&gt;可使用CDN，CDN一般都是外域</li>
+<li>&lt; script&gt;可实现JSONP</li>
+</ul>
+</li>
+<li>所有的跨域，都必须经过server端允许和配合</li>
+<li>未经server端允许就实现跨域，说明浏览器有漏洞，危险信号</li>
+</ul>
+<h3 id="jsonp">JSONP</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 将返回{x: 100}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">sciprt</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://wilberjiang.com/a.js&#39;</span><span style="color:#f92672">&gt;&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// https://wilberjiang.com/a.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// callback({x: 100})
+</span></span></span></code></pre></div><h3 id="cros服务端支持">CROS（服务端支持）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 第二个参数填写允许跨域的域名称，不建议直接写&#39;*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">setHeader</span>(<span style="color:#e6db74">&#39;Access-Control-Allow-Origin&#39;</span>, <span style="color:#e6db74">&#39;http://localhost:8000&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">setHeader</span>(<span style="color:#e6db74">&#39;Access-Control-Allow-Headers&#39;</span>, <span style="color:#e6db74">&#39;X-Requested-With&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">setHeader</span>(<span style="color:#e6db74">&#39;Access-Control-Allow-Methods&#39;</span>, <span style="color:#e6db74">&#39;PUT,POST,GET,DELETE,OPTIONS&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 接受跨域的cookie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">setHeader</span>(<span style="color:#e6db74">&#39;Access-Control-Allow-Credentials&#39;</span>, <span style="color:#e6db74">&#39;true&#39;</span>)
+</span></span></code></pre></div><h2 id="存储">存储</h2>
+<h3 id="cookie">cookie</h3>
+<ul>
+<li>本身用于浏览器和server通讯</li>
+<li>被“借用”到本地存储</li>
+<li>可用document.cookie=&rsquo;&hellip;&lsquo;来修改</li>
+<li>缺点
+<ul>
+<li>存储大小，最大4KB</li>
+<li>http请求时需要发送到服务器端，增加请求数据量</li>
+<li>只能用document.cookie=&rsquo;&hellip;&lsquo;来修改</li>
+</ul>
+</li>
+</ul>
+<h3 id="localstorage和sessionstorage">LocalStorage和sessionStorage</h3>
+<ul>
+<li>HTML5专门为存储而设计，最大可存5M</li>
+<li>API简单易用setItem、getItem</li>
+<li>不会随http请求被发送</li>
+<li>区别
+<ul>
+<li>localStorage数据会永久存储，除非代码或手动删除</li>
+<li>sessionStorage数据只存在于当前会话，浏览器关闭则清空</li>
+<li>一般用localStorage会更多一些</li>
+</ul>
+</li>
+</ul>
+<h2 id="生产环境">生产环境</h2>
+<h3 id="页面加载过程">页面加载过程</h3>
+<ul>
+<li>
+<p>加载资源的形式</p>
+<ul>
+<li>html代码</li>
+<li>媒体文件，如图片、视频等</li>
+<li>javascript、css</li>
+</ul>
+</li>
+<li>
+<p>加载资源的过程</p>
+<ul>
+<li>DNS解析：域名-&gt;IP地址</li>
+<li>浏览器根据IP地址向服务器发起http请求</li>
+<li>服务器处理http请求，并返回给浏览器</li>
+</ul>
+</li>
+<li>
+<p>渲染页面的过程</p>
+<ul>
+<li>根据HTML代码生成DOM Tree</li>
+<li>根据CSS代码生成CSSOM</li>
+<li>将DOM Tree和CSSOM整合形成Render Tree</li>
+<li>根据Render Tree渲染页面</li>
+<li>遇到&lt; script&gt;则暂停渲染，优先加载并执行JS代码，完成再继续</li>
+<li>直至把Render Tree渲染完成</li>
+</ul>
+</li>
+</ul>
+<h3 id="windowonload和domcontentloaded">window.onload和DOMContentLoaded</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;load&#39;</span>, <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 页面的全部资源加载完才会执行，包括图片、视频等
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;DOMContentLoaded&#39;</span>,<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// DOM渲染完即可执行，此时图片、视频还可能没有加载完
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})
+</span></span></code></pre></div><h3 id="性能优化">性能优化</h3>
+<ul>
+<li>原则
+<ul>
+<li>多使用内存、缓存或其他方法</li>
+<li>减少CPU计算量，减少网络加载耗时</li>
+<li>空间换时间</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>让加载更快
+<ul>
+<li>减少资源体积：压缩代码</li>
+<li>减少访问次数：合并代码，SSR服务器端渲染，缓存</li>
+<li>使用更快的网络：CDN</li>
+</ul>
+</li>
+<li>让渲染更快
+<ul>
+<li>CSS放在head，JS放在body最下面</li>
+<li>尽早开始执行JS，用DOMContentLoaded触发</li>
+<li>懒加载（图片懒加载，上滑加载更多）</li>
+<li>对DOM查询进行缓存</li>
+<li>频繁DOM操作，合并到一起插入DOM结构</li>
+<li>节流throttle防抖debounce</li>
+</ul>
+</li>
+</ol>
+<h3 id="防抖">防抖</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">debounce</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// timer是闭包中的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">timer</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timer</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">arguments</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>    },<span style="color:#a6e22e">delay</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="节流">节流</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throttle</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">delay</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">500</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">timer</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">arguments</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>    },<span style="color:#a6e22e">delay</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="安全">安全</h3>
+<p>XSS跨站请求攻击</p>
+<p>XSRF跨站请求伪造</p></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/js" title="js">js</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dom">DOM</a>
+      <ul>
+        <li><a href="#dom本质">DOM本质</a></li>
+        <li><a href="#dom节点操作">DOM节点操作</a></li>
+        <li><a href="#dom结构操作">DOM结构操作</a></li>
+        <li><a href="#dom性能">DOM性能</a></li>
+      </ul>
+    </li>
+    <li><a href="#bom">BOM</a>
+      <ul>
+        <li><a href="#navigator">navigator</a></li>
+        <li><a href="#screen">Screen</a></li>
+        <li><a href="#location">location</a></li>
+        <li><a href="#history">history</a></li>
+      </ul>
+    </li>
+    <li><a href="#事件">事件</a>
+      <ul>
+        <li><a href="#事件绑定">事件绑定</a></li>
+        <li><a href="#事件冒泡">事件冒泡</a></li>
+        <li><a href="#事件代理">事件代理</a></li>
+      </ul>
+    </li>
+    <li><a href="#ajax">ajax</a>
+      <ul>
+        <li><a href="#xmlhttprequest">XMLHttpRequest</a></li>
+        <li><a href="#状态值与状态码">状态值与状态码</a></li>
+        <li><a href="#跨域同源策略跨域解决方案">跨域：同源策略，跨域解决方案</a></li>
+        <li><a href="#什么是跨域同源策略">什么是跨域（同源策略）</a></li>
+        <li><a href="#jsonp">JSONP</a></li>
+        <li><a href="#cros服务端支持">CROS（服务端支持）</a></li>
+      </ul>
+    </li>
+    <li><a href="#存储">存储</a>
+      <ul>
+        <li><a href="#cookie">cookie</a></li>
+        <li><a href="#localstorage和sessionstorage">LocalStorage和sessionStorage</a></li>
+      </ul>
+    </li>
+    <li><a href="#生产环境">生产环境</a>
+      <ul>
+        <li><a href="#页面加载过程">页面加载过程</a></li>
+        <li><a href="#windowonload和domcontentloaded">window.onload和DOMContentLoaded</a></li>
+        <li><a href="#性能优化">性能优化</a></li>
+        <li><a href="#防抖">防抖</a></li>
+        <li><a href="#节流">节流</a></li>
+        <li><a href="#安全">安全</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

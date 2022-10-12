@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>Node使用MySQL | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,50 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mysql/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="Node使用MySQL" />
+<meta property="og:description" content="基本操作
+
+创建表
+
+数据类型
+
+整数类型 int
+浮点类型 double
+日期类型 date/timestamp
+字符串类型 char varchar
+
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mysql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-10-09T22:13:56+08:00" />
+<meta property="article:modified_time" content="2019-10-09T22:13:56+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="Node使用MySQL"/>
+<meta name="twitter:description" content="基本操作
+
+创建表
+
+数据类型
+
+整数类型 int
+浮点类型 double
+日期类型 date/timestamp
+字符串类型 char varchar
+
+
+
+
+"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +102,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +141,280 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          Node使用MySQL
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期三，十月 9 日，2019 年
+              
+
+            | 3 分钟阅读
+
+            | 更新于
+              
+                星期三，十月 9 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="基本操作">基本操作</h2>
+<ul>
+<li>创建表
+<ul>
+<li>数据类型
+<ul>
+<li>整数类型 int</li>
+<li>浮点类型 double</li>
+<li>日期类型 date/timestamp</li>
+<li>字符串类型 char varchar</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>可变varchar 不可变是char
+2. 空间换时间</li>
+</ol>
+<ul>
+<li>首先足够用，其次尽量小</li>
+</ul>
+<pre tabindex="0"><code>create table 表名(
+    id int,
+    name varchar(20)
+);
+</code></pre><pre><code>- 查看创建表的语句
+    + show create table 表名
+- 查看表的明细
+    + desc 表名
+</code></pre>
+<ul>
+<li>删除表
+<ul>
+<li>drop table 表名</li>
+</ul>
+</li>
+<li>插入数据
+<ul>
+<li>第一种：全表字段插入
+<ul>
+<li><code>insert into 表名 values (val1,val2...)</code></li>
+<li>插入的字段类型和<em>顺序必须</em>与表的字段<em>类型</em>与顺序保持一致,个数是针对全表字段的插入</li>
+</ul>
+</li>
+<li>指定表字段的插入
+<ul>
+<li><code>insert into 表名 (字段1,字段2...) values (val1,val2...)</code></li>
+<li>插入的数据的顺序要与声明的字段名的顺序一致</li>
+<li>类型也要一致，个数也要一致</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结
+<ul>
+<li>登录
+<ul>
+<li>mysql -uroot -p</li>
+<li>密码</li>
+</ul>
+</li>
+<li>查看有哪些数据库
+<ul>
+<li>show databases;</li>
+</ul>
+</li>
+<li>切换数据库
+<ul>
+<li>use 数据库名;</li>
+</ul>
+</li>
+<li>show tables;</li>
+<li>查看表字段明细
+<ul>
+<li>desc 表名;</li>
+</ul>
+</li>
+<li>插入数据
+<ul>
+<li><code>insert into 表名 (字段1,..) values (值1...)</code></li>
+</ul>
+</li>
+<li>更新操作
+<ul>
+<li><code>UPDATE 表名 SET 字段1 = 表达式,[,字段2 = 表达式] [WHERE express布尔值]</code></li>
+<li><code> update student set tmp = 20+1,sex = sex where 1=1;</code></li>
+</ul>
+</li>
+<li>删除操作
+<ul>
+<li><code>DELETE FROM 表名 [,WHERE exr布尔值]</code></li>
+<li><code>delete from student where name = '马蓉';</code></li>
+</ul>
+</li>
+<li>truncate和delete的区别
+<ul>
+<li><code>truncate table 表名</code></li>
+<li>delete会一条一条的删 自增id保留</li>
+<li>truncate先摧毁整张表，再创建一张和原来的表结构一模一样的表</li>
+<li>truncate在效率上比delete高</li>
+<li>truncate只能删除整表的数据，也就是格式化。</li>
+<li>truncate会把自增id截断恢复为1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="查询语句">查询语句</h2>
+<ul>
+<li>DISTINCT 去重，尽量不要根据* 来去重
+<ul>
+<li><code>select distinct name,age from student;</code></li>
+</ul>
+</li>
+<li>查询语句可以指定多个字段查询，也可以使用* 查询
+<ul>
+<li>在企业中，使用SQL查询* 是会拉低查询效率的 ，建议少用* 查询</li>
+</ul>
+</li>
+</ul>
+<h2 id="条件查询">条件查询</h2>
+<ul>
+<li><code>select * from student where math &gt; 66.6 or math &lt; 66.6;</code></li>
+</ul>
+<pre tabindex="0"><code>&gt; &lt; &lt;= &gt;= = &lt;&gt;    大于、小于、大于(小于等于)、不等于
+BETWEEN…AND 显示在某一区间的值
+IN(set) 显示在in列表中的值，例：in(100,200)
+LIKE ‘张pattern’ 模糊查询%
+IS NULL 判断是否为空
+AND 多个条件同时成立
+OR  多个条件任一成立
+NOT 不成立，例：WHERE NOT(salary&gt;100)
+</code></pre><ul>
+<li>模糊查询
+<ul>
+<li>包含关<code>select * from student where name like '%关%';</code></li>
+<li>以关开头<code>select * from student where name like '关%';</code></li>
+<li>以关结尾<code>select * from student where name like '%关';</code></li>
+</ul>
+</li>
+<li>判断为空
+<ul>
+<li><code>select * from student where sex is not null;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="聚合函数">聚合函数</h2>
+<ul>
+<li>统计数量
+<ul>
+<li>count(星号)</li>
+</ul>
+</li>
+<li>求和
+<ul>
+<li>sum(math+english+chinese)</li>
+</ul>
+</li>
+<li>平均值
+<ul>
+<li>avg(math+english+chinese)</li>
+</ul>
+</li>
+<li>找最值
+<ul>
+<li>max(列)/min(列)/max(math+english+chinese)</li>
+</ul>
+</li>
+</ul>
+<h2 id="排序order-by">排序(order by)</h2>
+<ul>
+<li><code>select * from student where 1= 1 order by chinese desc,math desc,english desc;</code></li>
+</ul>
+<h2 id="分组group-by">分组(group by)</h2>
+<ul>
+<li>如果聚合函数只有一行，需要对于不同的集合做聚合运算就加上分组
+<ul>
+<li><code>select zu,count(*) from student group by zu;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="分页limit">分页(limit)</h2>
+<ul>
+<li><code>select * from student limit 10,5;</code></li>
+<li>limit offset(起始位置) count(显示多少个)</li>
+<li>limit 使用的时候，offset从0开始</li>
+<li>豆瓣： offset （当前页-1）* 页显示数
+<ul>
+<li>count ： 页显示数</li>
+</ul>
+</li>
+</ul>
+<h2 id="默认端口">默认端口</h2>
+<ul>
+<li>oracle：1521</li>
+<li>sqlserver ：1433</li>
+<li>mysql ：3306</li>
+<li>mongodb ：27017</li>
+<li>DB2 ： 50000</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/mysql" title="mysql">mysql</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本操作">基本操作</a></li>
+    <li><a href="#查询语句">查询语句</a></li>
+    <li><a href="#条件查询">条件查询</a></li>
+    <li><a href="#聚合函数">聚合函数</a></li>
+    <li><a href="#排序order-by">排序(order by)</a></li>
+    <li><a href="#分组group-by">分组(group by)</a></li>
+    <li><a href="#分页limit">分页(limit)</a></li>
+    <li><a href="#默认端口">默认端口</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1214,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1367,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

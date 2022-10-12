@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WebGL on 姜波</title>
+    <link>https://wilberjiang.com/tags/webgl/</link>
+    <description>Recent content in WebGL on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sun, 03 Jul 2022 21:07:31 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/webgl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebGL基础</title>
+      <link>https://wilberjiang.com/post/visualization/webgl%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Sun, 03 Jul 2022 21:07:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/webgl%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;初识webgl&#34;&gt;初识WebGL&lt;/h2&gt;
+&lt;p&gt;WebGL 解决了用户在页面中&lt;strong&gt;绘制和渲染 3D 图形&lt;/strong&gt;的功能，且使用户通过页面与&lt;strong&gt;三维图形交互成&lt;/strong&gt;为可能，这项技术将在下一代开发用户易用直观界面中发挥重要的作用。在接下的几年，WebGL技术将广泛地应用于电子设备的移动终端，包括&lt;strong&gt;平板、手机设备&lt;/strong&gt;，因此，WebGL 技术的学习显的特别重要。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>CSS3高级 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,42 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/front/css3%E9%AB%98%E7%BA%A7/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="CSS3高级" />
+<meta property="og:description" content="CSS3核心高级技巧
+早期的双飞翼布局&#43;CSS HACK
+
+position
+float
+负边距
+等高
+盒子模型
+清除浮动
+
+基于移动端的PX与REM转换兼容方案" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/css3%E9%AB%98%E7%BA%A7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-07-25T20:53:31+08:00" />
+<meta property="article:modified_time" content="2019-07-25T20:53:31+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="CSS3高级"/>
+<meta name="twitter:description" content="CSS3核心高级技巧
+早期的双飞翼布局&#43;CSS HACK
+
+position
+float
+负边距
+等高
+盒子模型
+清除浮动
+
+基于移动端的PX与REM转换兼容方案"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +94,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +133,311 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          CSS3高级
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期四，七月 25 日，2019 年
+              
+
+            | 6 分钟阅读
+
+            | 更新于
+              
+                星期四，七月 25 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="css3核心高级技巧">CSS3核心高级技巧</h2>
+<h3 id="早期的双飞翼布局css-hack">早期的双飞翼布局+CSS HACK</h3>
+<ul>
+<li>position</li>
+<li>float</li>
+<li>负边距</li>
+<li>等高</li>
+<li>盒子模型</li>
+<li>清除浮动</li>
+</ul>
+<h3 id="基于移动端的px与rem转换兼容方案">基于移动端的PX与REM转换兼容方案</h3>
+<ul>
+<li>different size different DPR</li>
+<li>目前的设计稿 一般是 640 750 1125，一般要先均分成 100份，(兼容vh,vm) 750/10 = 75px。div宽是 240px*120px css的书写改为3.2rem * 1.6rem。 配合响应 式修改html根的大小。</li>
+<li>字体不建议使用rem的，data-dpr属性动态设置字体大小。 屏幕变大放更多的文字，或者屏幕更大放更多的字。</li>
+<li>神奇的padding/margin-top等比例缩放间距</li>
+</ul>
+<h3 id="弹性盒模型与reset的选择">弹性盒模型与Reset的选择</h3>
+<ul>
+<li>flex模型</li>
+<li>*的杀伤力太大</li>
+<li>Reset.css 重置 Normalize.css修复 Neat.css融合</li>
+<li>html{box-sizing: border-box;} <em>,</em>:before,*:after{box-sizing: inherit;}</li>
+</ul>
+<h3 id="自制的icon-font与常用字体排版">自制的ICON-FONT与常用字体排版</h3>
+<ul>
+<li>no-image时代 不超过纯色为2的图像</li>
+<li>宋体非宋体 黑体非黑体 WIndows下的宋体叫中易宋体 SimSun，Mac是华文宋体STSong。WIndows下的黑体叫中易黑 体SimHei，Mac是华文黑体STHeiti。</li>
+<li>不要只写中文字体名，保证西文字体在中文字体前面。Mac- &gt;Linux-&gt;Windows</li>
+<li>切忌不要直接使用设计师PSD的设计font-family,关键时刻再 去启动font-face(typo.css 、 Entry.css 、Type.css )</li>
+<li>font-family: sans-serif;系统默认，字体多个单词组成加引号。</li>
+<li>CSS ICON <a href="http://cssicon.space/#/">http://cssicon.space/#/</a></li>
+<li>有关设计的JS underline.js\responsify.js\typedetail.com\cssicon.space\designresearch.space</li>
+</ul>
+<h3 id="css代码检测与团队项目规范">CSS代码检测与团队项目规范</h3>
+<ul>
+<li>不要使用多个class选择元素，如a.foo.boo，这在ie6及以下不能正确解析</li>
+<li>移除空的css规则，如a{}</li>
+<li>正确的使用显示属性，如display:inline不要和width，height，float，margin,padding同时使用，display:inline-block不要和float 同时使用等</li>
+<li>避免过多的浮动，当浮动次数超过十次时，会显示警告</li>
+<li>避免使用过多的字号，当字号声明超过十种时，显示警告</li>
+<li>避免使用过多web字体，当使用超过五次时，显示警告</li>
+<li>避免使用id作为样式选择器</li>
+<li>标题元素只定义一次</li>
+<li>使用width:100%时要小心</li>
+<li>属性值为0时不要写单位</li>
+<li>各浏览器专属的css属性要有规范，例如.foo{-moz-border-radius:5px;border-radius:5px}</li>
+<li>避免使用看起来像正则表达式的css3选择器</li>
+<li>遵守盒模型规则</li>
+<li>hint.css</li>
+</ul>
+<h3 id="css绘制特殊图形-高级技巧">CSS绘制特殊图形 高级技巧</h3>
+<ul>
+<li>
+<p>border &amp;&amp; border-radius 造就万千可能</p>
+</li>
+<li>
+<p>after &amp;&amp; before 任何一个HTML元素都可以创造 3个可以供我们操作的视觉元素，即三个矩形。</p>
+</li>
+<li>
+<p>box-shadow是可以定义为任意颜色的，并且同一 个元素可以投射出不同的box-shadow。
+<img src="/img_md/1583720717528.jpg" alt="Image text"></p>
+<ul>
+<li>
+<p>神奇borders构建的三角形</p>
+<p><img src="/img_md/1583720839190.jpg" alt="Image text"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="bfc">BFC</h3>
+<ul>
+<li>
+<p>Box: CSS布局的基本单位 
+Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类 型的 Box， 会参与不同的 Formatting Context(一个决定如何渲染文档的容 器)，因此Box内的元素会以不同的方式渲染。</p>
+</li>
+<li>
+<p>block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context;</p>
+</li>
+<li>
+<p>inline-level box:display 属性为 inline, inline-block, inline-table 的元素，会生成 inline-level box。并且参与 inline formatting context;</p>
+</li>
+<li>
+<p>Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲 染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他 元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称BFC)和 Inline formatting context (简称IFC)。</p>
+</li>
+<li>
+<p>哪些元素会生成BFC</p>
+<ul>
+<li>
+<p>根元素</p>
+</li>
+<li>
+<p>float属性不为none</p>
+</li>
+<li>
+<p>position为absolute或fixed</p>
+</li>
+<li>
+<p>display为inline-block, table-cell, table-caption, flex, inline-flex</p>
+</li>
+<li>
+<p>overflow不为visible</p>
+</li>
+</ul>
+</li>
+<li>
+<p>BFC布局规则</p>
+<ul>
+<li>每个元素的margin box的左边， 与包含块border box的左边 相接触(对于从左往右的格式化，否则相反)。即使存在浮动 也是如此。</li>
+<li>BFC的区域不会与float box重叠</li>
+</ul>
+</li>
+</ul>
+<h3 id="ifc">IFC</h3>
+<ul>
+<li>&ldquo;内联格式化上下文&rdquo;，IFC的line box(线框)高度由其包含行内元素中最高的实际高度计算而来(不 受到竖直方向的padding/margin影响)</li>
+</ul>
+<h3 id="ffc">FFC</h3>
+<ul>
+<li>&ldquo;自适应格式化上下文&rdquo;，display值 为flex或者inline-flex的元素将会生成自适应容器(flex container)</li>
+</ul>
+<h3 id="gfc">GFC</h3>
+<ul>
+<li>&ldquo;网格布局格式化上下文&rdquo;， 当为一个元素设置display值为grid的时候，此元素将会获得一个独立 的渲染区域，我们可以通过在网格容器(grid container)上定义网格 定义行(grid definition rows)和网格定义列(grid definition columns) 属性各在网格项目(grid item)上定义网格行(grid row)和网格列 (grid columns)为每一个网格项目(grid item)定义位置和空间。</li>
+</ul>
+<h2 id="css矩阵探秘">CSS矩阵探秘</h2>
+<h3 id="矩阵数学概念">矩阵数学概念</h3>
+<ul>
+<li>在数学中，矩阵(Matrix)是一个 按照长方阵列排列的复数或实数集合， 最早来自于方程组的系数及常数所构成 的方阵</li>
+<li>由 m × n 个数amn排成的m行n列 的数表称为m行n列的矩阵，简称m × n矩阵。这m×n 个数称为矩阵A的元 素，简称为元</li>
+</ul>
+<h3 id="矩阵乘法">矩阵乘法</h3>
+<ul>
+<li>矩阵第m行与第n列交叉位置的那个值，等于第一个矩阵第m行与第二个矩阵第n 列，对应位置的每个值的乘积之和。线性代数是向量计算的基础，很多重要的数学模 型都要用到向量计算</li>
+</ul>
+<h3 id="css中矩阵应用">CSS中矩阵应用</h3>
+<ul>
+<li>
+<p>matrix() 元素2D平面的移动变换(transform)，2D变换矩阵为3*3</p>
+</li>
+<li>
+<p>matrix3d() 是3D变换，3D变换则是4*4的矩阵</p>
+</li>
+<li>
+<p>transform: matrix(1, 0, 0, 1, 30, 30); /* a=1, b=0, c=0, d=1, e=30, f=30 */</p>
+<p><img src="/img_md/1583673179642.jpg" alt="Image text"></p>
+<p>x坐标就是ax+cy+e = 1<em>0+0</em>0+30 =30,</p>
+<p>y坐标就是bx+dy+f = 0<em>0+1</em>0+30 =30.</p>
+</li>
+<li>
+<p>矩阵变形css3演示http://www.css88.com/tool/css3Preview/Transform-Matrix.html</p>
+</li>
+<li>
+<p>transform: matrix(x,x,x,x, 水平偏移距离, 垂直偏移距离);</p>
+</li>
+<li>
+<p>matrix(sx, 0, 0, sy, 0, 0); 等同于scale(sx, sy);</p>
+</li>
+<li>
+<p><img src="/img_md/1583673984188.jpg" alt="Image text"></p>
+</li>
+</ul>
+<pre tabindex="0"><code>//单位圆等到等式
+x`=cos(β+α)*r
+y`=sin(β+α)*r
+z`=z
+//已知
+r=√(x^2+y^2)
+//和差化积公式
+sin(β+α)=sin(β)cos(α)+cos(β)sin(α)
+cos(β+α)=cos(β)cos(α)-sin(β)sin(α)
+//正弦余弦定义
+cos(α)=x/r
+sin(α)=y/r
+//代入
+x`=(cos(β)*x/r-sin(β)*y/r)*r=cos(β)*x-sin(β)*y
+y`=(sin(β)*x/r+cos(β)*y/r)*r=sin(β)*x+cos(β)*y
+//猜想旋转矩阵
+|x`| |cos(β),-sin(β)| |x|
+|y`|=|sin(β), cos(β)|*|y|
+</code></pre><ul>
+<li>拉伸(skew)
+matrix(1,tan(θy),tan(θx),1,0,0)
+x&rsquo; = x+y<em>tan(θx)+0 = x+y</em>tan(θx)
+y&rsquo; = x<em>tan(θy)+y+0 = x</em>tan(θy)+y</li>
+<li><img src="/img_md/1583676022739.jpg" alt="Image text"></li>
+<li>translate3d(tx,ty,tz)等价于matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,tx,ty,tz,1)</li>
+<li>scale3d(sx,sy,sz)等价于matrix3d(sx,0,0,0,0,sy,0,0,0,0,sz,0,0,0,0,1)</li>
+<li><a href="http://wow.techbrood.com/fiddle/25741">http://wow.techbrood.com/fiddle/25741</a></li>
+</ul>
+<h3 id="更多矩阵应用场景">更多矩阵应用场景</h3>
+<ul>
+<li>
+<p>SVG</p>
+<p>transform=&ldquo;matrix(a b c d e f)&rdquo;</p>
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>Canvas</p>
+<p>context.transform(2,0,0,2,150,150);</p>
+</li>
+<li>
+<p>WebGL</p>
+<p>矩阵在3D渲染中不可缺少，坐标变换有模型变换，视图变换，投影变换等多种。</p>
+</li>
+<li>
+<p>CSS 3D</p>
+<p>transform: matrix3d(sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, 0, 0, 0, 0, 1)</p>
+</li>
+</ul>
+<h3 id="快速提高生产能力">快速提高生产能力</h3>
+<ul>
+<li>matrix3d <a href="http://ds-overdesign.com/transform/matrix3d.html">http://ds-overdesign.com/transform/matrix3d.html</a></li>
+<li>CSS-Matrix3d <a href="https://github.com/Zhangdroid/CSS-Matrix3d">https://github.com/Zhangdroid/CSS-Matrix3d</a></li>
+<li>matrix <a href="http://meyerweb.com/eric/tools/matrix/">http://meyerweb.com/eric/tools/matrix/</a></li>
+<li>tools <a href="http://www.f2e.name/case/css3/tools.html">http://www.f2e.name/case/css3/tools.html</a></li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/css" title="css">css</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#css3核心高级技巧">CSS3核心高级技巧</a>
+      <ul>
+        <li><a href="#早期的双飞翼布局css-hack">早期的双飞翼布局+CSS HACK</a></li>
+        <li><a href="#基于移动端的px与rem转换兼容方案">基于移动端的PX与REM转换兼容方案</a></li>
+        <li><a href="#弹性盒模型与reset的选择">弹性盒模型与Reset的选择</a></li>
+        <li><a href="#自制的icon-font与常用字体排版">自制的ICON-FONT与常用字体排版</a></li>
+        <li><a href="#css代码检测与团队项目规范">CSS代码检测与团队项目规范</a></li>
+        <li><a href="#css绘制特殊图形-高级技巧">CSS绘制特殊图形 高级技巧</a></li>
+        <li><a href="#bfc">BFC</a></li>
+        <li><a href="#ifc">IFC</a></li>
+        <li><a href="#ffc">FFC</a></li>
+        <li><a href="#gfc">GFC</a></li>
+      </ul>
+    </li>
+    <li><a href="#css矩阵探秘">CSS矩阵探秘</a>
+      <ul>
+        <li><a href="#矩阵数学概念">矩阵数学概念</a></li>
+        <li><a href="#矩阵乘法">矩阵乘法</a></li>
+        <li><a href="#css中矩阵应用">CSS中矩阵应用</a></li>
+        <li><a href="#更多矩阵应用场景">更多矩阵应用场景</a></li>
+        <li><a href="#快速提高生产能力">快速提高生产能力</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1237,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1390,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

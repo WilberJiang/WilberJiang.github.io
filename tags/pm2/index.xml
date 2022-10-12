@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pm2 on 姜波</title>
+    <link>https://wilberjiang.com/tags/pm2/</link>
+    <description>Recent content in pm2 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 25 Aug 2020 11:25:13 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/pm2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PM2使用</title>
+      <link>https://wilberjiang.com/post/node/pm2%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 25 Aug 2020 11:25:13 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/pm2%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;核心价值&#34;&gt;核心价值&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;进程守护，系统崩溃自动重启&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动多进程，充分利用 CPU 和内存&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自带日志记录功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript高级 | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/javascript%E9%AB%98%E7%BA%A7/" />
+
+
+<meta property="og:title" content="JavaScript高级" />
+<meta property="og:description" content="JS基本介绍
+
+JS的用途：Javascript可以实现浏览器端、服务器端(nodejs)。。。
+浏览器端JS由以下三个部分组成：
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/javascript%E9%AB%98%E7%BA%A7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-12T21:24:41+08:00" />
+<meta property="article:modified_time" content="2019-08-12T21:24:41+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript高级"/>
+<meta name="twitter:description" content="JS基本介绍
+
+JS的用途：Javascript可以实现浏览器端、服务器端(nodejs)。。。
+浏览器端JS由以下三个部分组成：
+"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          JavaScript高级
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期一，八月 12 日，2019 年
+              
+
+            | 12 分钟阅读
+
+            | 更新于
+              
+                星期一，八月 12 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="js基本介绍">JS基本介绍</h2>
+<ul>
+<li>JS的用途：Javascript可以实现浏览器端、服务器端(nodejs)。。。</li>
+<li>浏览器端JS由以下三个部分组成：</li>
+</ul>
+<ul>
+<li>ECMAScript：基础语法(数据类型、运算符、函数。。。)
+<ul>
+<li>BOM(浏览器对象模型)：window、location、history、navigator。。。</li>
+<li>DOM(文档对象模型)：div、p、span。。。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ECMAScript又名es，有以下重大版本：
+<ul>
+<li>旧时代：
+<ul>
+<li>es1.0。。。es3.1</li>
+</ul>
+</li>
+<li>新时代：
+<ul>
+<li>es5</li>
+<li>es6(es2015)</li>
+<li>es7(es2016)、es8(es2017)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据类型">数据类型</h2>
+<ul>
+<li>基本数据类型——值类型：(数字、字符串、布尔值、null、undefined)
+<ul>
+<li>undefined类型？</li>
+</ul>
+</li>
+<li>复杂数据类型——引用类型：(对象)
+<ul>
+<li>数组</li>
+<li>函数</li>
+<li>正则表达式</li>
+<li>Date</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象的基本使用">对象的基本使用</h2>
+<h3 id="创建一个对象">创建一个对象</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">student</span><span style="color:#f92672">=</span>{ 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;李白&#34;</span> , <span style="color:#75715e">//student有一个name属性，值为&#34;李白&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">grade</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;初一&#34;</span> ,
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//a、student有一个say属性，值为一个函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//b、student有一个say方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;你好&#34;</span>);
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">run</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">speed</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;正在以&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">speed</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;米/秒的速度奔跑&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h3 id="对象是键值对的集合对象是由属性和方法构成的-ps也有说法为对象里面皆属性认为方法也是一个属性">对象是键值对的集合：对象是由属性和方法构成的 (ps：也有说法为：对象里面皆属性，认为方法也是一个属性)</h3>
+<ul>
+<li>name是属性    grade是属性</li>
+<li>say是方法     run是方法</li>
+</ul>
+<h3 id="对象属性操作">对象属性操作</h3>
+<h4 id="获取属性">获取属性：</h4>
+<h4 id="第一种方式语法">第一种方式：.语法</h4>
+<ul>
+<li>student.name      获取到name属性的值，为：&ldquo;李白&rdquo;</li>
+<li>student.say       获取到一个函数</li>
+</ul>
+<h4 id="第二种方式语法">第二种方式：[]语法</h4>
+<ul>
+<li>student[&ldquo;name&rdquo;]   等价于student.name</li>
+<li>student[&ldquo;say&rdquo;]    等价于student.say</li>
+</ul>
+<h4 id="号外2种方式的差异">号外：2种方式的差异：</h4>
+<ul>
+<li>.语法更方便，但是坑比较多(有局限性)，比如：
+<ul>
+<li>.后面不能使用js中的关键字、保留字(class、this、function。。。)</li>
+<li>.后面不能使用数字</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span><span style="color:#f92672">=</span>{};
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">obj</span>.<span style="color:#66d9ef">this</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>; <span style="color:#75715e">//语法错误
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">obj</span>.<span style="color:#ae81ff">0</span><span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>;   <span style="color:#75715e">//语法错误
+</span></span></span></code></pre></div><ul>
+<li>[]使用更广泛
+<ul>
+<li>o1[变量name]</li>
+<li>[&ldquo;class&rdquo;]、[&ldquo;this&rdquo;]都可以随意使用 <code>obj[&quot;this&quot;]=10</code></li>
+<li>[0]、[1]、[2]也可以使用
+<ul>
+<li><code>obj[3]=50 = obj[&quot;3&quot;]=50</code></li>
+<li>思考：为什么obj[3]=obj[&ldquo;3&rdquo;]</li>
+</ul>
+</li>
+<li>甚至还可以这样用：[&quot;[object Array]&quot;]
+<ul>
+<li>jquery里面就有这样的实现</li>
+</ul>
+</li>
+<li>也可以这样用：[&quot;{abc}&quot;]
+<ul>
+<li>给对象添加了{abc}属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="设置属性">设置属性</h4>
+<ul>
+<li><code>student[&quot;gender&quot;]=&quot;男&quot;</code>    等价于：    <code>student.gender=&quot;男&quot;</code>
+<ul>
+<li>如果student对象中没有gender属性，就添加一个gender属性，值为&quot;男&quot;</li>
+<li>如果student对象中有gender属性，就修改gender属性的值为&quot;男&quot;</li>
+</ul>
+</li>
+<li>案例1：<code>student.isFemale=true</code></li>
+<li>案例2：<code>student[&quot;children&quot;]=[1,2,5]</code></li>
+<li>案例3：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span>.<span style="color:#a6e22e">toShanghai</span><span style="color:#f92672">=</span><span style="color:#66d9ef">function</span>(){   
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;正在去往上海的路上&#34;</span>)   
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h4 id="删除属性">删除属性</h4>
+<ul>
+<li>delete student[&ldquo;gender&rdquo;]</li>
+<li>delete student.gender</li>
+</ul>
+<h2 id="通过构造函数创建对象">通过构造函数创建对象</h2>
+<h3 id="构造函数创建对象的例子">构造函数创建对象的例子：</h3>
+<ul>
+<li>
+<p>var xiaoming = new Object()     &ndash;&gt;   var xiaoming = {};</p>
+</li>
+<li>
+<p>var now = new Date()</p>
+</li>
+<li>
+<p>var rooms = new Array(1,3,5)    &ndash;&gt;   var rooms = [1,3,5]</p>
+</li>
+<li>
+<p><code>var isMale=/123/;</code>   ==&gt; <code>var isMale=new RegExp(&quot;123&quot;)</code></p>
+<ul>
+<li>isMale是通过RegExp构造函数创建出来的对象</li>
+<li>isMale是RegExp构造函数的实例</li>
+</ul>
+</li>
+<li>
+<p>以上例子中，Object、Date、Array都是内置的构造函数</p>
+</li>
+</ul>
+<h2 id="自定义一个构造函数来创建对象">自定义一个构造函数来创建对象</h2>
+<ul>
+<li>构造函数</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;赵云&#34;</span>,<span style="color:#ae81ff">18</span>)
+</span></span></code></pre></div><ul>
+<li>说明：<code>p1就是根据【Person构造函数】创建出来的对象</code></li>
+</ul>
+<h3 id="构造函数的概念">构造函数的概念</h3>
+<ul>
+<li>任何函数都可以当成构造函数
+<code>function CreateFunc(){ }</code></li>
+<li>只要把一个函数通过new的方式来进行调用，我们就把这一次函数的调用方式称之为：构造函数的调用
+<ul>
+<li>new CreateFunc(); 此时CreateFunc就是一个构造函数</li>
+<li>CreateFunc();     此时的CreateFunc并不是构造函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于new-object">关于new Object()</h3>
+<ul>
+<li>new Object()等同于对象字面量{}</li>
+</ul>
+<h3 id="构造函数的执行过程">构造函数的执行过程</h3>
+<p><code>var p1=new Person();</code></p>
+<ul>
+<li>1、创建一个对象 (我们把这个对象称之为Person构造函数的实例)- <code>_p1 </code></li>
+<li>2、创建一个内部对象，<code>this</code>，将this指向该实例(_p1)</li>
+<li>3、执行函数内部的代码，其中，操作this的部分就是操作了该实例(_p1)</li>
+<li>4、返回值：
+<ul>
+<li>a、如果函数没有返回值(没有return语句)，那么就会返回构造函数的实例(p1)</li>
+<li>b、如果函数返回了一个基本数据类型的值，那么本次构造函数的返回值是该实例(_p1)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn</span>(){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f1</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">fn</span>();    <span style="color:#75715e">//f1就是fn的实例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn2</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f2</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">fn2</span>();   <span style="color:#75715e">//f2是fn2构造函数的实例
+</span></span></span></code></pre></div><ul>
+<li>c、如果函数返回了一个复杂数据类型的值，那么本次函数的返回值就是该值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn3</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>]; 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//数组是一个对象类型的值，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//所以数组是一个复杂数据类型的值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//--&gt;本次构造函数的真正返回值就是该数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//--&gt;不再是fn3构造函数的实例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f3</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">fn3</span>();   <span style="color:#75715e">//f3还是fn3的实例吗？错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//f3值为[1,3,5]
+</span></span></span></code></pre></div></li>
+</ul>
+<h2 id="继承">继承</h2>
+<h3 id="js中继承的概念">JS中继承的概念：</h3>
+<ul>
+<li>通过【某种方式】让一个对象可以访问到另一个对象中的属性和方法，我们把这种方式称之为继承  <code>并不是所谓的xxx extends yyy</code></li>
+</ul>
+<h3 id="为什么要使用继承">为什么要使用继承？</h3>
+<ul>
+<li>有些对象会有方法(动作、行为)，而这些方法都是函数，如果把这些方法和函数都放在构造函数中声明就会导致内存的浪费</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">say</span><span style="color:#f92672">=</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;你好&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p1</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p1</span>.<span style="color:#a6e22e">say</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">p2</span>.<span style="color:#a6e22e">say</span>);   <span style="color:#75715e">//false
+</span></span></span></code></pre></div><h3 id="继承的第一种方式原型链继承1">继承的第一种方式：原型链继承1</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">say</span><span style="color:#f92672">=</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;你好&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><ul>
+<li>缺点：添加1、2个方法无所谓，但是如果方法很多会导致过多的代码冗余</li>
+</ul>
+<h3 id="继承的第二种方式原型链继承2">继承的第二种方式：原型链继承2</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//切记不能忘记
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">constructor</span><span style="color:#f92672">:</span><span style="color:#a6e22e">Person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;你好&#34;</span>);
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">run</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;正在进行百米冲刺&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><ul>
+<li>注意点：</li>
+<li>a、一般情况下，应该先改变原型对象，再创建对象</li>
+<li>b、一般情况下，对于新原型，会添加一个constructor属性，从而不破坏原有的原型对象的结构</li>
+</ul>
+<h3 id="继承的第三种方式拷贝继承混入继承mixin">继承的第三种方式：拷贝继承(混入继承：mixin)</h3>
+<ul>
+<li>场景：有时候想使用某个对象中的属性，但是又不能直接修改它，于是就可以创建一个该对象的拷贝</li>
+<li>实际运用：
+<ul>
+<li>jquery：$.extend：编写jquery插件的必经之路
+<ul>
+<li>基于jquery封装一个表格控件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o1</span><span style="color:#f92672">=</span>{ <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">o1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">o2</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>;      
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//1、修改了o2对象的age属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//2、由于o2对象跟o1对象是同一个对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//3、所以此时o1对象的age属性也被修改了
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o3</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">gender</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;男&#34;</span>,<span style="color:#a6e22e">grade</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;初三&#34;</span>,<span style="color:#a6e22e">group</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;第五组&#34;</span>,<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;张三&#34;</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o4</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">gender</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;男&#34;</span>,<span style="color:#a6e22e">grade</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;初三&#34;</span>,<span style="color:#a6e22e">group</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;第五组&#34;</span>,<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;李四&#34;</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//上述代码中，如果使用拷贝继承对代码进行优化会非常和谐
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//实现拷贝继承：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//1、已经拥有了o3对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//2、创建一个o3对象的拷贝(克隆)：for...in循环
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//3、修改克隆对象，把该对象的name属性改为&#34;李四&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span></code></pre></div><ul>
+<li>实现1：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;李白&#34;</span>,<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span>{};
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#a6e22e">source</span>.<span style="color:#a6e22e">age</span>;
+</span></span></code></pre></div><ul>
+<li>
+<p>浅拷贝和深拷贝</p>
+<ul>
+<li>浅拷贝只是拷贝一层属性，没有内部对象</li>
+<li>深拷贝其实是利用了递归的原理，将对象的若干层属性拷贝出来</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">students</span><span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;&#34;</span>}
+</span></span><span style="display:flex;"><span>    ]
+</span></span></code></pre></div></li>
+<li>
+<p>上面的方式很明显无法重用，实际代码编写过程中，很多时候都会使用拷贝继承的方式，所以为了重用，可以编写一个函数把他们封装起来：</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">extend</span>(<span style="color:#a6e22e">target</span>,<span style="color:#a6e22e">source</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">source</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">key</span>]<span style="color:#f92672">=</span><span style="color:#a6e22e">source</span>[<span style="color:#a6e22e">key</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">extend</span>(<span style="color:#a6e22e">target</span>,<span style="color:#a6e22e">source</span>)
+</span></span></code></pre></div><ul>
+<li>
+<p>由于拷贝继承在实际开发中使用场景非常多，所以很多库都对此有了实现</p>
+<ul>
+<li>jquery：$.extend</li>
+</ul>
+</li>
+<li>
+<p>es6中有了 &lt;对象扩展运算符&gt; 仿佛就是专门为了拷贝继承而生：</p>
+<ul>
+<li>优点：简单的令人发指</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">source</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;李白&#34;</span>,<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//让target是一个新对象，同时拥有了name、age属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span>{ ...<span style="color:#a6e22e">source</span> }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target2</span><span style="color:#f92672">=</span>{ ...<span style="color:#a6e22e">source</span>,<span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">18</span> }
+</span></span></code></pre></div><h3 id="继承的第四种方式原型式继承道格拉斯在蝴蝶书中提出来的">继承的第四种方式：原型式继承：(道格拉斯在蝴蝶书中提出来的)</h3>
+<ul>
+<li>场景：
+<ul>
+<li>a、创建一个纯洁的对象：对象什么属性都没有</li>
+<li>b、创建一个继承自某个父对象的子对象
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">parent</span><span style="color:#f92672">=</span>{ <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">18</span>,<span style="color:#a6e22e">gender</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;男&#34;</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">student</span><span style="color:#f92672">=</span>Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">parent</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//student.__proto__===parent
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>使用方式：
+<ul>
+<li>空对象：Object.create(null)</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o1</span><span style="color:#f92672">=</span>{ <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){} }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o2</span><span style="color:#f92672">=</span>Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">o1</span>);
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="继承的第五种方式借用构造函数实现继承">继承的第五种方式：借用构造函数实现继承</h3>
+<ul>
+<li>场景：适用于2种构造函数之间逻辑有相似的情况</li>
+<li>原理：函数的call、apply调用方式</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Animal</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>,<span style="color:#a6e22e">gender</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gender</span><span style="color:#f92672">=</span><span style="color:#a6e22e">gender</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>,<span style="color:#a6e22e">gender</span>,<span style="color:#a6e22e">say</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">gender</span><span style="color:#f92672">=</span><span style="color:#a6e22e">gender</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">say</span><span style="color:#f92672">=</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>
+<p>局限性：Animal(父类构造函数)的代码必须完全适用于Person(子类构造函数)</p>
+</li>
+<li>
+<p>以上代码用借用构造函数实现</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Animal</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#a6e22e">age</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>,<span style="color:#a6e22e">address</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Animal</span>.<span style="color:#a6e22e">call</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//this.name=name;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//this.age=age;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">address</span><span style="color:#f92672">=</span><span style="color:#a6e22e">address</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>寄生继承、寄生组合继承</li>
+</ul>
+<h2 id="原型链家族族谱">原型链(家族族谱)</h2>
+<ul>
+<li>
+<p>概念：JS里面的对象可能会有父对象，父对象还会有父对象，。。。。。祖先</p>
+</li>
+<li>
+<p>根本：继承</p>
+<ul>
+<li>属性：对象中几乎都会有一个__proto__属性，指向他的父对象
+-意义：可以实现让该对象访问到父对象中相关属性</li>
+</ul>
+</li>
+<li>
+<p>根对象：Object.prototype</p>
+<ul>
+<li>var arr=[1,3,5]</li>
+<li>arr.<strong>proto</strong>：Array.prototype</li>
+<li>arr.<strong>proto</strong>.__proto__找到了根对象</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Animal</span>(){}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cat</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Animal</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//cat.__proto__：Animal.prototype
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//cat.__proto__.__proto__:根对象
+</span></span></span></code></pre></div></li>
+<li>
+<p>错误的理解：万物继承自Object？</p>
+</li>
+</ul>
+<h2 id="闭包">闭包</h2>
+<h3 id="变量作用域">变量作用域</h3>
+<ul>
+<li>变量作用域的概念：就是一个变量可以使用的范围</li>
+<li>JS中首先有一个最外层的作用域：称之为全局作用域</li>
+<li>JS中还可以通过函数创建出一个独立的作用域，其中函数可以嵌套，所以作用域也可以嵌套</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>;     <span style="color:#75715e">//age是在全局作用域中声明的变量：全局变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);      <span style="color:#75715e">//可以访问到name变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;周董&#34;</span> <span style="color:#75715e">//name是f1函数内部声明的变量，所以name变量的作用域就是在f1函数内部
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);      <span style="color:#75715e">//可以访问到name变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">age</span>);       <span style="color:#75715e">//age是全局作用域中声明的，所以age也可以访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">age</span>);       <span style="color:#75715e">//也可以访问
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#75715e">//多级作用域
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//--&gt;1级作用域
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gender</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;男&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//问题：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//gender:可以访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//age:  可以访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//height:不能访问
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//--&gt;2级作用域
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//问题：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//gender:   通过一级一级作用域的查找，发现gender是全局作用域中声明的变量
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//age:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//height：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gender</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//--&gt;3级作用域
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#ae81ff">180</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h3 id="作用域链">作用域链</h3>
+<ul>
+<li>
+<p>由于作用域是相对于变量而言的，而如果存在多级作用域，这个变量又来自于哪里？这个问题就需要好好地探究一下了，我们把这个变量的查找过程称之为变量的作用域链</p>
+</li>
+<li>
+<p>作用域链的意义：查找变量（确定变量来自于哪里，变量是否可以访问）</p>
+</li>
+<li>
+<p>简单来说，作用域链可以用以下几句话来概括：(或者说：确定一个变量来自于哪个作用域)</p>
+<ul>
+<li>查看当前作用域，如果当前作用域声明了这个变量，就确定结果</li>
+<li>查找当前作用域的上级作用域，也就是当前函数的上级函数，看看上级函数中有没有声明</li>
+<li>再查找上级函数的上级函数，直到全局作用域为止</li>
+<li>如果全局作用域中也没有，我们就认为这个变量未声明(xxx is not defined)</li>
+</ul>
+</li>
+<li>
+<p>举例1：</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span></code></pre></div><ul>
+<li>举例2：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span></code></pre></div><ul>
+<li>举例3：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span></code></pre></div><ul>
+<li>举例4：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fn</span><span style="color:#f92672">=</span><span style="color:#a6e22e">f1</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fn</span>();
+</span></span></code></pre></div><ul>
+<li>举例5：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;张三&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fn</span><span style="color:#f92672">=</span><span style="color:#a6e22e">f1</span>();
+</span></span></code></pre></div><h3 id="闭包的问题">闭包的问题</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fn</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f1</span><span style="color:#f92672">=</span><span style="color:#a6e22e">fn</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>();
+</span></span></code></pre></div><h3 id="闭包问题的产生原因">闭包问题的产生原因</h3>
+<ul>
+<li>函数执行完毕后，作用域中保留了最新的a变量的值</li>
+</ul>
+<h3 id="闭包的应用场景">闭包的应用场景</h3>
+<ul>
+<li>模块化</li>
+<li>防止变量被破坏</li>
+</ul>
+<h3 id="函数的4种调用方式">函数的4种调用方式</h3>
+<ul>
+<li>在<code>ES6之前</code>，函数内部的this是由该函数的调用方式决定的
+<ul>
+<li>函数内部的this跟大小写、书写位置无关</li>
+</ul>
+</li>
+<li>1、函数调用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span><span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);<span style="color:#75715e">//window.age:18
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s1</span><span style="color:#f92672">=</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">say</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s1</span>();       <span style="color:#75715e">//函数调用
+</span></span></span></code></pre></div><ul>
+<li>2、方法调用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span><span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);<span style="color:#75715e">//this:p
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//this.age-&gt;p.age:15
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">say</span>()<span style="color:#75715e">//方法调用
+</span></span></span></code></pre></div><ul>
+<li>3、new调用(构造函数)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">age</span><span style="color:#f92672">=</span><span style="color:#ae81ff">18</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span><span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//this：say构造函数的实例,实例中并没有age属性，值为：undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">say</span>()<span style="color:#75715e">//构造函数调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//相当于：
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s1</span><span style="color:#f92672">=</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">say</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">s1</span>();
+</span></span></code></pre></div><ul>
+<li>4、上下文方式(call、apply、bind)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">length</span><span style="color:#f92672">=</span><span style="color:#ae81ff">21</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span>.<span style="color:#a6e22e">call</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>])    <span style="color:#75715e">//3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">f1</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>)      <span style="color:#75715e">//window.length：21
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">f1</span>.<span style="color:#a6e22e">call</span>(<span style="color:#ae81ff">5</span>)          <span style="color:#75715e">//undefined
+</span></span></span></code></pre></div><ul>
+<li>上下文模式应用场景：
+<ul>
+<li>一些需要指定this的情况，比如$.each方法回调函数内部的this</li>
+<li>判断数据类型：
+<ul>
+<li>Object.prototype.toString.call(1);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在ES6的箭头函数之前的时代，想要判断一个函数内部的this指向谁，就是根据上面的四种方式来决定的</li>
+</ul>
+<h3 id="原型">原型</h3>
+<ul>
+<li>原型很多人开发用不到？
+<ul>
+<li>很多人都用es6/7/8开发，确实用的比较少</li>
+<li>如果你用es5之前的版本开发代码(IE8、IE7。。。)，可能天天都要写原型</li>
+<li>理解了原型，才是理解了JS面向对象的核心</li>
+</ul>
+</li>
+<li>类继承其实本质上还是用原型继承来(包装)的</li>
+</ul>
+<h2 id="对象的属性查找规则">对象的属性查找规则</h2>
+<ol>
+<li>首先查看本身有没有length属性</li>
+<li>如果本身没有该属性，那么去它的原型对象中查找</li>
+<li>如果原型对象中没有，那么就去原型对象的原型对象中查找，最终一直找到根对象（Object.prototype）</li>
+<li>最终都没有找到的话，我们认为该对象并没有该属性，如果获取该属性的值：undefined</li>
+</ol>
+<h2 id="补充判断数据类型">补充，判断数据类型</h2>
+<ul>
+<li>typeof
+<ul>
+<li>typeof只能判断：数字、字符串、布尔值、undefined、函数</li>
+</ul>
+</li>
+<li><code>Object.prototype.toString.call()</code>
+<ul>
+<li>5  &lsquo;[object Number]&rsquo;</li>
+<li>&ldquo;abc&rdquo; &lsquo;[object String]&rsquo;</li>
+<li>true &lsquo;[object Boolean]&rsquo;</li>
+<li>null &lsquo;[object Null]&rsquo;</li>
+<li>undefined &lsquo;[object Undefined]&rsquo;</li>
+<li>[1,3,5] &lsquo;[object Array]&rsquo;</li>
+<li>function(){}  &lsquo;[object Function]&rsquo;</li>
+<li>new Date()   &lsquo;[object Date]&rsquo;</li>
+<li>/abc/        &lsquo;[object RegExp]&rsquo;</li>
+</ul>
+</li>
+<li>Array.isArray()  es5中提出来的检测数组</li>
+<li>isNaN()</li>
+<li>isInfinity()</li>
+</ul>
+<h2 id="指向window">指向window</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">$</span>.<span style="color:#a6e22e">ajax</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">success</span><span style="color:#f92672">:</span><span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>);        <span style="color:#75715e">//window
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>].<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">function</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>);      <span style="color:#75715e">//window
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;div&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">$</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;div&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+</span></span></code></pre></div><h2 id="global和window的区别">global和window的区别</h2>
+<ul>
+<li>global是es中全局作用域中的根对象
+<ul>
+<li>但是nodejs里面，global全是表示全局变量的载体</li>
+<li>浏览器端的js里面，全局变量都放在了window中，浏览器中不存在global对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="冻结对象">冻结对象</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">arr1</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">freeze</span>([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">isFrozen</span>(<span style="color:#a6e22e">arr1</span>));
+</span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/js" title="js">js</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#js基本介绍">JS基本介绍</a></li>
+    <li><a href="#数据类型">数据类型</a></li>
+    <li><a href="#对象的基本使用">对象的基本使用</a>
+      <ul>
+        <li><a href="#创建一个对象">创建一个对象</a></li>
+        <li><a href="#对象是键值对的集合对象是由属性和方法构成的-ps也有说法为对象里面皆属性认为方法也是一个属性">对象是键值对的集合：对象是由属性和方法构成的 (ps：也有说法为：对象里面皆属性，认为方法也是一个属性)</a></li>
+        <li><a href="#对象属性操作">对象属性操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#通过构造函数创建对象">通过构造函数创建对象</a>
+      <ul>
+        <li><a href="#构造函数创建对象的例子">构造函数创建对象的例子：</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义一个构造函数来创建对象">自定义一个构造函数来创建对象</a>
+      <ul>
+        <li><a href="#构造函数的概念">构造函数的概念</a></li>
+        <li><a href="#关于new-object">关于new Object()</a></li>
+        <li><a href="#构造函数的执行过程">构造函数的执行过程</a></li>
+      </ul>
+    </li>
+    <li><a href="#继承">继承</a>
+      <ul>
+        <li><a href="#js中继承的概念">JS中继承的概念：</a></li>
+        <li><a href="#为什么要使用继承">为什么要使用继承？</a></li>
+        <li><a href="#继承的第一种方式原型链继承1">继承的第一种方式：原型链继承1</a></li>
+        <li><a href="#继承的第二种方式原型链继承2">继承的第二种方式：原型链继承2</a></li>
+        <li><a href="#继承的第三种方式拷贝继承混入继承mixin">继承的第三种方式：拷贝继承(混入继承：mixin)</a></li>
+        <li><a href="#继承的第四种方式原型式继承道格拉斯在蝴蝶书中提出来的">继承的第四种方式：原型式继承：(道格拉斯在蝴蝶书中提出来的)</a></li>
+        <li><a href="#继承的第五种方式借用构造函数实现继承">继承的第五种方式：借用构造函数实现继承</a></li>
+      </ul>
+    </li>
+    <li><a href="#原型链家族族谱">原型链(家族族谱)</a></li>
+    <li><a href="#闭包">闭包</a>
+      <ul>
+        <li><a href="#变量作用域">变量作用域</a></li>
+        <li><a href="#作用域链">作用域链</a></li>
+        <li><a href="#闭包的问题">闭包的问题</a></li>
+        <li><a href="#闭包问题的产生原因">闭包问题的产生原因</a></li>
+        <li><a href="#闭包的应用场景">闭包的应用场景</a></li>
+        <li><a href="#函数的4种调用方式">函数的4种调用方式</a></li>
+        <li><a href="#原型">原型</a></li>
+      </ul>
+    </li>
+    <li><a href="#对象的属性查找规则">对象的属性查找规则</a></li>
+    <li><a href="#补充判断数据类型">补充，判断数据类型</a></li>
+    <li><a href="#指向window">指向window</a></li>
+    <li><a href="#global和window的区别">global和window的区别</a></li>
+    <li><a href="#冻结对象">冻结对象</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

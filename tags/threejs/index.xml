@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Threejs on 姜波</title>
+    <link>https://wilberjiang.com/tags/threejs/</link>
+    <description>Recent content in Threejs on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 02 Aug 2022 21:13:12 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/threejs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Threejs性能优化</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Tue, 02 Aug 2022 21:13:12 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;尽量共用几何体和材质&#34;&gt;尽量共用几何体和材质&lt;/h2&gt;
+&lt;p&gt;如果你需要创建三百个简单的相同颜色的立方体模型：&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs动画</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Thu, 28 Jul 2022 22:24:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs导入模型</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Wed, 27 Jul 2022 22:31:15 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。&lt;/p&gt;
+&lt;p&gt;模型制作工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;3dmax&lt;/li&gt;
+&lt;li&gt;SketchUp&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs粒子</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/</link>
+      <pubDate>Sun, 24 Jul 2022 21:16:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs相机</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/</link>
+      <pubDate>Fri, 22 Jul 2022 22:12:42 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。&lt;/li&gt;
+&lt;li&gt;常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。&lt;/li&gt;
+&lt;li&gt;由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs光照</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/</link>
+      <pubDate>Mon, 18 Jul 2022 21:25:15 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs材质</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/</link>
+      <pubDate>Fri, 15 Jul 2022 20:11:23 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs几何体</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/</link>
+      <pubDate>Mon, 11 Jul 2022 21:16:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs场景</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/</link>
+      <pubDate>Sat, 09 Jul 2022 22:31:42 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs基础</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 06 Jul 2022 20:03:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/mrdoob/three.js&#34;&gt;https://github.com/mrdoob/three.js&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特点&#34;&gt;特点&lt;/h2&gt;
+&lt;p&gt;Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

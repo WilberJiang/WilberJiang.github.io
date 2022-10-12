@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>flutter on 姜波</title>
+    <link>https://wilberjiang.com/tags/flutter/</link>
+    <description>Recent content in flutter on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 21 Nov 2019 21:52:11 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flutter安装</title>
+      <link>https://wilberjiang.com/post/front/flutter%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Thu, 21 Nov 2019 21:52:11 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/front/flutter%E5%AE%89%E8%A3%85/</guid>
+      <description>&lt;h3 id=&#34;安装sdk&#34;&gt;安装SDK&lt;/h3&gt;
+&lt;p&gt;下载Flutter SDK&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将SDK添加至应用程序&lt;/li&gt;
+&lt;li&gt;~/.bash_profile添加export PATH=$PATH:/Applications/flutter/bin&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;配置不可用时恢复export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;source ~/.bash_profile&lt;/li&gt;
+&lt;li&gt;flutter &amp;ndash;help&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;配置ios环境&#34;&gt;配置IOS环境&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

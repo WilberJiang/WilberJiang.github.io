@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb on 姜波</title>
+    <link>https://wilberjiang.com/tags/mongodb/</link>
+    <description>Recent content in mongodb on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 25 Sep 2019 22:24:16 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node使用MongoDB</title>
+      <link>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/</link>
+      <pubDate>Wed, 25 Sep 2019 22:24:16 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/</guid>
+      <description>&lt;h1 id=&#34;mongodb&#34;&gt;MongoDB&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;一个数据库对应多个集合
+&lt;ul&gt;
+&lt;li&gt;一个集合对应多个文档对象&lt;/li&gt;
+&lt;li&gt;在mongo中不论是db还是集合，你都无需去创建他&lt;/li&gt;
+&lt;li&gt;直接就当他已经存在，直接Use来使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

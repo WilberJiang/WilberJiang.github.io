@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>CSS3核心 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,24 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/front/css3%E6%A0%B8%E5%BF%83/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="CSS3核心" />
+<meta property="og:description" content="动画
+滚动条" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/css3%E6%A0%B8%E5%BF%83/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-07-16T21:03:09+08:00" />
+<meta property="article:modified_time" content="2019-07-16T21:03:09+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="CSS3核心"/>
+<meta name="twitter:description" content="动画
+滚动条"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +76,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +115,196 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          CSS3核心
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期二，七月 16 日，2019 年
+              
+
+            | 2 分钟阅读
+
+            | 更新于
+              
+                星期二，七月 16 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="动画">动画</h2>
+<h3 id="滚动条">滚动条</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;line&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">line</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">980</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">border-radius</span>: <span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* 线性渐变 */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-image</span>: linear-gradient(
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">135</span><span style="color:#66d9ef">deg</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">25</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">green</span> <span style="color:#ae81ff">25</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">green</span> <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">75</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">green</span> <span style="color:#ae81ff">75</span><span style="color:#66d9ef">%</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">green</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-size</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">animation</span>: <span style="color:#66d9ef">move</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span> <span style="color:#66d9ef">infinite</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@<span style="color:#66d9ef">keyframes</span>  <span style="color:#f92672">move</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">from</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">background-position</span>: <span style="color:#ae81ff">0</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">to</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">background-position</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="背景">背景</h2>
+<h3 id="设置背景对齐位置">设置背景对齐位置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">background-image</span><span style="color:#f92672">:</span> <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.png&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-repeat</span><span style="color:#f92672">:</span> <span style="color:#f92672">no-repeat</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-origin</span><span style="color:#f92672">:</span> <span style="color:#f92672">padding-box</span><span style="color:#f92672">;</span><span style="color:#75715e">/* padding-box、border-box、content-box */</span>
+</span></span></code></pre></div><h3 id="设置背景裁切">设置背景裁切</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">background</span><span style="color:#f92672">:</span> <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.png&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-clip</span><span style="color:#f92672">:</span> <span style="color:#f92672">content-box</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-clip</span><span style="color:#f92672">:</span> <span style="color:#f92672">padding-box</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-clip</span><span style="color:#f92672">:</span> <span style="color:#f92672">border-box</span><span style="color:#f92672">;;</span><span style="color:#75715e">/* border-box、padding-box、content-box */</span>
+</span></span></code></pre></div><h3 id="背景尺寸大小设置">背景尺寸大小设置</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">background</span><span style="color:#f92672">:</span> <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.jpg&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">no-repeat</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">background-size</span><span style="color:#f92672">:</span> <span style="color:#f92672">auto</span><span style="color:#f92672">;</span><span style="color:#75715e">/* auto、200px 200px、cover、contain */</span>
+</span></span></code></pre></div><h2 id="边框">边框</h2>
+<h3 id="设置边框图片">设置边框图片</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/* 设置边框图片 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">border-image-source</span><span style="color:#f92672">:</span> <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.png&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 边框裁切 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">border-image-slice</span><span style="color:#f92672">:</span> <span style="color:#f92672">20</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 设置边框平铺方式 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">border-image-repeat</span><span style="color:#f92672">:</span> <span style="color:#f92672">stretch</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 设置边框宽度 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">border-image-width</span><span style="color:#f92672">:</span> <span style="color:#f92672">20px</span><span style="color:#f92672">;</span>
+</span></span></code></pre></div><h2 id="选择器">选择器</h2>
+<h3 id="属性选择器">属性选择器</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#f92672">属性名</span><span style="color:#f92672">=</span><span style="color:#f92672">值</span><span style="color:#f92672">]</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#f92672">属性名</span><span style="color:#f92672">]</span> {}     <span style="color:#75715e">/* 匹配对应的属性即可 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#f92672">属性名</span><span style="color:#f92672">^=</span><span style="color:#f92672">值</span><span style="color:#f92672">]</span> {} <span style="color:#75715e">/* 以值开头 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#f92672">属性名</span><span style="color:#f92672">*=</span><span style="color:#f92672">值</span><span style="color:#f92672">]</span> {} <span style="color:#75715e">/* 包含 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span><span style="color:#f92672">属性名</span><span style="color:#f92672">$=</span><span style="color:#f92672">值</span><span style="color:#f92672">]</span> {} <span style="color:#75715e">/* 以值结束 */</span>
+</span></span></code></pre></div><h3 id="结构伪类选择器">结构伪类选择器</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>:<span style="color:#a6e22e">first-child</span> {}         <span style="color:#75715e">/* 选中父元素中第一个子元素 */</span>
+</span></span><span style="display:flex;"><span>:<span style="color:#a6e22e">last-child</span> {}          <span style="color:#75715e">/* 选中父元素中最后一个子元素 */</span>
+</span></span><span style="display:flex;"><span>:<span style="color:#a6e22e">nth-child</span><span style="color:#f92672">(</span><span style="color:#f92672">n</span><span style="color:#f92672">)</span> {}        <span style="color:#75715e">/* 选中父元素中正数第n个子元素 */</span>
+</span></span><span style="display:flex;"><span>:<span style="color:#a6e22e">nth-last-child</span><span style="color:#f92672">(</span><span style="color:#f92672">n</span><span style="color:#f92672">)</span> {}   <span style="color:#75715e">/* 选中父元素中倒数第n个子元素 */</span>
+</span></span></code></pre></div><ul>
+<li>tip 备注
+<ul>
+<li>n 的取值大于等于0</li>
+<li>n 可以设置预定义的值</li>
+<li>odd[选中奇数位置的元素]</li>
+<li>even[选中偶数位置的元素]</li>
+<li>n 可以是一个表达式：an+b的格式</li>
+</ul>
+</li>
+</ul>
+<h3 id="其他选择器">其他选择器</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>:<span style="color:#a6e22e">target</span> {}          <span style="color:#75715e">/* 被锚链接指向的时候会触发该选择器 */</span>
+</span></span><span style="display:flex;"><span>::<span style="color:#a6e22e">selection</span> {}	    <span style="color:#75715e">/* 当被鼠标选中的时候的样式 */</span>
+</span></span><span style="display:flex;"><span>::<span style="color:#a6e22e">first-line</span> {}	    <span style="color:#75715e">/* 选中第一行 */</span>
+</span></span><span style="display:flex;"><span>::<span style="color:#a6e22e">first-letter</span> {}	<span style="color:#75715e">/* 选中第一个字符 */</span>
+</span></span></code></pre></div><h2 id="过渡">过渡</h2>
+<h3 id="过渡效果">过渡效果</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">box</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">343</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background</span>: url(<span style="color:#e6db74">&#34;1.png&#34;</span>) <span style="color:#66d9ef">no-repeat</span> <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">top</span>,rgba(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">.5</span>) url(<span style="color:#e6db74">&#34;1.png&#34;</span>) <span style="color:#66d9ef">no-repeat</span> <span style="color:#66d9ef">right</span> <span style="color:#66d9ef">bottom</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">transition</span>: <span style="color:#66d9ef">all</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">box</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">background-position</span>: <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">bottom</span>,<span style="color:#66d9ef">right</span> <span style="color:#66d9ef">top</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/css" title="css">css</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#动画">动画</a>
+      <ul>
+        <li><a href="#滚动条">滚动条</a></li>
+      </ul>
+    </li>
+    <li><a href="#背景">背景</a>
+      <ul>
+        <li><a href="#设置背景对齐位置">设置背景对齐位置</a></li>
+        <li><a href="#设置背景裁切">设置背景裁切</a></li>
+        <li><a href="#背景尺寸大小设置">背景尺寸大小设置</a></li>
+      </ul>
+    </li>
+    <li><a href="#边框">边框</a>
+      <ul>
+        <li><a href="#设置边框图片">设置边框图片</a></li>
+      </ul>
+    </li>
+    <li><a href="#选择器">选择器</a>
+      <ul>
+        <li><a href="#属性选择器">属性选择器</a></li>
+        <li><a href="#结构伪类选择器">结构伪类选择器</a></li>
+        <li><a href="#其他选择器">其他选择器</a></li>
+      </ul>
+    </li>
+    <li><a href="#过渡">过渡</a>
+      <ul>
+        <li><a href="#过渡效果">过渡效果</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1104,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1257,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

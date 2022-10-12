@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>Express应用 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,40 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="Express应用" />
+<meta property="og:description" content="启程helloworld
+
+安装npm i express -S
+1:引入express第三方对象
+2:构建一个服务器对象
+3:开启服务器监听端口
+4:处理响应
+在express中，保留了原生http的相关属性和函数
+
+app.use(虚拟目录,fn)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/node/express%E5%BA%94%E7%94%A8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-09-03T21:41:11+08:00" />
+<meta property="article:modified_time" content="2019-09-03T21:41:11+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="Express应用"/>
+<meta name="twitter:description" content="启程helloworld
+
+安装npm i express -S
+1:引入express第三方对象
+2:构建一个服务器对象
+3:开启服务器监听端口
+4:处理响应
+在express中，保留了原生http的相关属性和函数
+
+app.use(虚拟目录,fn)"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +92,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +131,238 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          Express应用
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期二，九月 3 日，2019 年
+              
+
+            | 3 分钟阅读
+
+            | 更新于
+              
+                星期二，九月 3 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="启程helloworld">启程helloworld</h2>
+<ul>
+<li>安装<code>npm i express -S</code></li>
+<li>1:引入express第三方对象</li>
+<li>2:构建一个服务器对象</li>
+<li>3:开启服务器监听端口</li>
+<li>4:处理响应</li>
+<li>在express中，保留了原生http的相关属性和函数</li>
+</ul>
+<h2 id="appuse虚拟目录fn">app.use(虚拟目录,fn)</h2>
+<ul>
+<li>小练习
+<ul>
+<li>选择性荤菜素菜</li>
+</ul>
+</li>
+<li>用户/abc/def的请求
+<ul>
+<li>选择性调用app.use(&rsquo;/abc&rsquo;,fn)的中间件</li>
+<li>但是内部req.url则去除了/abc这个暗号</li>
+</ul>
+</li>
+<li>app.use(fn)是任何请求都会触发执行的</li>
+</ul>
+<h2 id="中间件类别了解">中间件类别(了解)</h2>
+<ul>
+<li>应用级中间件 <code>app.use(事fn)</code></li>
+<li>路由级中间件
+<ul>
+<li>1:获取路径级中间件</li>
+<li>2:配置路由</li>
+<li>3:加入到应用程序控制中<code>app.use(router);</code></li>
+</ul>
+</li>
+<li>内置中间件
+<ul>
+<li>处理一些静态资源文件的返回(设置将某个目录下的资源文件向外暴露)
+<ul>
+<li>当url匹配上我设置的目录下的子文件后，自动返回该文件</li>
+<li>加入到应用程序控制中<code>app.use(内置中间件);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三方中间件
+<ul>
+<li>更方便的处理cookie/session,简易的解析post请求体数据</li>
+<li>在npm上下载并使用</li>
+<li>加入到应用程序控制中<code>app.use(第三方中间件);</code></li>
+</ul>
+</li>
+<li>错误处理中间件
+<ul>
+<li>在express中统一处理错误<code>next(err)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="路由中间件">路由中间件</h2>
+<ul>
+<li>一个请求进来(总网线),分发到各自不同的处理(分多根网线给其他人)
+<ul>
+<li><strong>分流</strong></li>
+</ul>
+</li>
+<li>后端路由
+<ul>
+<li>(请求方式 + URL = 判断依据)(分流的判断依据) -&gt; 做不同的处理(分流后的行为)</li>
+</ul>
+</li>
+<li>使用步骤
+<ul>
+<li>1:获取路由中间件对象 <code>let router = express.Router();</code></li>
+<li>2:配置路由规则 <code>router.请求方式(URL,fn事)</code>
+<ul>
+<li>fn中参数有req,res,next</li>
+</ul>
+</li>
+<li>3:将router加入到应用<code>app.use(router)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="路由">路由</h2>
+<p><img src="/img_md/1531832873008.png" alt="Image text"></p>
+<h2 id="res扩展函数">res扩展函数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">download</span>(<span style="color:#e6db74">&#39;./xxx.txt&#39;</span>) <span style="color:#75715e">// 下载文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>({})  <span style="color:#75715e">// 响应json对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">jsonp</span>(<span style="color:#a6e22e">数据</span>) <span style="color:#75715e">// 配合jsonp   要求客户端请求的时候也是jsonp的方式,  并且callback=xxx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">redirect</span>()  <span style="color:#75715e">//  重定向 301是永久重定向, 302临时重定向
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>()    <span style="color:#75715e">// 发送字符串数据自动加content-type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendFile</span>() <span style="color:#75715e">// 显示一个文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendStatus</span>() <span style="color:#75715e">// 响应状态码
+</span></span></span></code></pre></div><ul>
+<li>总结
+<ul>
+<li>res.json() 响应数据,最常用 , 返回ajax数据</li>
+<li>redirect() 重定向</li>
+<li>download() 下载</li>
+<li><img src="/img_md/1531833969870.png" alt="Image text"></li>
+<li>jsonp() 跨域处理</li>
+</ul>
+</li>
+</ul>
+<h2 id="模板渲染">模板渲染</h2>
+<hr>
+<h3 id="使用art-template模板引擎">使用art-template模板引擎</h3>
+<ul>
+<li>下载express-art-template art-template</li>
+<li>app.js中配置
+<ul>
+<li>注册一个模板引擎
+<ul>
+<li><code>app.engine('.html',express-art-template);</code></li>
+<li>设置默认渲染引擎<code>app.set('view engine','.html');</code></li>
+</ul>
+</li>
+<li>res.render(文件名,数据对象);</li>
+<li>express这套使用，默认在当前app.js同级的views目录查找</li>
+</ul>
+</li>
+</ul>
+<h3 id="内置中间件处理静态资源">内置中间件(处理静态资源)</h3>
+<ul>
+<li>1: 创建对象 <code>let static = express.static('./public');</code></li>
+<li>2: 配置到中间件中 <code>app.use(static);</code></li>
+</ul>
+<h3 id="第三方中间件post请求体的获取">第三方中间件(post请求体的获取)</h3>
+<ul>
+<li>原生的:<code>req.on('data',data=&gt;{ data.toString();})</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bodyParser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;body-parser&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 解析键值对application/x-www-form-urlencoded
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">bodyParser</span>.<span style="color:#a6e22e">urlencoded</span>({ <span style="color:#a6e22e">extended</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span> })); 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 不用扩展的库来解析键值对，而使用node内置核心对象querystring来解析键值对
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 解析application/json
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">bodyParser</span>.<span style="color:#a6e22e">json</span>());
+</span></span></code></pre></div><h3 id="服务端处理错误和404页面找不到">服务端处理错误和404页面找不到</h3>
+<ul>
+<li>404页面响应<code>router.all('*',()=&gt;{} )</code></li>
+<li>触发错误
+<ul>
+<li>next(err);</li>
+<li>处理错误  app.use( 4参数函数 )</li>
+</ul>
+</li>
+</ul>
+<h3 id="nodemon">nodemon</h3>
+<ul>
+<li>修改代码自动重启</li>
+<li>安装全局命令行工具 <code>npm i -g nodemon</code></li>
+<li>进入到指定目录命令行 <code>nodemon ./xxx.js</code></li>
+<li>手动触发重启，在命令行输入 rs回车</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/express" title="express">express</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#启程helloworld">启程helloworld</a></li>
+    <li><a href="#appuse虚拟目录fn">app.use(虚拟目录,fn)</a></li>
+    <li><a href="#中间件类别了解">中间件类别(了解)</a></li>
+    <li><a href="#路由中间件">路由中间件</a></li>
+    <li><a href="#路由">路由</a></li>
+    <li><a href="#res扩展函数">res扩展函数</a></li>
+    <li><a href="#模板渲染">模板渲染</a>
+      <ul>
+        <li><a href="#使用art-template模板引擎">使用art-template模板引擎</a></li>
+        <li><a href="#内置中间件处理静态资源">内置中间件(处理静态资源)</a></li>
+        <li><a href="#第三方中间件post请求体的获取">第三方中间件(post请求体的获取)</a></li>
+        <li><a href="#服务端处理错误和404页面找不到">服务端处理错误和404页面找不到</a></li>
+        <li><a href="#nodemon">nodemon</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1162,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1315,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JavaScript设计模式 | 姜波</title>
+
+    
+<link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+<meta name="author" content="姜波" />
+<meta name="description" content="前端、node、全栈等开发技术分享" />
+
+
+
+<meta name="generator" content="Hugo 0.101.0" />
+
+<link rel="canonical" href="https://wilberjiang.com/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+
+
+<meta property="og:title" content="JavaScript设计模式" />
+<meta property="og:description" content="工厂模式
+
+将new操作单独封装
+遇到new时，就要考虑是否该使用工厂模式
+
+UML类图" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-08-04T13:17:31+08:00" />
+<meta property="article:modified_time" content="2020-08-04T13:17:31+08:00" />
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavaScript设计模式"/>
+<meta name="twitter:description" content="工厂模式
+
+将new操作单独封装
+遇到new时，就要考虑是否该使用工厂模式
+
+UML类图"/>
+
+
+<link rel="stylesheet" href="/css/semantic.min.css" />
+<link rel="stylesheet" href="/css/icomoon.css" />
+<link rel="stylesheet" href="/css/OverlayScrollbars.min.css" />
+<link rel="stylesheet" href="/css/github-markdown.css" />
+<link rel="stylesheet" href="/css/site.css" />
+
+<style>
+  a:hover {
+    text-decoration: underline;
+  }
+
+  
+  a {
+    color: seagreen !important;
+  }
+  
+
+  
+  .inverted a,
+  .inverted a:hover {
+     color: darkseagreen !important;
+  }
+  
+
+  
+  body.default {
+    
+
+    
+    background-image: url(/img_static/blue-and-purple-cosmic-sky-956999.jpg);
+    
+  }
+  
+
+  
+</style>
+
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
+    
+  </head>
+
+  <body class="default">
+    
+<nav class="ui secondary inverted menu dream-menu">
+
+  <div class="item">
+    <i class="large link bullseye icon dream-flip-toggle" title="翻转！"></i>
+  </div>
+  <div class="item">
+    <i class="large link home icon" title="首页" onclick="window.location.href = 'https:\/\/wilberjiang.com'"></i>
+  </div>
+  <div class="item">
+    <i class="large link icon theme-switch" onclick="themeSwitch()"></i>
+  </div>
+  
+  <div class="item">
+    <i class="large link search icon" onclick="toggleSearch()"></i>
+  </div>
+  
+</nav>
+
+    <div class="flip-container">
+      <div class="flipper">
+        <section class="front">
+          <div class="dream-max-width">
+            
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          JavaScript设计模式
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期二，八月 4 日，2020 年
+              
+
+            | 6 分钟阅读
+
+            | 更新于
+              
+                星期二，八月 4 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="工厂模式">工厂模式</h2>
+<ul>
+<li>将new操作单独封装</li>
+<li>遇到new时，就要考虑是否该使用工厂模式</li>
+</ul>
+<h3 id="uml类图">UML类图</h3>
+<p><img src="/img_md/1596009033281.jpg" alt="Image text"></p>
+<h3 id="实现">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Product</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;init&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fun1</span>() {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fun2</span>() {}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Creator</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">creat</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Product</span>(<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">creator</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Create</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">creator</span>.<span style="color:#a6e22e">create</span>(<span style="color:#e6db74">&#39;p1&#39;</span>)
+</span></span></code></pre></div><h3 id="场景">场景</h3>
+<ul>
+<li>jQuery-$(&lsquo;div&rsquo;)</li>
+<li>React.createElement</li>
+<li>Vue异步组件</li>
+</ul>
+<h2 id="单例模式">单例模式</h2>
+<ul>
+<li>系统中被唯一使用</li>
+<li>一个类只有一个实例</li>
+</ul>
+<h3 id="uml类图-1">UML类图</h3>
+<p><img src="/img_md/1596014872849.jpg" alt="Image text"></p>
+<h3 id="实现-1">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SingleObject</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">login</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;login&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SingleObject</span>.<span style="color:#a6e22e">getInstance</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">instance</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SingleObject</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">instance</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试：只能使用静态函数getInstance，不能new SingleObject()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SingleObject</span>.<span style="color:#a6e22e">getInstance</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SingleObject</span>.<span style="color:#a6e22e">getInstance</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">obj1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">obj2</span> <span style="color:#75715e">// ture
+</span></span></span></code></pre></div><h3 id="场景-1">场景</h3>
+<ul>
+<li>jQuery只有一个$</li>
+<li>登录框</li>
+<li>购物车</li>
+<li>vuex和redux中store</li>
+</ul>
+<h2 id="适配器模式">适配器模式</h2>
+<ul>
+<li>旧接口格式和使用者不兼容</li>
+<li>中间加一个适配转换接口</li>
+</ul>
+<h3 id="uml类图-2">UML类图</h3>
+<p><img src="/img_md/1596072002710.jpg" alt="Image text"></p>
+<h3 id="实现-2">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Adaptee</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">specificRequest</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;外国插头&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Target</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">adaptee</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Adaptee</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">request</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">info</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">adaptee</span>.<span style="color:#a6e22e">specificRequest</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;转换后中国插头&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Target</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">request</span>()
+</span></span></code></pre></div><h3 id="场景-2">场景</h3>
+<ul>
+<li>封装旧接口</li>
+<li>vue computed</li>
+</ul>
+<h2 id="装饰器模式">装饰器模式</h2>
+<ul>
+<li>为对象添加新功能</li>
+<li>不改变其原有的结构和功能</li>
+</ul>
+<h3 id="uml类图-3">UML类图</h3>
+<p><img src="/img_md/1596073230382.jpg" alt="Image text"></p>
+<h3 id="实现-3">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">draw</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;画圆形&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Decorator</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">circle</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">circle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">circle</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">draw</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">draw</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setRedBorder</span>(<span style="color:#a6e22e">circle</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setRedBorder</span>(<span style="color:#a6e22e">circle</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;设置红色边框&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">circle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Circle</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">draw</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">dec</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Decorator</span>(<span style="color:#a6e22e">circle</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">draw</span>()
+</span></span></code></pre></div><h3 id="场景-3">场景</h3>
+<ul>
+<li>ES7装饰器</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 装饰类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">testDec</span>(<span style="color:#a6e22e">isDec</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">target</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">isDec</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">isDec</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">testDec</span>(<span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Demo</span> {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Demo</span>.<span style="color:#a6e22e">isDec</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 装饰类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">mixins</span>(...<span style="color:#a6e22e">list</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">target</span>) {
+</span></span><span style="display:flex;"><span>    Object.<span style="color:#a6e22e">assign</span>(<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">prototype</span>,...<span style="color:#a6e22e">list</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Foo</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">foo</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;foo&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">mixin</span>(<span style="color:#a6e22e">Foo</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span> {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MyClass</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">foo</span>()
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 装饰方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">readonly</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">descriptor</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// descriptor属性描述对象（Object.defineProperty中会用到），原来的值如下
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   value: specifiedFunction,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   enumerable: false,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   configurable: true,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//   writable: true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">descriptor</span>.<span style="color:#a6e22e">writable</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">descriptor</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">last</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;B&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">readonly</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">first</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">last</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">name</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 装饰方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">descriptor</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">oldValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">descriptor</span>.<span style="color:#a6e22e">value</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">descriptor</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">arguments</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">oldValue</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>,<span style="color:#a6e22e">arguments</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">descriptor</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> Math {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">log</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">math</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Math()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">add</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>)
+</span></span></code></pre></div><ul>
+<li>core-decorators</li>
+</ul>
+<h2 id="代理模式">代理模式</h2>
+<ul>
+<li>使用者无权访问目标对象</li>
+<li>中间加代理，通过代理做授权和控制</li>
+</ul>
+<h3 id="uml类图-4">UML类图</h3>
+<p><img src="/img_md/1596087315411.jpg" alt="Image text"></p>
+<h3 id="实现-4">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReadImg</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">fileName</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">fileName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fileName</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">loadFromDisk</span>() <span style="color:#75715e">// 初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">fileName</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">loadFromDisk</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">fileName</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProxyImg</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">fileName</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">realImg</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ReadImg</span>(<span style="color:#a6e22e">fileName</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">display</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">realImg</span>.<span style="color:#a6e22e">display</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">proxyImg</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ProxyImg</span>(<span style="color:#e6db74">&#39;a.png&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">proxyImg</span>.<span style="color:#a6e22e">display</span>()
+</span></span></code></pre></div><h3 id="场景-4">场景</h3>
+<ul>
+<li>网页事件代理</li>
+<li>jQuery-$.proxy</li>
+<li>ES6 Proxy</li>
+</ul>
+<h2 id="外观模式">外观模式</h2>
+<ul>
+<li>为子系统中的一组接口提供了一个高层接口</li>
+<li>使用者使用这个高层接口</li>
+</ul>
+<h3 id="uml类图-5">UML类图</h3>
+<p><img src="/img_md/1596089202695.jpg" alt="Image text"></p>
+<h3 id="实现-5">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">elem</span>, <span style="color:#a6e22e">type</span>, <span style="color:#a6e22e">selector</span>, <span style="color:#a6e22e">fn</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">selector</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">selector</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 调用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">elem</span>, <span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#e6db74">&#39;#div1&#39;</span>, <span style="color:#a6e22e">fn</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">bindEvent</span>(<span style="color:#a6e22e">elem</span>, <span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#a6e22e">fn</span>)
+</span></span></code></pre></div><h3 id="场景-5">场景</h3>
+<ul>
+<li>业务子系统</li>
+</ul>
+<h2 id="观察者模式">观察者模式</h2>
+<ul>
+<li>发布&amp;订阅</li>
+<li>一对多</li>
+</ul>
+<h3 id="uml类图-6">UML类图</h3>
+<p><img src="/img_md/1596089850801.jpg" alt="Image text"></p>
+<h3 id="实现-6">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 主题，保存状态，状态变化之后触发所有观察者对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Subject</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observers</span> <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getState</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">state</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">notifyAllObservers</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">notifyAllObservers</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observers</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">observer</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">observer</span>.<span style="color:#a6e22e">update</span>()
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">attach</span>(<span style="color:#a6e22e">observer</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">observers</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">observer</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 观察者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Observer</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">subject</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">subject</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">subject</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">subject</span>.<span style="color:#a6e22e">attach</span>(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">update</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">subject</span>.<span style="color:#a6e22e">getState</span>())
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Subject</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Observer</span>(<span style="color:#e6db74">&#39;o1&#39;</span>, <span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">o2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Observer</span>(<span style="color:#e6db74">&#39;o2&#39;</span>, <span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">setState</span>(<span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><h3 id="场景-6">场景</h3>
+<ul>
+<li>
+<p>网页事件绑定</p>
+</li>
+<li>
+<p>Promise</p>
+</li>
+<li>
+<p>jQuery callbacks</p>
+</li>
+<li>
+<p>nodejs自定义事件</p>
+</li>
+<li>
+<p>nodejs中：处理http请求；多进程通讯</p>
+</li>
+<li>
+<p>Vue和React组件生命周期触发</p>
+</li>
+<li>
+<p>Vue watch</p>
+</li>
+</ul>
+<h2 id="迭代器模式">迭代器模式</h2>
+<ul>
+<li>顺序访问一个集合</li>
+<li>使用者无需知道集合的内部结构（封装）</li>
+</ul>
+<h3 id="uml类图-7">UML类图</h3>
+<p><img src="/img_md/1596173538171.jpg" alt="Image text"></p>
+<h3 id="实现-7">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Iterator</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">container</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">list</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">next</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">hasNext</span>()){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>[<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">index</span><span style="color:#f92672">++</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hasNext</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">index</span> <span style="color:#f92672">&gt;=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">length</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Container</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">list</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 生成遍历器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">getIterator</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Iterator</span>(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Contaienr</span>(<span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">container</span>.<span style="color:#a6e22e">getIterator</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(<span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="场景-7">场景</h3>
+<ul>
+<li>jQuery each</li>
+<li>ES6 Iterator
+<ul>
+<li>ES6语法中，有序集合的数据类型已经有很多</li>
+<li>Array、Map、Set、String、TypedArray、arguments、NodeList</li>
+<li>需要有一个统一的遍历接口来遍历所有数据类型</li>
+<li>以上数据类型，都有[Symbol.iterator]属性</li>
+<li>属性值是函数，执行函数返回一个迭代器</li>
+<li>这个迭代器就有next方法可顺序迭代子元素</li>
+<li>可运行Array.prototype[Symbol.iterator]来测试</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">each</span>(<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 生成遍历器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>]()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> {<span style="color:#a6e22e">done</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">done</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">done</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">each</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 带有遍历器特性的对象，data[Symbol.iterator]有值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">item</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">item</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="状态模式">状态模式</h2>
+<ul>
+<li>一个状态有状态变化</li>
+<li>每次状态变化都会触发一个逻辑</li>
+<li>不能总是用if&hellip;else来控制</li>
+</ul>
+<h3 id="uml类图-8">UML类图</h3>
+<p><img src="/img_md/1596175778362.jpg" alt="Image text"></p>
+<h3 id="实现-8">实现</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 状态（红灯、绿灯、黄灯）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">State</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">color</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">color</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle</span>(<span style="color:#a6e22e">context</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">setState</span>(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Context</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getState</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">state</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 测试
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">context</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Context</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">green</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">State</span>(<span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">yellow</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">State</span>(<span style="color:#e6db74">&#39;yellow&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">red</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">State</span>(<span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">green</span>.<span style="color:#a6e22e">handle</span>(<span style="color:#a6e22e">context</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">getState</span>()
+</span></span></code></pre></div><h3 id="场景-8">场景</h3>
+<ul>
+<li>
+<p>有限状态机</p>
+<p>开源lib：javascript-state-machine</p>
+</li>
+<li>
+<p>Promise</p>
+</li>
+</ul>
+<h2 id="其他设计模式">其他设计模式</h2>
+<ul>
+<li>策略模式、模版方法模式、职责链模式</li>
+<li>命令模式、备忘录模式、中介者模式</li>
+<li>访问者模式、解释器模式</li>
+</ul>
+<h3 id="原型模式">原型模式</h3>
+<ul>
+<li>clone自己，生成一个新对象</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 一个原型对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getName</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">first</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">last</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">say</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;hello&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 基于原型创建x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">last</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;B&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">getName</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">say</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 基于原型创建x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#a6e22e">prototype</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">first</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">last</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">getName</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">y</span>.<span style="color:#a6e22e">say</span>()
+</span></span></code></pre></div><h3 id="桥接模式">桥接模式</h3>
+<ul>
+<li>用于把抽象化和实现化解耦</li>
+<li>使得二者可以独立变化</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">color</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">color</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">draw</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">color</span>.<span style="color:#a6e22e">name</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">red</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Color</span>(<span style="color:#e6db74">&#39;red&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">yellow</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Color</span>(<span style="color:#e6db74">&#39;yellow&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">circle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Shape</span>(<span style="color:#e6db74">&#39;circle&#39;</span>, <span style="color:#a6e22e">red</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">draw</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">triangle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Shape</span>(<span style="color:#e6db74">&#39;triangle&#39;</span>, <span style="color:#a6e22e">yellow</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">triangle</span>.<span style="color:#a6e22e">draw</span>()
+</span></span></code></pre></div><h3 id="组合模式">组合模式</h3>
+<ul>
+<li>生成树形结构，表示“整体-部分”关系</li>
+<li>让整体和部分都具有一致的操作方式</li>
+</ul>
+<h3 id="享元模式">享元模式</h3>
+<ul>
+<li>共享内存（主要考虑内存，而非效率）</li>
+<li>相同的数据，共享使用</li>
+</ul>
+<h3 id="策略模式">策略模式</h3>
+<ul>
+<li>不同策略分开处理</li>
+<li>避免出现大量if&hellip;else或者switch&hellip;case</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">type</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">buy</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;ordinary&#39;</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;普通用户&#39;</span>)
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;member&#39;</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;会用用户&#39;</span>)
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;vip&#39;</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;vip用户&#39;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">User</span>(<span style="color:#e6db74">&#39;ordinary&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">u1</span>.<span style="color:#a6e22e">buy</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">User</span>(<span style="color:#e6db74">&#39;member&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">u2</span>.<span style="color:#a6e22e">buy</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">User</span>(<span style="color:#e6db74">&#39;vip&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">u3</span>.<span style="color:#a6e22e">buy</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrdinaryUser</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">buy</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;普通用户&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MemberUser</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">buy</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;会用用户&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VipUser</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">buy</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;vip用户&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OrdinaryUser</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MemberUser</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">u3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">VipUser</span>()
+</span></span></code></pre></div><h3 id="模板方法模式">模板方法模式</h3>
+<ul>
+<li>内部特殊顺序特殊逻辑方法封装、合并</li>
+<li>输出统一对外方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Action</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handle1</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handle2</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">handle3</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle1</span>() {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle2</span>() {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle3</span>() {}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="职责链模式">职责链模式</h3>
+<ul>
+<li>一步操作可能分多个职责角色来完成</li>
+<li>把角色分开，然后用链串起来</li>
+<li>将发起者和各个处理者进行隔离</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 请假审批
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Action</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextAction</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setNextAction</span>(<span style="color:#a6e22e">action</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextAction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">action</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">handle</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextAction</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextAciton</span>.<span style="color:#a6e22e">handle</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Action</span>(<span style="color:#e6db74">&#39;组长&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Action</span>(<span style="color:#e6db74">&#39;经理&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a3</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Action</span>(<span style="color:#e6db74">&#39;总监&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a1</span>.<span style="color:#a6e22e">setNextAction</span>(<span style="color:#e6db74">&#39;a2&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a2</span>.<span style="color:#a6e22e">setNextAction</span>(<span style="color:#e6db74">&#39;a3&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a1</span>.<span style="color:#a6e22e">handle</span>()
+</span></span></code></pre></div><h3 id="命令模式">命令模式</h3>
+<ul>
+<li>执行命令时，发布者和执行者分开</li>
+<li>中间加入命令对象，作为中转站</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 接受者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Receiver</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">exec</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;执行&#39;</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 命令者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">receiver</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">receiver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">receiver</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cmd</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;执行命令&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">receiver</span>.<span style="color:#a6e22e">exec</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 触发者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Invoker</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">command</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">command</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">invoke</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;开始&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">command</span>.<span style="color:#a6e22e">cmd</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 士兵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">soldier</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Receiver</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 小号手
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">trumpeter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Command</span>(<span style="color:#a6e22e">soldier</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 将军
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">general</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Invoker</span>(<span style="color:#a6e22e">trumpeter</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">general</span>.<span style="color:#a6e22e">invoke</span>()
+</span></span></code></pre></div><h3 id="备忘录模式">备忘录模式</h3>
+<ul>
+<li>随时记录一个对象的状态变化</li>
+<li>随时可以恢复之前的某个状态（如撤销功能）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 备忘类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Memento</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">content</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">content</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getContent</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 备忘列表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CareTaker</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span> <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">memento</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">memento</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">index</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">list</span>[<span style="color:#a6e22e">index</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 编辑器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Editor</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setContent</span>(<span style="color:#a6e22e">content</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">content</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getContent</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">saveContentToMemento</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Memento</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getContentFromMenento</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">content</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memento</span>.<span style="color:#a6e22e">getContent</span>()
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">editor</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Editor</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">careTaker</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CareTaker</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">setContent</span>(<span style="color:#e6db74">&#39;111&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">setContent</span>(<span style="color:#e6db74">&#39;222&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">careTaker</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">saveContentToMemento</span>()) <span style="color:#75715e">// 将当前内容备份
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">setContent</span>(<span style="color:#e6db74">&#39;333&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">careTaker</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">saveContentToMemento</span>()) <span style="color:#75715e">// 将当前内容备份
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">setContent</span>(<span style="color:#e6db74">&#39;444&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getContent</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getContentFromMenento</span>(<span style="color:#a6e22e">careTaker</span>.<span style="color:#a6e22e">get</span>(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e">// 撤销
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getContent</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getContentFromMenento</span>(<span style="color:#a6e22e">careTaker</span>.<span style="color:#a6e22e">get</span>(<span style="color:#ae81ff">0</span>)) <span style="color:#75715e">// 撤销
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">editor</span>.<span style="color:#a6e22e">getContent</span>())
+</span></span></code></pre></div><h3 id="中介者模式">中介者模式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setNumber</span>(<span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">m</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">num</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">m</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">setB</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setNumber</span>(<span style="color:#a6e22e">num</span>, <span style="color:#a6e22e">m</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">num</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">m</span>){
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">setA</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 中介者
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Mediator</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setB</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">number</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setNumber</span>(<span style="color:#a6e22e">number</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setA</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">number</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">setNumber</span>(<span style="color:#a6e22e">number</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">A</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">B</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Mediator</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">setNumber</span>(<span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">number</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">number</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setNumber</span>(<span style="color:#ae81ff">100</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">number</span>, <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">number</span>)
+</span></span></code></pre></div><h3 id="访问者模式">访问者模式</h3>
+<ul>
+<li>将数据操作和数据结构进行分离</li>
+</ul>
+<h3 id="解释器模式">解释器模式</h3>
+<ul>
+<li>描述语言语法如何定义，如何解释和编译</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/js" title="js">js</a>
+        
+          <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F" title="设计模式">设计模式</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#工厂模式">工厂模式</a>
+      <ul>
+        <li><a href="#uml类图">UML类图</a></li>
+        <li><a href="#实现">实现</a></li>
+        <li><a href="#场景">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#单例模式">单例模式</a>
+      <ul>
+        <li><a href="#uml类图-1">UML类图</a></li>
+        <li><a href="#实现-1">实现</a></li>
+        <li><a href="#场景-1">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#适配器模式">适配器模式</a>
+      <ul>
+        <li><a href="#uml类图-2">UML类图</a></li>
+        <li><a href="#实现-2">实现</a></li>
+        <li><a href="#场景-2">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#装饰器模式">装饰器模式</a>
+      <ul>
+        <li><a href="#uml类图-3">UML类图</a></li>
+        <li><a href="#实现-3">实现</a></li>
+        <li><a href="#场景-3">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#代理模式">代理模式</a>
+      <ul>
+        <li><a href="#uml类图-4">UML类图</a></li>
+        <li><a href="#实现-4">实现</a></li>
+        <li><a href="#场景-4">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#外观模式">外观模式</a>
+      <ul>
+        <li><a href="#uml类图-5">UML类图</a></li>
+        <li><a href="#实现-5">实现</a></li>
+        <li><a href="#场景-5">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#观察者模式">观察者模式</a>
+      <ul>
+        <li><a href="#uml类图-6">UML类图</a></li>
+        <li><a href="#实现-6">实现</a></li>
+        <li><a href="#场景-6">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#迭代器模式">迭代器模式</a>
+      <ul>
+        <li><a href="#uml类图-7">UML类图</a></li>
+        <li><a href="#实现-7">实现</a></li>
+        <li><a href="#场景-7">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#状态模式">状态模式</a>
+      <ul>
+        <li><a href="#uml类图-8">UML类图</a></li>
+        <li><a href="#实现-8">实现</a></li>
+        <li><a href="#场景-8">场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他设计模式">其他设计模式</a>
+      <ul>
+        <li><a href="#原型模式">原型模式</a></li>
+        <li><a href="#桥接模式">桥接模式</a></li>
+        <li><a href="#组合模式">组合模式</a></li>
+        <li><a href="#享元模式">享元模式</a></li>
+        <li><a href="#策略模式">策略模式</a></li>
+        <li><a href="#模板方法模式">模板方法模式</a></li>
+        <li><a href="#职责链模式">职责链模式</a></li>
+        <li><a href="#命令模式">命令模式</a></li>
+        <li><a href="#备忘录模式">备忘录模式</a></li>
+        <li><a href="#中介者模式">中介者模式</a></li>
+        <li><a href="#访问者模式">访问者模式</a></li>
+        <li><a href="#解释器模式">解释器模式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
+    <article class="dream-header">
+  <section class="ui top attached center aligned segment">
+    <div class="ui small circular image">
+      
+        <img src="/img/avatar.png">
+      
+    </div>
+
+    
+    <h1 class="ui medium header">
+    
+      姜波 
+      <div class="sub header" style="margin-top: 0.5rem;">高级Bug开发</div>
+    
+    </h1>
+    
+
+    <div class="ui horizontal list">
+      
+      <a class="item" href="/tags">
+        <i class="tags icon" title="所有标签"></i>
+      </a>
+      <a class="item" href="/categories">
+        <i class="th list icon" title="所有分类"></i>
+      </a>
+    </div>
+  </section>
+
+  
+  <section class="ui attached center aligned segment dream-tags">
+    
+      <a class="ui label" href="/tags/canvas/" title="canvas">
+        canvas
+      </a>
+    
+      <a class="ui label" href="/tags/ci/cd/" title="CI/CD">
+        CI/CD
+      </a>
+    
+      <a class="ui label" href="/tags/css/" title="css">
+        css
+      </a>
+    
+      <a class="ui label" href="/tags/docker/" title="docker">
+        docker
+      </a>
+    
+      <a class="ui label" href="/tags/docker-compose/" title="docker-compose">
+        docker-compose
+      </a>
+    
+      <a class="ui label" href="/tags/dockerfile/" title="dockerfile">
+        dockerfile
+      </a>
+    
+      <a class="ui label" href="/tags/express/" title="express">
+        express
+      </a>
+    
+      <a class="ui label" href="/tags/flutter/" title="flutter">
+        flutter
+      </a>
+    
+      <a class="ui label" href="/tags/git/" title="git">
+        git
+      </a>
+    
+      <a class="ui label" href="/tags/gitlab/" title="gitlab">
+        gitlab
+      </a>
+    
+      <a class="ui label" href="/tags/gulp/" title="gulp">
+        gulp
+      </a>
+    
+      <a class="ui label" href="/tags/html/" title="html">
+        html
+      </a>
+    
+      <a class="ui label" href="/tags/item2/" title="item2">
+        item2
+      </a>
+    
+      <a class="ui label" href="/tags/js/" title="js">
+        js
+      </a>
+    
+      <a class="ui label" href="/tags/koa/" title="koa">
+        koa
+      </a>
+    
+      <a class="ui label" href="/tags/mock/" title="mock">
+        mock
+      </a>
+    
+      <a class="ui label" href="/tags/mongodb/" title="mongodb">
+        mongodb
+      </a>
+    
+      <a class="ui label" href="/tags/mysql/" title="mysql">
+        mysql
+      </a>
+    
+      <a class="ui label" href="/tags/nginx/" title="nginx">
+        nginx
+      </a>
+    
+      <a class="ui label" href="/tags/node/" title="node">
+        node
+      </a>
+    
+      <a class="ui label" href="/tags/pm2/" title="pm2">
+        pm2
+      </a>
+    
+      <a class="ui label" href="/tags/react/" title="react">
+        react
+      </a>
+    
+      <a class="ui label" href="/tags/socket/" title="socket">
+        socket
+      </a>
+    
+      <a class="ui label" href="/tags/threejs/" title="Threejs">
+        Threejs
+      </a>
+    
+      <a class="ui label" href="/tags/vue/" title="vue">
+        vue
+      </a>
+    
+      <a class="ui label" href="/tags/webgl/" title="WebGL">
+        WebGL
+      </a>
+    
+      <a class="ui label" href="/tags/webpack/" title="webpack">
+        webpack
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%A1%AB%E5%9D%91/" title="填坑">
+        填坑
+      </a>
+    
+      <a class="ui label" href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/" title="微前端">
+        微前端
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="性能优化">
+        性能优化
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
+        架构设计
+      </a>
+    
+      <a class="ui label" href="/tags/%E6%AD%A3%E5%88%99/" title="正则">
+        正则
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
+        算法
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" title="设计原则">
+        设计原则
+      </a>
+    
+      <a class="ui label" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="设计模式">
+        设计模式
+      </a>
+    
+      <a class="ui label" href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+        面试
+      </a>
+    
+  </section>
+  
+
+  
+  <section class="ui attached segment dream-categories">
+    <div class="ui accordion">
+      
+      
+      
+      
+      
+
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/docker/" title="Docker">
+              Docker
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%85%8D%E7%BD%AE/">docker常用命令与配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/docker/docker%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">docker环境搭建</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/node/" title="Node">
+              Node
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">Node技术方案设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/pm2%E4%BD%BF%E7%94%A8/">PM2使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa2%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Koa2中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%8F%8A%E5%8E%9F%E7%90%86/">Express中间件及原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8socket.io/">Node使用Socket.io</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E4%BD%BF%E7%94%A8mongodb/">Node使用MongoDB</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/nginx%E4%BD%BF%E7%94%A8/">nginx使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/koa%E5%BA%94%E7%94%A8/">Koa应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/express%E5%BA%94%E7%94%A8/">Express应用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/node/node%E5%9F%BA%E7%A1%80/">Node基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+              前端
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E8%BF%9B%E9%98%B6%E7%AF%87/">JavaScript填坑进阶篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E7%AF%87/">JavaScript填坑常用方法篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%A1%AB%E5%9D%91%E5%9F%BA%E7%A1%80%E7%AF%87/">JavaScript填坑基础篇</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E9%9D%A2%E8%AF%95/">性能优化面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">渲染优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BC%A0%E8%BE%93%E4%BC%98%E5%8C%96/">传输优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/">资源优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/">代码优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8C%E5%85%B3%E9%94%AE%E6%B8%B2%E6%9F%93%E8%B7%AF%E5%BE%84/">浏览器渲染原理和关键渲染路径</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/">性能指标和优化目标</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95leetcode/">JavaScript数据结构与算法(leetcode)</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">JavaScript设计模式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript-web-api/">JavaScript Web API</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%8E%9F%E7%90%86/">React原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">React高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/react%E5%9F%BA%E7%A1%80/">React基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/flutter%E5%AE%89%E8%A3%85/">Flutter安装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/mock%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/">mock数据实现</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">JavaScript正则表达式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">JavaScript函数式编程</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E9%AB%98%E7%BA%A7/">JavaScript高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascriptqa%E5%B7%A5%E7%A8%8B%E5%B8%88/">JavaScript&amp;QA工程师</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/gulp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">gulp安装与使用</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E9%AB%98%E7%BA%A7/">CSS3高级</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/canvas%E6%A0%B8%E5%BF%83/">canvas核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/css3%E6%A0%B8%E5%BF%83/">CSS3核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/es6%E6%A0%B8%E5%BF%83/">ES6核心</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/jquery%E6%A1%86%E6%9E%B6%E5%B0%81%E8%A3%85/">jQuery框架封装</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/javascript%E6%A8%A1%E5%9D%97%E5%8C%96/">JavaScript模块化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/front/html5%E6%A0%B8%E5%BF%83/">HTML5核心</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84/" title="前端架构">
+              前端架构
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94/">微前端实现方式对比</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1%E5%A1%AB%E8%A1%A5%E4%B8%8E%E5%B4%A9%E6%BA%83%E9%A2%84%E9%98%B2/">技术债务填补与崩溃预防</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E6%9E%B6%E6%9E%84%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87/">架构前期准备</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%9E%B6%E6%9E%84%E7%9A%84%E8%B4%A8%E9%87%8F/">如何保证架构的质量</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8E%E5%88%86%E5%B1%82/">软件设计原则与分层</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">前端架构的前世今生</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/">微前端的架构设计</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%88%92%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的业务划分方式</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/framework/%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8B%86%E5%88%86%E6%96%B9%E5%BC%8F/">微前端的技术拆分方式</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/" title="可视化">
+              可视化
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/visualization/webgl%E5%9F%BA%E7%A1%80/">WebGL基础</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
+            <a class="item" href="/categories/%E8%BD%AF%E6%8A%80%E8%83%BD/" title="软技能">
+              软技能
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+
+      
+    </div>
+  </section>
+  
+
+  <section class="ui attached segment header-socials">
+    <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class=" mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class=" icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+  </section>
+
+  <section class="ui bottom attached center aligned segment">
+    
+      <p>© 2019 - 2022 姜波</p>
+    
+
+    
+
+    
+  </section>
+</article>
+
+  </aside>
+</div>
+
+          </div>
+        </section>
+        <section class="back">
+          <div class="dream-max-width">
+            <div class="ui centered relaxed grid dream-grid dream-back">
+  
+  
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">公众号</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/official.jpg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">QQ</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/QQ.png" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Wechat.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+    <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+      <article>
+        <div class="ui top attached segment">
+          <h3 class="ui header">微信打赏</h3>
+        </div>
+        <div class="ui bottom attached segment markdown-body">
+          <p><img src="/img/Reward.jpeg" alt="Image text"></p>
+
+        </div>
+      </article>
+    </section>
+  
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    <article>
+      <div class="ui top attached segment">
+        <h3 class="ui header">社交链接</h3>
+      </div>
+      <div class="ui bottom attached segment">
+        <nav class="ui secondary menu dream-menu dream-socials">
+  
+  
+    <div class="item">
+      <a href="mailto:197463061@qq.com">
+        <i class="large mail icon" title="Email"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+    <div class="item">
+      <a href="https://nav.wilberjiang.com" target="_blank">
+        <i class="large icon-mastodon icon" title="Mastodon"></i>
+      </a>
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+</nav>
+
+      </div>
+    </article>
+  </section>
+
+  <section class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+    
+  </section>
+
+  
+    
+  
+</div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+  window.defaultDark =  null 
+  window.backgroundDark =  null 
+  window.backgroundImageDark =  null 
+  window.darkNav =  true 
+  window.hasTwitterEmbed =  null 
+
+  if (window.hasTwitterEmbed) {
+    
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {}
+      if (d.getElementById(id)) return t
+      js = d.createElement(s)
+      js.id = id
+      js.src = 'https://platform.twitter.com/widgets.js'
+      fjs.parentNode.insertBefore(js, fjs)
+
+      t._e = []
+      t.ready = function (f) {
+        t._e.push(f)
+      }
+
+      return t
+    })(document, 'script', 'twitter-wjs')
+  }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/theme.js"></script>
+
+    
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
+
+
+    
+      <div class="ui inverted segment" id="dream-search">
+  <div class="ui search">
+    <div class="ui transparent input">
+      <input class="prompt" type="text" placeholder="搜索" />
+    </div>
+    <div class="results"></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $.getJSON('https:\/\/wilberjiang.com/index.json', function (data) {
+      $('.ui.search').search({
+        source: data,
+        searchFields: ['title'],
+        showNoResults: true,
+      })
+    })
+  })
+</script>
+<script src="/js/search.js"></script>
+
+    
+
+    
+
+    
+  </body>
+</html>

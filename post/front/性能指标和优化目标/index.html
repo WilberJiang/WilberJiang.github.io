@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>性能指标和优化目标 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,52 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="性能指标和优化目标" />
+<meta property="og:description" content="性能指标
+加载
+
+理解加载瀑布图
+基于HAR存储与重建性能信息
+速度指数（Speed Index）
+重要测量指标
+
+Speed Index页面渲染速度
+TTFB网络请求耗时
+页面加载时间
+首次渲染
+
+
+
+响应" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/front/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E5%92%8C%E4%BC%98%E5%8C%96%E7%9B%AE%E6%A0%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-09-08T11:25:44+08:00" />
+<meta property="article:modified_time" content="2020-09-08T11:25:44+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="性能指标和优化目标"/>
+<meta name="twitter:description" content="性能指标
+加载
+
+理解加载瀑布图
+基于HAR存储与重建性能信息
+速度指数（Speed Index）
+重要测量指标
+
+Speed Index页面渲染速度
+TTFB网络请求耗时
+页面加载时间
+首次渲染
+
+
+
+响应"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +104,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +143,350 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          性能指标和优化目标
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期二，九月 8 日，2020 年
+              
+
+            | 2 分钟阅读
+
+            | 更新于
+              
+                星期二，九月 8 日，2020 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="性能指标">性能指标</h2>
+<h3 id="加载">加载</h3>
+<ul>
+<li>理解加载瀑布图</li>
+<li>基于HAR存储与重建性能信息</li>
+<li>速度指数（Speed Index）</li>
+<li>重要测量指标
+<ul>
+<li>Speed Index页面渲染速度</li>
+<li>TTFB网络请求耗时</li>
+<li>页面加载时间</li>
+<li>首次渲染</li>
+</ul>
+</li>
+</ul>
+<h3 id="响应">响应</h3>
+<ul>
+<li>交互动作的反馈时间</li>
+<li>帧率FPS</li>
+<li>异步请求的完成时间</li>
+</ul>
+<h2 id="rail测量模型">RAIL测量模型</h2>
+<ul>
+<li>Response响应</li>
+<li>Animation动画</li>
+<li>Idle空闲</li>
+<li>Load加载</li>
+</ul>
+<h3 id="rail评估标准">RAIL评估标准</h3>
+<ul>
+<li>响应：处理事件应在50ms以内完成</li>
+<li>动画：每10ms产生一帧</li>
+<li>空闲：尽可能增加空闲时间</li>
+<li>加载：在5s内完成内容加载并可以交互</li>
+</ul>
+<h2 id="性能测量工具">性能测量工具</h2>
+<ul>
+<li>Chrome DevTools开发调试、性能评测</li>
+<li>Lighthouse网站整体质量评估</li>
+<li>WebPageTest多测试地点、全面性能报告</li>
+</ul>
+<h2 id="webpagetest分析性能">WebPageTest分析性能</h2>
+<p><a href="https://www.webpagetest.org/">https://www.webpagetest.org/</a></p>
+<h3 id="解读webpagetest的报告">解读WebPageTest的报告</h3>
+<ul>
+<li>waterfall chart请求瀑布图</li>
+<li>first view首次访问</li>
+<li>repeat view二次访问</li>
+</ul>
+<h3 id="本地部署webpagetest工具">本地部署WebPageTest工具</h3>
+<p>拉取镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">pull</span> <span style="color:#a6e22e">webpagetest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">server</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">pull</span> <span style="color:#a6e22e">webpagetest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">agent</span>
+</span></span></code></pre></div><p>生成wpt-mac-server镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">server</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">server</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vim</span> <span style="color:#a6e22e">dockerfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dockerfile
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">webpagetest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">server</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ADD</span> <span style="color:#a6e22e">locations</span>.<span style="color:#a6e22e">ini</span> <span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#960050;background-color:#1e0010">/www/html/settings/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vim</span> <span style="color:#a6e22e">locations</span>.<span style="color:#a6e22e">ini</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// locations.ini
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#a6e22e">locations</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Test_loc</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Test_loc</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Test</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Test</span> <span style="color:#a6e22e">Location</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">group</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Desktop</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Test</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">browser</span><span style="color:#f92672">=</span><span style="color:#a6e22e">Chrome</span>,<span style="color:#a6e22e">Firefox</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Test Location&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">connectivity</span><span style="color:#f92672">=</span><span style="color:#a6e22e">LAN</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">build</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">server</span> .
+</span></span></code></pre></div><p>生成wpt-mac-agent镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">mkdir</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vim</span> <span style="color:#a6e22e">dockerfile</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dockerfile
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">webpagetest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">agent</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ADD</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">sh</span> <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ENTRYPOINT</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">sh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vim</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">sh</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// script.sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span><span style="color:#f92672">!</span><span style="color:#960050;background-color:#1e0010">/bin/bash</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> [ <span style="color:#f92672">-</span><span style="color:#a6e22e">z</span> <span style="color:#e6db74">&#34;$SERVER_URL&#34;</span> ]; <span style="color:#a6e22e">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">echo</span> <span style="color:#f92672">&gt;&amp;</span><span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;SERVER_URL not set&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">exit</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> [ <span style="color:#f92672">-</span><span style="color:#a6e22e">z</span> <span style="color:#e6db74">&#34;$LOCATION&#34;</span> ]; <span style="color:#a6e22e">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">echo</span> <span style="color:#f92672">&gt;&amp;</span><span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;LOCATION not set&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">exit</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">EXTRA_ARGS</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> [ <span style="color:#f92672">-</span><span style="color:#a6e22e">n</span> <span style="color:#e6db74">&#34;$NAME&#34;</span> ]; <span style="color:#a6e22e">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">EXTRA_ARGS</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;$EXTRA_ARGS --name $NAME&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">python</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">wptagent</span><span style="color:#f92672">/</span><span style="color:#a6e22e">wptagent</span>.<span style="color:#a6e22e">py</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">server</span> <span style="color:#a6e22e">$SERVER_URL</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">location</span> <span style="color:#a6e22e">$LOCATION</span> <span style="color:#a6e22e">$EXTRA_ARGS</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">xvfb</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">dockerized</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">vvvvv</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">shaper</span> <span style="color:#a6e22e">none</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">chmod</span> <span style="color:#a6e22e">u</span><span style="color:#f92672">+</span><span style="color:#a6e22e">x</span> <span style="color:#a6e22e">script</span>.<span style="color:#a6e22e">sh</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">build</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span> .
+</span></span></code></pre></div><p>运行镜像</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">4000</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">server</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">docker</span> <span style="color:#a6e22e">run</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#ae81ff">4001</span><span style="color:#f92672">:</span><span style="color:#ae81ff">80</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">network</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;host&#34;</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">e</span> <span style="color:#e6db74">&#34;SERVER_URL=http://localhost:4000/work/&#34;</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">e</span> <span style="color:#e6db74">&#34;LOCATION=Test&#34;</span> <span style="color:#a6e22e">wpt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">mac</span><span style="color:#f92672">-</span><span style="color:#a6e22e">agent</span>
+</span></span></code></pre></div><h2 id="lighthouse分析性能">LightHouse分析性能</h2>
+<p>安装</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">install</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">g</span> <span style="color:#a6e22e">lighthouse</span>
+</span></span></code></pre></div><p>使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">lighthouse</span> <span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//wilberjiang.com/
+</span></span></span></code></pre></div><h2 id="chrome-devtools分析性能">Chrome DevTools分析性能</h2>
+<h3 id="network">Network</h3>
+<ul>
+<li>网络传输压缩</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">compression</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;compression&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">compression</span>())
+</span></span></code></pre></div><h3 id="performance">Performance</h3>
+<ul>
+<li>main主线程任务</li>
+<li>调用栈</li>
+</ul>
+<h2 id="常用性能测量api">常用性能测量API</h2>
+<ul>
+<li>关键时间节点</li>
+<li>网络状态</li>
+<li>客户端服务端协商&amp;网页显示状态</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>性能指标</th>
+<th>计算方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS解析耗时</td>
+<td>domainLookupEnd - domainLookupStart</td>
+</tr>
+<tr>
+<td>TCP连接耗时</td>
+<td>connectEnd - connectStart</td>
+</tr>
+<tr>
+<td>SSL安全连接耗时</td>
+<td>connectEnd - secureConnectionStart</td>
+</tr>
+<tr>
+<td>网络请求耗时</td>
+<td>responseStart - requestStart</td>
+</tr>
+<tr>
+<td>数据传输耗时</td>
+<td>responseEnd - responseStart</td>
+</tr>
+<tr>
+<td>DOM解析耗时</td>
+<td>domInteractive - responseEnd</td>
+</tr>
+<tr>
+<td>资源加载耗时</td>
+<td>loadEventStart - domContentLoadedEventEnd</td>
+</tr>
+<tr>
+<td>First Byte时间</td>
+<td>responseStart - domainLookupStart</td>
+</tr>
+<tr>
+<td>白屏时间</td>
+<td>responseEnd - fetchStart</td>
+</tr>
+<tr>
+<td>首次可交互时间</td>
+<td>domInteractive - fetchStart</td>
+</tr>
+<tr>
+<td>DOM Ready时间</td>
+<td>domContentLoadedEventEnd - fetchStart</td>
+</tr>
+<tr>
+<td>页面完全加载时间</td>
+<td>loadEventStart - fetchStart</td>
+</tr>
+<tr>
+<td>http头部大小</td>
+<td>transferSize - encodedBodySize</td>
+</tr>
+<tr>
+<td>重定向次数</td>
+<td>performance.navigation.redirectCount</td>
+</tr>
+<tr>
+<td>重定向耗时</td>
+<td>redirectEnd - redirectStart</td>
+</tr>
+</tbody>
+</table>
+<h3 id="首次可交互时间">首次可交互时间</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 计算一些关键的性能指标
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>window.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;load&#39;</span>, (<span style="color:#a6e22e">event</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Time to Interactive 可交互时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timing</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">performance</span>.<span style="color:#a6e22e">getEntriesByType</span>(<span style="color:#e6db74">&#39;navigation&#39;</span>)[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">diff</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">domInteractive</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">timing</span>.<span style="color:#a6e22e">fetchStart</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;TTI: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">diff</span>);
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="观察长任务">观察长任务</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">observer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">PerformanceObserver</span>((<span style="color:#a6e22e">list</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">entry</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">list</span>.<span style="color:#a6e22e">getEntries</span>()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">entry</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">observer</span>.<span style="color:#a6e22e">observe</span>({<span style="color:#a6e22e">entryTypes</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;longtask&#39;</span>]})
+</span></span></code></pre></div><h3 id="页面可见性的状态监听">页面可见性的状态监听</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">vEvent</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;visibilitychange&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (document.<span style="color:#a6e22e">webkitHidden</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">undefined</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// webkit prefix detected
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">vEvent</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;webkitvisibilitychange&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">visibilityChanged</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (document.<span style="color:#a6e22e">hidden</span> <span style="color:#f92672">||</span> document.<span style="color:#a6e22e">webkitHidden</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Web page is hidden.&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Web page is visible.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#a6e22e">vEvent</span>, <span style="color:#a6e22e">visibilityChanged</span>, <span style="color:#66d9ef">false</span>);
+</span></span></code></pre></div><h3 id="页面网络连接状态监听">页面网络连接状态监听</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">connection</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">connection</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">mozConnection</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">webkitConnection</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">effectiveType</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateConnectionStatus</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Connection type changed from &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">type</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; to &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">effectiveType</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">effectiveType</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;change&#39;</span>, <span style="color:#a6e22e">updateConnectionStatus</span>);
+</span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96" title="性能优化">性能优化</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#性能指标">性能指标</a>
+      <ul>
+        <li><a href="#加载">加载</a></li>
+        <li><a href="#响应">响应</a></li>
+      </ul>
+    </li>
+    <li><a href="#rail测量模型">RAIL测量模型</a>
+      <ul>
+        <li><a href="#rail评估标准">RAIL评估标准</a></li>
+      </ul>
+    </li>
+    <li><a href="#性能测量工具">性能测量工具</a></li>
+    <li><a href="#webpagetest分析性能">WebPageTest分析性能</a>
+      <ul>
+        <li><a href="#解读webpagetest的报告">解读WebPageTest的报告</a></li>
+        <li><a href="#本地部署webpagetest工具">本地部署WebPageTest工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#lighthouse分析性能">LightHouse分析性能</a></li>
+    <li><a href="#chrome-devtools分析性能">Chrome DevTools分析性能</a>
+      <ul>
+        <li><a href="#network">Network</a></li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#常用性能测量api">常用性能测量API</a>
+      <ul>
+        <li><a href="#首次可交互时间">首次可交互时间</a></li>
+        <li><a href="#观察长任务">观察长任务</a></li>
+        <li><a href="#页面可见性的状态监听">页面可见性的状态监听</a></li>
+        <li><a href="#页面网络连接状态监听">页面网络连接状态监听</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1286,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1439,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

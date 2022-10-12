@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on 姜波</title>
+    <link>https://wilberjiang.com/tags/nginx/</link>
+    <description>Recent content in nginx on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 19 Sep 2019 21:11:35 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nginx使用</title>
+      <link>https://wilberjiang.com/post/node/nginx%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Thu, 19 Sep 2019 21:11:35 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/nginx%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h2 id=&#34;nginx-基本使用&#34;&gt;nginx 基本使用&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;以管理员运行命令行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cd 到 nginx 根目录 启动&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://wilberjiang.com/img_md/1526466849533.png&#34; alt=&#34;Image text&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;启动命令:start nginx&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

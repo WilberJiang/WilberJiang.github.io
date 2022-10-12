@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on 姜波</title>
+    <link>https://wilberjiang.com/tags/mysql/</link>
+    <description>Recent content in mysql on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 09 Oct 2019 22:13:56 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node使用MySQL</title>
+      <link>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mysql/</link>
+      <pubDate>Wed, 09 Oct 2019 22:13:56 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mysql/</guid>
+      <description>&lt;h2 id=&#34;基本操作&#34;&gt;基本操作&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;创建表
+&lt;ul&gt;
+&lt;li&gt;数据类型
+&lt;ul&gt;
+&lt;li&gt;整数类型 int&lt;/li&gt;
+&lt;li&gt;浮点类型 double&lt;/li&gt;
+&lt;li&gt;日期类型 date/timestamp&lt;/li&gt;
+&lt;li&gt;字符串类型 char varchar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

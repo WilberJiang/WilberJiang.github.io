@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>socket on 姜波</title>
+    <link>https://wilberjiang.com/tags/socket/</link>
+    <description>Recent content in socket on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sat, 19 Oct 2019 21:53:51 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/socket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node使用Socket.io</title>
+      <link>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8socket.io/</link>
+      <pubDate>Sat, 19 Oct 2019 21:53:51 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8socket.io/</guid>
+      <description>&lt;h2 id=&#34;session-store&#34;&gt;session store&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;客户端cookie长度有限&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端保存cookie信息不安全&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;客户端保存钥匙，服务器存储数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

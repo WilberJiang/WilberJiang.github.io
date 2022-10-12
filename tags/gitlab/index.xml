@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gitlab on 姜波</title>
+    <link>https://wilberjiang.com/tags/gitlab/</link>
+    <description>Recent content in gitlab on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sat, 21 Mar 2020 22:05:32 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>团队协作</title>
+      <link>https://wilberjiang.com/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/</link>
+      <pubDate>Sat, 21 Mar 2020 22:05:32 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/</guid>
+      <description>&lt;h2 id=&#34;文档管理&#34;&gt;文档管理&lt;/h2&gt;
+&lt;h3 id=&#34;markdown&#34;&gt;markdown&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;typora&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;showdoc搭建&#34;&gt;ShowDoc搭建&lt;/h3&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

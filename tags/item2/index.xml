@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>item2 on 姜波</title>
+    <link>https://wilberjiang.com/tags/item2/</link>
+    <description>Recent content in item2 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Mon, 29 Jun 2020 13:10:09 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/item2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mac配置item2主题</title>
+      <link>https://wilberjiang.com/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/</link>
+      <pubDate>Mon, 29 Jun 2020 13:10:09 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/</guid>
+      <description>&lt;h2 id=&#34;下载iterm2&#34;&gt;下载iterm2&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://iterm2.com/&#34;&gt;https://iterm2.com/&lt;/a&gt;下载&lt;/li&gt;
+&lt;li&gt;下载完成后双击解压即可&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;下载oh-my-zsh&#34;&gt;下载oh-my-zsh&lt;/h2&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

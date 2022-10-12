@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>前端可视化 on 姜波</title>
+    <link>https://wilberjiang.com/categories/%E5%89%8D%E7%AB%AF%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <description>Recent content in 前端可视化 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 22 Jul 2022 22:12:42 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/categories/%E5%89%8D%E7%AB%AF%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Threejs相机</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/</link>
+      <pubDate>Fri, 22 Jul 2022 22:12:42 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。&lt;/li&gt;
+&lt;li&gt;常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。&lt;/li&gt;
+&lt;li&gt;由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs光照</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/</link>
+      <pubDate>Mon, 18 Jul 2022 21:25:15 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs材质</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/</link>
+      <pubDate>Fri, 15 Jul 2022 20:11:23 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs几何体</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/</link>
+      <pubDate>Mon, 11 Jul 2022 21:16:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs场景</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/</link>
+      <pubDate>Sat, 09 Jul 2022 22:31:42 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Threejs基础</title>
+      <link>https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Wed, 06 Jul 2022 20:03:21 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;基本介绍&#34;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/mrdoob/three.js&#34;&gt;https://github.com/mrdoob/three.js&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特点&#34;&gt;特点&lt;/h2&gt;
+&lt;p&gt;Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>WebGL基础</title>
+      <link>https://wilberjiang.com/post/visualization/webgl%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Sun, 03 Jul 2022 21:07:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/visualization/webgl%E5%9F%BA%E7%A1%80/</guid>
+      <description>&lt;h2 id=&#34;初识webgl&#34;&gt;初识WebGL&lt;/h2&gt;
+&lt;p&gt;WebGL 解决了用户在页面中&lt;strong&gt;绘制和渲染 3D 图形&lt;/strong&gt;的功能，且使用户通过页面与&lt;strong&gt;三维图形交互成&lt;/strong&gt;为可能，这项技术将在下一代开发用户易用直观界面中发挥重要的作用。在接下的几年，WebGL技术将广泛地应用于电子设备的移动终端，包括&lt;strong&gt;平板、手机设备&lt;/strong&gt;，因此，WebGL 技术的学习显的特别重要。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

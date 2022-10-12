@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>Node使用MongoDB | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,40 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="Node使用MongoDB" />
+<meta property="og:description" content="MongoDB
+
+一个数据库对应多个集合
+
+一个集合对应多个文档对象
+在mongo中不论是db还是集合，你都无需去创建他
+直接就当他已经存在，直接Use来使用
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/node/node%E4%BD%BF%E7%94%A8mongodb/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-09-25T22:24:16+08:00" />
+<meta property="article:modified_time" content="2019-09-25T22:24:16+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="Node使用MongoDB"/>
+<meta name="twitter:description" content="MongoDB
+
+一个数据库对应多个集合
+
+一个集合对应多个文档对象
+在mongo中不论是db还是集合，你都无需去创建他
+直接就当他已经存在，直接Use来使用
+
+
+"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +92,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +131,290 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          Node使用MongoDB
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期三，九月 25 日，2019 年
+              
+
+            | 4 分钟阅读
+
+            | 更新于
+              
+                星期三，九月 25 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h1 id="mongodb">MongoDB</h1>
+<ul>
+<li>一个数据库对应多个集合
+<ul>
+<li>一个集合对应多个文档对象</li>
+<li>在mongo中不论是db还是集合，你都无需去创建他</li>
+<li>直接就当他已经存在，直接Use来使用</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>use db名称</p>
+<ul>
+<li>接着会被切换到该db中</li>
+<li><code>db.要创建的集合名称.save({})</code>;这样集合就被创建了</li>
+</ul>
+</li>
+<li>
+<p><strong>解决32位异常</strong></p>
+<p>mongod &ndash;dbpath=&ldquo;路径&rdquo; &ndash;journal &ndash;storageEngine=mmapv1</p>
+</li>
+<li>
+<p>启动服务器</p>
+<ul>
+<li><code>mongod --dbpath &quot;D:/mongodb/db&quot;</code> // 目录一定要存在自己创建随便名称‘
+<ul>
+<li>尽量设置在非系统盘 <code>C盘生成目录是需要权限的</code></li>
+</ul>
+</li>
+<li>如果看到<code>waiting for connections on port 27017</code>说明服务已经启动</li>
+</ul>
+</li>
+<li>
+<p>客户端连接服务器<strong>另开一个命令行</strong></p>
+<ul>
+<li><code>mongo</code> 默认连接的是test数据库</li>
+</ul>
+</li>
+<li>
+<p>查询有哪些数据库</p>
+<ul>
+<li>查询数据库：<code>show dbs;</code></li>
+<li>切换数据库: <code>use 数据库名;</code></li>
+</ul>
+</li>
+<li>
+<p>查询当前db下有哪些集合</p>
+<ul>
+<li><code>show collections;</code></li>
+</ul>
+</li>
+<li>
+<p>查询数据：</p>
+<ul>
+<li><code>db.集合名.find();</code>  //查询出来的是文档对象 document</li>
+<li><code>db.users.find();</code></li>
+</ul>
+</li>
+<li>
+<p>添加数据:</p>
+<ul>
+<li><code>db.集合名.save(对象)</code> //mongo默认会给我们加入_id作为该文档对象的唯一标识</li>
+<li><code>db.users.save({contry:'中国',name:'小明',score:77});</code></li>
+</ul>
+</li>
+<li>
+<p>删除数据:</p>
+<ul>
+<li><code>db.集合名.remove(条件对象);</code>//条件匹配就会被删除</li>
+<li><code>db.users.remove({name:'小明'});</code></li>
+<li>如果给定一个空对像，会匹配全部</li>
+</ul>
+</li>
+<li>
+<p>更新数据:</p>
+<ul>
+<li><code>db.集合名.update({匹配条件对象},{$set:{修改后的对象}});</code></li>
+<li><code>db.users.update({name:'小明'},{$set:{contry:'印度'}});;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="条件查询">条件查询</h2>
+<pre tabindex="0"><code>查询姓名为小明的学生
+        db.users.find({name:&#39;小明&#39;});;   查询英语成绩大于90分的同学
+        db.users.find({score:{$gt:90}}); //查找成绩大于90分$gt
+        //$lt小于
+查询数学成绩不等于88的同学
+        db.users.find({score:{$ne:88}});   查询总分大于200分的所有同学
+        db.users.find({score:{$gt:200}});
+</code></pre><h2 id="分页">分页</h2>
+<ul>
+<li><code>db.users.find().skip(3).limit(3);</code></li>
+<li>db.集合名称.find().跳到3.显示3条
++ limit 0,3</li>
+</ul>
+<h2 id="排序">排序</h2>
+<ul>
+<li><code>db.users.find().sort({key:排序方式});</code></li>
+<li><code>db.users.find().sort({'score':1});</code> //正数代表升序，负数代表降序</li>
+</ul>
+<h2 id="模糊匹配">模糊匹配</h2>
+<ul>
+<li><code>db.users.find({name:{$regex:'小'}});</code></li>
+<li><code>db.users.find({name:{$regex:'明'}});</code></li>
+</ul>
+<h2 id="聚合函数">聚合函数</h2>
+<ul>
+<li>需要求当前集合的记录数：</li>
+<li><code>db.users.find().count();</code></li>
+<li>求最大值
+-求整个集合的总成绩
++ db.集合名.聚合({ 组的划分规则{_id:&lsquo;1&rsquo;,显示内容:{$sum:&rsquo;$score&rsquo;}} })
+<ul>
+<li>求所有人的平均分
+<ul>
+<li><code>db.users.aggregate({$group:{_id:'1',sumscore:{$avg:'$score' } }});</code></li>
+</ul>
+</li>
+<li>求按国家分组，求所有国家的总分
+<ul>
+<li><code>db.users.aggregate({$group:{_id:'$contry',sumScore:{$sum:'$score'}}});</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>添加基础数据:
+db.users.save({contry:&lsquo;中国&rsquo;,name:&lsquo;小明&rsquo;,score:77});
+db.users.save({contry:&lsquo;中国&rsquo;,name:&lsquo;小红&rsquo;,score:88});
+db.users.save({contry:&lsquo;中国&rsquo;,name:&lsquo;小张&rsquo;,score:99});
+db.users.save({contry:&lsquo;美国&rsquo;,name:&lsquo;jack&rsquo;,score:45});
+db.users.save({contry:&lsquo;美国&rsquo;,name:&lsquo;rose&rsquo;,score:67});
+db.users.save({contry:&lsquo;美国&rsquo;,name:&lsquo;mick&rsquo;,score:89});</li>
+</ul>
+<h2 id="联合查询">联合查询</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">orders</span>.<span style="color:#a6e22e">insert</span>([
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;item&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;almonds&#34;</span>, <span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">12</span>, <span style="color:#e6db74">&#34;quantity&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;item&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pecans&#34;</span>, <span style="color:#e6db74">&#34;price&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">20</span>, <span style="color:#e6db74">&#34;quantity&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>  }
+</span></span><span style="display:flex;"><span>]);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">inventory</span>.<span style="color:#a6e22e">insert</span>([
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;sku&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;almonds&#34;</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;product 1&#34;</span>, <span style="color:#e6db74">&#34;instock&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">120</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;sku&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;bread&#34;</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;product 2&#34;</span>, <span style="color:#e6db74">&#34;instock&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">80</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;sku&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;cashews&#34;</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;product 3&#34;</span>, <span style="color:#e6db74">&#34;instock&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">60</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#34;sku&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;pecans&#34;</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;product 4&#34;</span>, <span style="color:#e6db74">&#34;instock&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">70</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>, <span style="color:#e6db74">&#34;sku&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Incomplete&#34;</span> },
+</span></span><span style="display:flex;"><span>   { <span style="color:#e6db74">&#34;_id&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span> }
+</span></span><span style="display:flex;"><span>]);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">orders</span>.<span style="color:#a6e22e">aggregate</span>([
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">$lookup</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">from</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inventory&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">localField</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;item&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">foreignField</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;sku&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">as</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;inventory_docs&#34;</span>
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]);
+</span></span></code></pre></div><h2 id="操作符">操作符</h2>
+<ul>
+<li><a href="https://docs.mongodb.com/manual/reference/operator/">https://docs.mongodb.com/manual/reference/operator/</a></li>
+</ul>
+<h2 id="扩展知识使用mongodb实现附近的人">扩展知识（使用mongodb实现附近的人）</h2>
+<p><img src="/img_md/1531863165841.jpg" alt="Image text"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 创建索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">createIndex</span>({<span style="color:#e6db74">&#34;sp&#34;</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;2dsphere&#34;</span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.754</span>,<span style="color:#ae81ff">41.689</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.304</span>,<span style="color:#ae81ff">41.783</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.084</span>,<span style="color:#ae81ff">41.389</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.831</span>,<span style="color:#ae81ff">41.285</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">106.128</span>,<span style="color:#ae81ff">42.086</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.431</span>,<span style="color:#ae81ff">42.009</span>]} });
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">insert</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;G&#34;</span>,<span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">type</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;Point&#34;</span>,<span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">104.705</span>,<span style="color:#ae81ff">41.921</span>]} });
+</span></span></code></pre></div><h2 id="查找附近的人">查找附近的人</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>    <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">find</span>(
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">sp</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">$nearSphere</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">$geometry</span><span style="color:#f92672">:</span> { 
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Point&#34;</span>,  
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.304</span>,<span style="color:#ae81ff">41.783</span>]
+</span></span><span style="display:flex;"><span>              },
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">$minDistance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">25000</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">$maxDistance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">40000</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><h2 id="离我最近">离我最近</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">aggregate</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">$geoNear</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">near</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Point&#34;</span>, <span style="color:#a6e22e">coordinates</span><span style="color:#f92672">:</span>[<span style="color:#ae81ff">105.304</span>,<span style="color:#ae81ff">41.783</span>]},
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">distanceField</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;dist.calculated&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">spherical</span><span style="color:#f92672">:</span><span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">maxDistance</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">40000</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>     })
+</span></span></code></pre></div><ul>
+<li>
+<p>经纬度查询网站</p>
+<ul>
+<li><a href="http://www.gpsspg.com/maps.htm">http://www.gpsspg.com/maps.htm</a></li>
+</ul>
+</li>
+</ul></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/mongodb" title="mongodb">mongodb</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#条件查询">条件查询</a></li>
+    <li><a href="#分页">分页</a></li>
+    <li><a href="#排序">排序</a></li>
+    <li><a href="#模糊匹配">模糊匹配</a></li>
+    <li><a href="#聚合函数">聚合函数</a></li>
+    <li><a href="#联合查询">联合查询</a></li>
+    <li><a href="#操作符">操作符</a></li>
+    <li><a href="#扩展知识使用mongodb实现附近的人">扩展知识（使用mongodb实现附近的人）</a></li>
+    <li><a href="#查找附近的人">查找附近的人</a></li>
+    <li><a href="#离我最近">离我最近</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1214,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1367,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     

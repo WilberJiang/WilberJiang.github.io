@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>首页 | 姜波</title>
+    <title>Node基础 | 姜波</title>
 
     
 <link href="/img/avatar.ico" rel="shortcut icon" type="image/x-icon" />
@@ -19,20 +19,40 @@
 
 <meta name="generator" content="Hugo 0.101.0" />
 
-<link rel="canonical" href="https://wilberjiang.com/" />
+<link rel="canonical" href="https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/" />
 
 
-<meta property="og:title" content="姜波" />
-<meta property="og:description" content="前端、node、全栈等开发技术分享" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://wilberjiang.com/" />
+<meta property="og:title" content="Node基础" />
+<meta property="og:description" content="为什么学习Node?
+
+IO优势
+
+对于文件读写,Node采用的是非阻塞IO
+传统IO在读写文件的时候CPU来处理,而代码执行也处于等待中,浪费性能
+非阻塞IO将读写操作交给CPU,而代码正常执行,减少等待浪费的性能
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wilberjiang.com/post/node/node%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-08-26T21:14:27+08:00" />
+<meta property="article:modified_time" content="2019-08-26T21:14:27+08:00" />
 
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="姜波"/>
-<meta name="twitter:description" content="前端、node、全栈等开发技术分享"/>
+<meta name="twitter:title" content="Node基础"/>
+<meta name="twitter:description" content="为什么学习Node?
+
+IO优势
+
+对于文件读写,Node采用的是非阻塞IO
+传统IO在读写文件的时候CPU来处理,而代码执行也处于等待中,浪费性能
+非阻塞IO将读写操作交给CPU,而代码正常执行,减少等待浪费的性能
+
+
+"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -72,7 +92,17 @@
   
 </style>
 
-     
+    
+
+
+  
+    <link rel="stylesheet" data-highlight href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css" />
+  
+
+
+
+
+
     
   </head>
 
@@ -101,8 +131,419 @@
         <section class="front">
           <div class="dream-max-width">
             
-<div class="ui relaxed grid dream-grid">
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<div class="ui centered relaxed grid dream-grid">
+  <div class="sixteen wide mobile sixteen wide tablet twelve wide computer column markdown-body dream-single" id="dream-save-post-as-img">
+    
+    <section class="ui top attached segment">
+      <header>
+        <h1 class="ui large header">
+          Node基础
+          <div class="sub header">
+            @
+            
+              
+                姜波
+              
+            
+
+            | 
+                星期一，八月 26 日，2019 年
+              
+
+            | 6 分钟阅读
+
+            | 更新于
+              
+                星期一，八月 26 日，2019 年
+              
+          </div>
+        </h1>
+      </header>
+
+      <article class="main"><h2 id="为什么学习node">为什么学习Node?</h2>
+<ul>
+<li>IO优势
+<ul>
+<li>对于文件读写,Node采用的是非阻塞IO</li>
+<li>传统IO在读写文件的时候CPU来处理,而代码执行也处于等待中,浪费性能</li>
+<li>非阻塞IO将读写操作交给CPU,而代码正常执行,减少等待浪费的性能</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>应用场景
+<ul>
+<li>实际应用: webpack/gulp/npm/http-server/json-server</li>
+<li>服务器中负责IO读写的中间层服务器(天猫中间层IO服务器)</li>
+</ul>
+</li>
+</ul>
+<h2 id="nodejs特点">NodeJS特点</h2>
+<ul>
+<li>其移植了chrome V8 引擎,解析和执行代码机制和浏览器js相同</li>
+<li>其沿用了JavaScript语法、另外扩展了自己需要的功能</li>
+<li>总结: nodejs  是一个后端语言 ,  其具备操作文件的能力,  可以具备服务器的创建和操作能力
+<ul>
+<li>其语法是JavaScript语法,代码运行在chrome V8 引擎之上</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本使用">基本使用</h3>
+<ul>
+<li>官网上下载 node-v-xx.msi 傻瓜式的安装包  一路下一步,就ok</li>
+<li>检测是否安装成功 node -v</li>
+<li>运行程序   node ./xxx.js</li>
+</ul>
+<h2 id="内置对象介绍">内置对象介绍</h2>
+<h3 id="分类">分类</h3>
+<ul>
+<li>全局对象:  何时何处都能访问</li>
+<li>核心对象:  向系统索要,引入即可使用</li>
+<li>自定义对象:  按路径引入即可</li>
+</ul>
+<h3 id="process全局对象">process（全局对象）</h3>
+<ul>
+<li>
+<p>每个系统的环境变量几乎都不一样，可以利用环境变量中的具体某个特定的值来区分不同的机器</p>
+</li>
+<li>
+<p>process.env 是一个对象，我们可以通过其.属性名来获取具体的环境变量值</p>
+<ul>
+<li>设置一个特定的环境变量,以达到简单区分不同的机器,从而针对生产/开发环境运行不同的效果</li>
+</ul>
+</li>
+<li>
+<p>process.argv 获取命令行参数</p>
+</li>
+</ul>
+<h3 id="filenamedirname全局对象">filename/dirname（全局对象）</h3>
+<ul>
+<li>__filename 获取当前运行文件的目录,绝对路径</li>
+<li>__dirname 当前运行文件的绝对路径</li>
+</ul>
+<h3 id="nodejs实现规范">nodejs实现规范</h3>
+<ul>
+<li>CommonJS   :  规范JavaScript语言作为后端语言运行的标准
+<ul>
+<li>具备什么能力,该怎么做 ,比如: 具备服务器的功能/  可以操作文件 &hellip;..</li>
+<li>模块应该怎么写: Module :
+<ul>
+<li>依赖一个模块   require(&lsquo;模块名(id)&rsquo;)</li>
+<li>需要被模块依赖   module.exports = 给外部的数据</li>
+<li>一个文件是一个模块</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="核心对象path">核心对象path</h3>
+<ul>
+<li><code>const path = require('path');</code></li>
+<li>路径 -&gt; 在处理路径的时候很擅长,但是,其不负责判断路径是否存在文件</li>
+<li>拼接并修正路径 <code>path.join(__dirname,'a','b');</code> 以当前目录/a/b</li>
+<li><code>path.resovle('./xxx') 相对转绝对</code></li>
+<li>接收一个合法的路径字符串，转换成一个对象
+<ul>
+<li><code>let pathObj = path.parse(mypath);</code></li>
+</ul>
+</li>
+<li>接收一个路径对象，转换成一个字符串路径
+<ul>
+<li><code>let str = path.format(pathObj);</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{ 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">root</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;C:\\&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dir</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;C:\\Users\\孙悟空&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">base</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;金箍棒.txt&#39;</span>,   <span style="color:#75715e">// 该属性可以用于修改文件名和后缀
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ext</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;.txt&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;金箍棒&#39;</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><strong>注意:path对象是方便我们操作路径的,对于获取来讲: parse解析成对象,format转换成字符串.join拼接并修正&hellip;. 对于修改路径对象来讲,可以用base属性更改,不能用name,ext更改</strong></li>
+</ul>
+<h3 id="模块">模块</h3>
+<ul>
+<li>弊端
+<ul>
+<li>在js中要涉及到逻辑,还要在html中，为逻辑对象考虑引用顺序</li>
+<li>所有对象默认都是全局对象，命名冲突</li>
+<li>commonjs规范</li>
+<li>一个文件就是一个模块
+<ul>
+<li>导入用require(&rsquo;./xxx.js&rsquo;);</li>
+<li>导出用module.exports = xxx;</li>
+<li>在每一个模块内声明的变量属于模块内的作用域</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="fs文件模块">fs文件模块</h2>
+<ul>
+<li>文件读写</li>
+<li>其他功能</li>
+<li>扩展介绍</li>
+</ul>
+<h3 id="操作文件对象">操作文件对象</h3>
+<ul>
+<li>
+<p>IO</p>
+<ul>
+<li>I :input输入</li>
+<li>O:output 输出</li>
+<li>文件的操作就是IO</li>
+</ul>
+</li>
+<li>
+<p>复制文件的过程,  I: 通过计算机,存储文件到剪切板</p>
+<ul>
+<li>粘贴到指定目录:   O: 通过计算机,将剪切板上的数据,写出到 指定目录</li>
+</ul>
+</li>
+<li>
+<p>node中有两种IO的操作</p>
+<ul>
+<li>
+<p>同步IO</p>
+<ul>
+<li>一行代码(读文件)不执行完毕&hellip;后续代码不能执行</li>
+</ul>
+</li>
+<li>
+<p>异步IO (建议)</p>
+<ul>
+<li>一行代码(读写文件) 不执行完毕(正在读写中) &hellip; 后续代码也可以执行</li>
+</ul>
+</li>
+<li>
+<p>代码体验:</p>
+<ul>
+<li>
+<p>读写文件</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>); <span style="color:#75715e">//必须这个名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//读 fs.readFile(路径,回调函数);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//写 fs.writeFile(路径,数据,回调函数);
+</span></span></span></code></pre></div></li>
+<li>
+<p>总结: 异步的读/写文件  参数1:都是路径,可以相对可以绝对,最后一个参数都是回调函数,回调函数的参数中错误对象优先</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>同步和异步IO的区别: 同步IO会阻塞后续代码执行,异步IO不会阻塞后续代码执行</p>
+</li>
+</ul>
+<h3 id="遍历文件夹下的文件">遍历文件夹下的文件</h3>
+<ul>
+<li>
+<p>读取文件夹,获取其中所有文件的资源</p>
+</li>
+<li>
+<p>stat 获取文件状态</p>
+</li>
+<li>
+<p>readdir 读取文件夹数据</p>
+</li>
+<li>
+<p>access 判断文件或文件夹是否存在</p>
+</li>
+</ul>
+<p><img src="/img_md/1526562073755.png" alt="Image text"></p>
+<p><img src="/img_md/1531572185329.png" alt="Image text"></p>
+<p><img src="/img_md/1531573934913.png" alt="Image text"></p>
+<h3 id="包文件夹">包（文件夹）</h3>
+<ul>
+<li>多个文件，有效的被组织与管理的一个单位</li>
+<li>留一个入口</li>
+<li><strong>包就是一个:文件夹</strong></li>
+</ul>
+<h3 id="npm-yarn">npm|| yarn</h3>
+<ul>
+<li>自己先有一个包描述文件（<strong>package.json</strong>)</li>
+<li>创建一个包描述文件 <code>npm init [-y]</code>
+<ul>
+<li>会根据当前的文件夹来自动生成包名（<strong>不允许中文，不允许大写英文字母</strong>)</li>
+<li>默认生成<code>npm init [-y]</code></li>
+</ul>
+</li>
+<li>下载一个包 <code>npm install art-template jquery@1.5.1 --save</code>
+<ul>
+<li>记录依赖<code>--save</code></li>
+</ul>
+</li>
+<li>根据package.json文件中的<code>dependencies</code>属性恢复依赖
+<ul>
+<li>恢复包 <code>npm install</code>   简单: <code>npm i </code></li>
+</ul>
+</li>
+<li>卸载一个包 <code>npm uninstall jquery@1.5.1 --save</code></li>
+<li>简写```npm un <a href="mailto:jquery@1.5.1">jquery@1.5.1</a> &ndash;S`
+<ul>
+<li>下载简单些:<code>npm i 包名</code></li>
+</ul>
+</li>
+<li><strong>小结:以上简写:  uninstall -&gt; un ,install -&gt; i , &ndash;save -&gt; -S</strong></li>
+<li>查看包的信息
+<ul>
+<li><code>npm info jquery</code></li>
+</ul>
+</li>
+<li>查看包的信息中的某个字段(版本)(掌握)
+<ul>
+<li><code>npm info jquery versions</code></li>
+</ul>
+</li>
+<li>查看包的文档
+<ul>
+<li><code>npm docs jquery</code></li>
+</ul>
+</li>
+<li>安装全局命令行工具
+<ul>
+<li><code>npm install -g http-server</code></li>
+</ul>
+</li>
+<li>卸载全局命令行工具
+<ul>
+<li><code>npm uninstall -g http-server</code></li>
+</ul>
+</li>
+<li>查看全局包的下载路径
+<ul>
+<li><code>npm root -g</code></li>
+</ul>
+</li>
+<li>修改存储目录
+<ul>
+<li><code>npm config set prefix &quot;D:\xxx&quot;</code></li>
+<li>不要node_modules</li>
+<li>接着，修改环境变量中的path属性
+<ul>
+<li>添加或改为<code>D:\xxx</code></li>
+<li>目的就是为了在任意目录启动 xxx.cmd</li>
+</ul>
+</li>
+<li>重启命令行</li>
+</ul>
+</li>
+</ul>
+<h3 id="nrm是npm的镜像源管理工具">nrm是npm的镜像源管理工具</h3>
+<ul>
+<li>1:全局安装 <code>npm install -g nrm</code></li>
+<li>2:查看当前可选的镜像源 <code>nrm ls</code></li>
+<li>3:切换镜像源 <code>nrm use taobao</code></li>
+<li>添加自己公司私有源 <code>nrm add name http://www.xxx.xxx/</code></li>
+</ul>
+<h3 id="包的加载机制">包的加载机制</h3>
+<ul>
+<li>我们未来可能需要辨识一个包中，入口是否是我们想要的启动程序</li>
+<li>逐级向上查找node_module,直到盘符根目录</li>
+<li>1:查找node_modules下的包名文件夹中的main属性(常用)</li>
+<li>2:不常用:查找node_modules下的包名.js</li>
+<li>3:查找node_modules下的包名文件夹中的index.js(常用)</li>
+<li><strong>逐级向上,node_modules,要么main属性,要么index.js</strong></li>
+</ul>
+<h2 id="事件队列">事件队列</h2>
+<ul>
+<li>主线程&ndash;同步任务</li>
+<li>event loop&ndash;异步任务(宏，微)
+<ul>
+<li>微任务的优先级高于宏任务</li>
+<li>process.nextTick()优先于promise.then();</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;script start&#39;</span>);<span style="color:#75715e">//主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;setTimeout1&#39;</span>);<span style="color:#75715e">//推入主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }, <span style="color:#ae81ff">0</span>);<span style="color:#75715e">//推入event loop(宏)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}, <span style="color:#ae81ff">0</span>);<span style="color:#75715e">//推入event loop(宏)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">resolve</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;promise start&#39;</span>);<span style="color:#75715e">//主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;setTimeout2&#39;</span>);<span style="color:#75715e">//推入主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">resolve</span>();<span style="color:#75715e">//将then推入event loop(微)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }, <span style="color:#ae81ff">0</span>);<span style="color:#75715e">//推入event loop(宏)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;promise1&#39;</span>);<span style="color:#75715e">//推入主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;promise2&#39;</span>);<span style="color:#75715e">//推入主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;script end&#39;</span>);<span style="color:#75715e">//主线程
+</span></span></span></code></pre></div></article>
+    </section>
+
+    <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
+      
+        
+          <a class="ui label" href="/tags/node" title="node">node</a>
+        
+      
+      <div
+        class="ui label"
+        style="float: right; cursor: pointer;"
+        onclick="savePostAsImg()">
+        <i class="save icon"></i>保存为图片
+      </div>
+    </footer>
+
+    
+
+    
+    
+    
+
+    
+
+  </div>
+  <aside class="sixteen wide mobile sixteen wide tablet four wide computer column dream-single-aside">
+    
+    
+      <div class="ui segment toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么学习node">为什么学习Node?</a></li>
+    <li><a href="#nodejs特点">NodeJS特点</a>
+      <ul>
+        <li><a href="#基本使用">基本使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#内置对象介绍">内置对象介绍</a>
+      <ul>
+        <li><a href="#分类">分类</a></li>
+        <li><a href="#process全局对象">process（全局对象）</a></li>
+        <li><a href="#filenamedirname全局对象">filename/dirname（全局对象）</a></li>
+        <li><a href="#nodejs实现规范">nodejs实现规范</a></li>
+        <li><a href="#核心对象path">核心对象path</a></li>
+        <li><a href="#模块">模块</a></li>
+      </ul>
+    </li>
+    <li><a href="#fs文件模块">fs文件模块</a>
+      <ul>
+        <li><a href="#操作文件对象">操作文件对象</a></li>
+        <li><a href="#遍历文件夹下的文件">遍历文件夹下的文件</a></li>
+        <li><a href="#包文件夹">包（文件夹）</a></li>
+        <li><a href="#npm-yarn">npm|| yarn</a></li>
+        <li><a href="#nrm是npm的镜像源管理工具">nrm是npm的镜像源管理工具</a></li>
+        <li><a href="#包的加载机制">包的加载机制</a></li>
+      </ul>
+    </li>
+    <li><a href="#事件队列">事件队列</a></li>
+  </ul>
+</nav>
+      </div>
+    
+
     <article class="dream-header">
   <section class="ui top attached center aligned segment">
     <div class="ui small circular image">
@@ -902,340 +1343,7 @@
   </section>
 </article>
 
-  </div>
-
-  
-  
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
-    
-      <img src="/img_static/Ng7uWR.md.jpg" alt="Threejs性能优化" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">Threejs性能优化</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，八月 2 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="尽量共用几何体和材质">尽量共用几何体和材质</h2>
-<p>如果你需要创建三百个简单的相同颜色的立方体模型：</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%8A%A8%E7%94%BB/">
-    
-      <img src="/img_static/NgTBa4.md.jpg" alt="Threejs动画" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%8A%A8%E7%94%BB/">Threejs动画</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 28 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>动画一般可以定义两种：一种是变形动画，另一种是骨骼动画。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">
-    
-      <img src="/img_static/N24GsU.md.jpg" alt="Threejs导入模型" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B/">Threejs导入模型</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 27 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>官方推荐使用的3D模型的格式为glTF，由于glTF专注于传输，因此它的传输和解析的速度都很快。glTF模型功能包括：网格，材质，纹理，蒙皮，骨骼，变形动画，骨骼动画，灯光以及相机。</p>
-<p>模型制作工具：</p>
-<ul>
-<li>3dmax</li>
-<li>SketchUp</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%B2%92%E5%AD%90/">
-    
-      <img src="/img_static/NRuE4O.md.jpg" alt="Threejs粒子" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%B2%92%E5%AD%90/">Threejs粒子</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，七月 24 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Sprite精灵和Points粒子这两种对象共同点就是通过相机查看它们时，始终看到的是它们的正面，它们总朝向相机。通过它们的这种特性，可以实现广告牌的效果，或实现更多的比如雨雪、烟雾等更加绚丽的特效。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">
-    
-      <img src="/img_static/NRKaWD.md.jpg" alt="Threejs相机" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E7%9B%B8%E6%9C%BA/">Threejs相机</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 22 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<ul>
-<li>相机是Three.js抽象出来的一个对象，使用此对象，我们可以定义显示的内容，并且可以通过移动相机位置来显示不同的内容。</li>
-<li>常用的相机正交相机(OrthographicCamera)和透视相机(PerspectiveCamera)两种相机，用于来捕获场景内显示的物体模型，它们有一些通用的属性和方法。</li>
-<li>由于相机都是继承至THREE.Object3D对象的，所以像设置位置的position属性、rotation旋转和scale缩放属性，可以直接对相机对象设置。甚至还可以使用add()方法，给相机对象添加子类，移动相机它的子类也会跟随着一块移动，可以使用这个特性制作一些比如HUD类型的显示界面。</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%85%89%E7%85%A7/">
-    
-      <img src="/img_static/NR3Qbj.md.jpg" alt="Threejs光照" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%85%89%E7%85%A7/">Threejs光照</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 18 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>在Threejs中，类似于现实世界，物体显示的颜色是由物体本身的颜色及光照的颜色相互叠加而得到的</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E6%9D%90%E8%B4%A8/">
-    
-      <img src="/img_static/N2b3tg.jpg" alt="Threejs材质" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E6%9D%90%E8%B4%A8/">Threejs材质</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期五，七月 15 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>材质可以看成是材料和质感的结合。在渲染程式中，它是表面各可视属性的结合，这些可视属性是指表面的色彩、纹理、光滑度、透明度、反射率、折射率、发光度等。Three.js给我们封装好了大部分的材质效果。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">
-    
-      <img src="/img_static/N2OTCF.md.jpg" alt="Threejs几何体" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%87%A0%E4%BD%95%E4%BD%93/">Threejs几何体</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，七月 11 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>一个模型是由几何体Geometry和材质material组成。Three.js内置了很多的几何体种类，如：立方体、三棱锥、球、八面体、十二面体、二十面体等等。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>6 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9C%BA%E6%99%AF/">
-    
-      <img src="/img_static/Ng7gYj.jpg" alt="Threejs场景" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9C%BA%E6%99%AF/">Threejs场景</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，七月 9 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>场景是每个Three.js项目里面放置内容的容器，也可以拥有多个场景进行切换展示。可以在场景内放置模型，灯光和照相机。还可以通过调整场景的位置，让场景内的所有内容都一起跟着调整位置。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/visualization/threejs%E5%9F%BA%E7%A1%80/">
-    
-      <img src="/img_static/NRQ856.md.jpg" alt="Threejs基础" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/visualization/threejs%E5%9F%BA%E7%A1%80/">Threejs基础</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 6 日，2022 年</p>
-    </div>
-    <div class="description">
-      <h2 id="基本介绍">基本介绍</h2>
-<p>Threejs 该项目的目的是使用默认的WebGL渲染器创建一个易于使用，轻量级的3D库。该库还在示例中提供了Canvas 2D，SVG和CSS3D渲染器。</p>
-<p><a href="https://github.com/mrdoob/three.js">https://github.com/mrdoob/three.js</a></p>
-<h2 id="特点">特点</h2>
-<p>Three.js作为WebGL框架中的佼佼者，由于它的易用性和扩展性，使得它能够满足大部分的开发需求。</p>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-
-  <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-    
-
-
-<article class="ui attached center aligned segment card dream-card">
-  <div class="content">
-    <div class="ui medium header">
-      <a href="/page/2/" title="下一页">
-        下一页
-      </a>
-    </div>
-  </div>
-</article>
-
-
-  </div>
+  </aside>
 </div>
 
           </div>
@@ -1388,9 +1496,37 @@
 <script src="/js/theme.js"></script>
 
     
-<script src="/js/imagesloaded.pkgd.min.js"></script>
-<script src="/js/masonry.pkgd.min.js"></script>
-<script src="/js/grid.js"></script>
+<script src="/js/html2canvas.min.js"></script>
+<script src="/js/post.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"></script>
+
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js"></script>
+     
+  
+
+  <script>
+  hljs.initHighlightingOnLoad()
+  setHighlightTheme()
+
+  function setHighlightTheme() {
+    var isDark = localStore.getItem('hugo-theme-dream-is-dark')
+    isDark = isDark ? isDark : window.defaultDark ? 'y' : isDark
+
+    var lightTheme = "gruvbox-light"
+    var darkTheme = "gruvbox-dark"
+    var theme = isDark === 'y' ? darkTheme : lightTheme
+
+    $('link[data-highlight]').attr('href', 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/' + theme + '.min.css')
+    $('pre').css('background', isDark === 'y' ? '#333' : '')
+  }
+</script>
+
+
+
 
 
     
