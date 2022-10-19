@@ -23,7 +23,8 @@
 
 
 <meta property="og:title" content="渲染进程" />
-<meta property="og:description" content="渲染流水线 按照渲染的时间顺序，流水线可分为如下几个子阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。 开始每个子阶段都有其" />
+<meta property="og:description" content="渲染流水线
+按照渲染的时间顺序，流水线可分为如下几个子阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://wilberjiang.com/post/browser/%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-09-21T21:24:31+08:00" />
@@ -34,7 +35,8 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="渲染进程"/>
-<meta name="twitter:description" content="渲染流水线 按照渲染的时间顺序，流水线可分为如下几个子阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。 开始每个子阶段都有其"/>
+<meta name="twitter:description" content="渲染流水线
+按照渲染的时间顺序，流水线可分为如下几个子阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。"/>
 
 
 <link rel="stylesheet" href="/css/semantic.min.css" />
@@ -237,8 +239,7 @@
 <p>如果修改了元素的背景颜色，那么布局阶段将不会被执行，因为并没有引起几何位置的变换，所以就直接进入了绘制阶段，然后执行之后的一系列子阶段，这个过程就叫重绘。相较于重排操作，重绘省去了布局和分层阶段，所以执行效率会比重排操作要高一些。</p>
 <h3 id="直接合成阶段">直接合成阶段</h3>
 <p><img src="/img_md/20221018-180059.png" alt="Image text"></p>
-<p>如果使用了 CSS 的 transform 来实现动画效果，这可以避开重排和重绘阶段，直接在非主线程上执行合成动画操作。这样的效率是最高的，因为是在非主线程上合成，并没有占用主线程的资源，另外也避开了布局和绘制两个子阶段，所以相对于重绘和重排，合成能大大提升绘制效率。</p>
-</article>
+<p>如果使用了 CSS 的 transform 来实现动画效果，这可以避开重排和重绘阶段，直接在非主线程上执行合成动画操作。这样的效率是最高的，因为是在非主线程上合成，并没有占用主线程的资源，另外也避开了布局和绘制两个子阶段，所以相对于重绘和重排，合成能大大提升绘制效率。</p></article>
     </section>
 
     <footer class="ui attached segment dream-tags" data-html2canvas-ignore>
