@@ -6,7 +6,34 @@
     <description>Recent content in Posts on 姜波</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 02 Aug 2022 21:13:12 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 22:41:31 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>垃圾回收</title>
+      <link>https://wilberjiang.com/post/browser/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+      <pubDate>Wed, 28 Sep 2022 22:41:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/browser/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+      <description>内存管理 内存：由可读写单元组成，表示一片可操作空间 管理：人为的去操作一片空间的申请、使用和释放 内存管理：开发者主动申请空间、使用空间、释放空</description>
+    </item>
+    
+    <item>
+      <title>渲染进程</title>
+      <link>https://wilberjiang.com/post/browser/%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/</link>
+      <pubDate>Wed, 21 Sep 2022 21:24:31 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/browser/%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B/</guid>
+      <description>渲染流水线 按照渲染的时间顺序，流水线可分为如下几个子阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。 开始每个子阶段都有其</description>
+    </item>
+    
+    <item>
+      <title>Chrome架构</title>
+      <link>https://wilberjiang.com/post/browser/chrome%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Mon, 12 Sep 2022 22:11:52 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/browser/chrome%E6%9E%B6%E6%9E%84/</guid>
+      <description>进程和线程 启动一个程序的时候，操作系统会为该程序创建一块内存，用来存放代码、运行中的数据和一个执行任务的主线程，把这样的一个运行环境叫进程。</description>
+    </item>
+    
     <item>
       <title>Threejs性能优化</title>
       <link>https://wilberjiang.com/post/visualization/threejs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
