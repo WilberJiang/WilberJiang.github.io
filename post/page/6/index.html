@@ -254,6 +254,10 @@
         性能优化
       </a>
     
+      <a class="ui label" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="机器学习">
+        机器学习
+      </a>
+    
       <a class="ui label" href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="架构设计">
         架构设计
       </a>
@@ -264,6 +268,10 @@
     
       <a class="ui label" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/" title="浏览器原理">
         浏览器原理
+      </a>
+    
+      <a class="ui label" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="神经网络">
+        神经网络
       </a>
     
       <a class="ui label" href="/tags/%E7%AE%97%E6%B3%95/" title="算法">
@@ -830,6 +838,66 @@
             <i class="dropdown icon"></i>
             
             
+            <a class="item" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="机器学习">
+              机器学习
+            </a>
+          </div>
+          <div class="content">
+            <div class="ui list">
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E5%A4%9A%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">多层神经网络</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E5%A4%9A%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1/">多分类任务</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">逻辑回归</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E5%BD%92%E4%B8%80%E5%8C%96/">归一化</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">线性回归</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/tensorflowjs/">Tensorflowjs</a>
+                </div>
+              </div>
+            
+              <div class="item">
+                <div class="content">
+                  <a class="item" href="/post/machine/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">机器学习与神经网络</a>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        
+      
+        
+
+        
+          <div class="title">
+            <i class="dropdown icon"></i>
+            
+            
             <a class="item" href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/" title="浏览器原理">
               浏览器原理
             </a>
@@ -972,6 +1040,252 @@
   
     <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
       <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
+    
+      <img src="/img_static/NRQ856.md.jpg" alt="JavaScript设计原则" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/javascript%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">JavaScript设计原则</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期三，七月 29 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="面向对象">面向对象</h2>
+<h3 id="概念">概念</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 类，即模版
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">People</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">age</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">eat</span>() {}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">speak</span>() {}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="三要素">三要素</h3>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>4 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">
+    
+      <img src="/img_static/Ng7MS1.md.jpg" alt="JavaScript基础面试" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/javascript%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95/">JavaScript基础面试</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期二，七月 28 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="var和letconst的区别">var和let、const的区别</h2>
+<ul>
+<li>var是ES5语法，let、const是ES6语法；var有变量提升</li>
+<li>var和let是变量，可修改；const是常量，不可修改</li>
+<li>let、const有块级作用域，var没有</li>
+</ul>
+<h2 id="typeof能判断哪些类型">typeof能判断哪些类型</h2>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>4 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/javascript-web-api/">
+    
+      <img src="/img_static/N2zASS.md.jpg" alt="JavaScript Web API" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/javascript-web-api/">JavaScript Web API</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期一，七月 27 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="dom">DOM</h2>
+<h3 id="dom本质">DOM本质</h3>
+<ul>
+<li>
+<p>Document Object Model</p>
+</li>
+<li>
+<p>html文件解析的一棵树</p>
+</li>
+</ul>
+<h3 id="dom节点操作">DOM节点操作</h3>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>5 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/javascript%E5%9F%BA%E7%A1%80/">
+    
+      <img src="/img_static/Ng7uWR.md.jpg" alt="JavaScript基础" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/javascript%E5%9F%BA%E7%A1%80/">JavaScript基础</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期四，七月 23 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="变量类型和计算">变量类型和计算</h2>
+<h3 id="值类型vs引用类型">值类型vs引用类型</h3>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>3 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/webpack%E9%9D%A2%E8%AF%95/">
+    
+      <img src="/img_static/NgTBa4.md.jpg" alt="webpack面试" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/webpack%E9%9D%A2%E8%AF%95/">webpack面试</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期二，七月 21 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="前端为何要进行打包和构建">前端为何要进行打包和构建</h2>
+<ul>
+<li>体积更小（Tree-Shaking、压缩、合并），加载更快</li>
+<li>编译高级语言或语法（TS、ES6+、模块化、SCSS）</li>
+<li>兼容性和错误检查（Polyfill、postcss、eslint）</li>
+<li>统一、高效的开发环境</li>
+<li>统一的构建流程和产出标准</li>
+<li>集成公司构建规范（提测、上线等）</li>
+</ul>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>2 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/webpack%E8%BF%9B%E9%98%B6/">
+    
+      <img src="/img_static/N24GsU.md.jpg" alt="webpack进阶" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/webpack%E8%BF%9B%E9%98%B6/">webpack进阶</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期四，七月 16 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="基本配置">基本配置</h2>
+<h3 id="拆分配置和merge">拆分配置和merge</h3>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>7 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
+  <a class="image" href="https://wilberjiang.com/post/front/react%E9%9D%A2%E8%AF%95/">
+    
+      <img src="/img_static/NRuE4O.md.jpg" alt="React面试" />
+    
+  </a>
+
+  <div class="content">
+    <h2 class="ui medium header">
+      <a href="/post/front/react%E9%9D%A2%E8%AF%95/">React面试</a>
+    </h2>
+    <div class="meta">
+      <p class="date">星期二，七月 14 日，2020 年</p>
+    </div>
+    <div class="description">
+      <h2 id="组件之间如何通讯">组件之间如何通讯</h2>
+<ul>
+<li>父子组件props</li>
+<li>自定义事件</li>
+<li>Redux和Context</li>
+</ul>
+<h2 id="jsx本质是什么">JSX本质是什么</h2>
+    </div>
+  </div>
+
+  <div class="extra content">
+    <div class="author">@&nbsp;姜波</div>
+    <div class="reading-time">
+      <i class="clock icon"></i>3 分钟阅读</div>
+  </div>
+</article>
+
+    </div>
+  
+    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+      <article class="ui attached segment card dream-card">
   <a class="image" href="https://wilberjiang.com/post/front/react%E5%8E%9F%E7%90%86/">
     
       <img src="/img_static/NRKaWD.md.jpg" alt="React原理" />
@@ -1063,256 +1377,6 @@
     <div class="author">@&nbsp;姜波</div>
     <div class="reading-time">
       <i class="clock icon"></i>5 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/front/vue%E9%9D%A2%E8%AF%95/">
-    
-      <img src="/img_static/NOUOPJ.md.jpg" alt="Vue面试" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/front/vue%E9%9D%A2%E8%AF%95/">Vue面试</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期四，七月 2 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="v-show和v-if的区别">v-show和v-if的区别</h2>
-<ul>
-<li>v-show通过CSS display控制显示和隐藏</li>
-<li>v-if组件真正的渲染和销毁，而不是显示和隐藏</li>
-</ul>
-<h2 id="为何在v-for中用key">为何在v-for中用key</h2>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>4 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/front/vue%E5%8E%9F%E7%90%86/">
-    
-      <img src="/img_static/NbstIS.md.jpg" alt="Vue原理" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/front/vue%E5%8E%9F%E7%90%86/">Vue原理</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期三，七月 1 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="组件化">组件化</h2>
-<ul>
-<li>传统组件，只是静态渲染，更新还要依赖于操作DOM</li>
-<li>数据驱动视图-Vue MVVM</li>
-<li>数据驱动视图-React setState</li>
-</ul>
-<h2 id="响应式">响应式</h2>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>8 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">
-    
-      <img src="/img_static/NI9a1s.md.jpg" alt="Vue高级特性" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/front/vue%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">Vue高级特性</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期二，六月 30 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="自定义v-model">自定义v-model</h2>
-<p>Index.vue</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span>&gt;{{name}}&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">CustomVModel</span> <span style="color:#a6e22e">v-model</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>/&gt;
-</span></span></code></pre></div>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">
-    
-      <img src="/img_static/NfprdJ.md.jpg" alt="mac配置item2主题" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/skill/mac%E9%85%8D%E7%BD%AEitem2%E4%B8%BB%E9%A2%98/">mac配置item2主题</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期一，六月 29 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="下载iterm2">下载iterm2</h2>
-<ol>
-<li><a href="https://iterm2.com/">https://iterm2.com/</a>下载</li>
-<li>下载完成后双击解压即可</li>
-</ol>
-<h2 id="下载oh-my-zsh">下载oh-my-zsh</h2>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>1 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">
-    
-      <img src="/img_static/NRfOZ4.md.jpg" alt="HTTP核心模块" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/node/http%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97/">HTTP核心模块</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，六月 28 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="http超文本传输协议">http超文本传输协议</h2>
-<ul>
-<li>协议至少双方 -&gt; http双方！！
-<ul>
-<li>客户端(浏览器)    -&gt; 服务器  BS</li>
-</ul>
-<ul>
-<li>原生应用(QQ)  -&gt; 服务器 CS</li>
-</ul>
-</li>
-</ul>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>3 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">
-    
-      <img src="/img_static/Ng7T7F.md.jpg" alt="webpack使用与常用配置" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/front/webpack%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE/">webpack使用与常用配置</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期日，六月 21 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="webpack使用">Webpack使用</h2>
-<h3 id="安装">安装</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">init</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">y</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">webpack</span> <span style="color:#a6e22e">webpack</span><span style="color:#f92672">-</span><span style="color:#a6e22e">cli</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">D</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 或者
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">webpack</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">g</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#f92672">:</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;build&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;webpack&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;watch&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;webpack --watch&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;dev&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;webpack-dev-server&#34;</span>,
-</span></span><span style="display:flex;"><span> }
-</span></span></code></pre></div><h2 id="创建webpackconfigjs">创建webpack.config.js</h2>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>1 分钟阅读</div>
-  </div>
-</article>
-
-    </div>
-  
-    <div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
-      <article class="ui attached segment card dream-card">
-  <a class="image" href="https://wilberjiang.com/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">
-    
-      <img src="/img_static/NgTFVe.jpg" alt="团队协作" />
-    
-  </a>
-
-  <div class="content">
-    <h2 class="ui medium header">
-      <a href="/post/skill/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
-    </h2>
-    <div class="meta">
-      <p class="date">星期六，三月 21 日，2020 年</p>
-    </div>
-    <div class="description">
-      <h2 id="文档管理">文档管理</h2>
-<h3 id="markdown">markdown</h3>
-<ul>
-<li>typora</li>
-</ul>
-<h3 id="showdoc搭建">ShowDoc搭建</h3>
-    </div>
-  </div>
-
-  <div class="extra content">
-    <div class="author">@&nbsp;姜波</div>
-    <div class="reading-time">
-      <i class="clock icon"></i>2 分钟阅读</div>
   </div>
 </article>
 

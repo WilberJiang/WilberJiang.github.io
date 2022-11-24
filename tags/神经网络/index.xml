@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>神经网络 on 姜波</title>
+    <link>https://wilberjiang.com/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <description>Recent content in 神经网络 on 姜波</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 14 Oct 2022 23:11:17 +0800</lastBuildDate><atom:link href="https://wilberjiang.com/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>机器学习与神经网络</title>
+      <link>https://wilberjiang.com/post/machine/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Fri, 14 Oct 2022 23:11:17 +0800</pubDate>
+      
+      <guid>https://wilberjiang.com/post/machine/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+      <description>&lt;h2 id=&#34;机器学习&#34;&gt;机器学习&lt;/h2&gt;
+&lt;h3 id=&#34;机器学习是什么&#34;&gt;机器学习是什么&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;对能通过经验自动改进的计算机算法的研究&lt;/li&gt;
+&lt;li&gt;用数据或以往的经验，以此优化计算机程序的性能标准&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
